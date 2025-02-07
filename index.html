@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime-Themed Website</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* Header */
+    header {
+      background-color: #333;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff6f61;
+    }
+
+    /* Main Content */
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 36px;
+      color: #ff6f61;
+    }
+
+    .content p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    /* Anime-themed Button */
+    .anime-button {
+      background-color: #ff6f61;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .anime-button:hover {
+      background-color: #ff3b2f;
+    }
+
+    /* Mouse Follower Effect */
+    .mouse-follower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff6f61;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease-out, background-color 0.3s ease;
+      box-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61;
+    }
+
+    .mouse-follower.hover {
+      transform: scale(2);
+      background-color: #ff3b2f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Welcome to My Anime World!
+  </header>
+
+  <div class="content">
+    <h1>Explore the Anime Universe</h1>
+    <p>Dive into the world of anime with your favorite characters, stories, and adventures. Whether you're a fan of action, romance, or fantasy, there's something for everyone!</p>
+    <button class="anime-button">Join the Adventure</button>
+  </div>
+
+  <footer>
+    &copy; 2023 Anime-Themed Website. All rights reserved.
+  </footer>
+
+  <!-- Mouse Follower Element -->
+  <div class="mouse-follower"></div>
+
+  <script>
+    // Mouse Follower Script
+    const follower = document.querySelector('.mouse-follower');
+
+    document.addEventListener('mousemove', (e) => {
+      // Update the position of the follower
+      follower.style.left = `${e.pageX}px`;
+      follower.style.top = `${e.pageY}px`;
+    });
+
+    // Add hover effect when hovering over interactive elements
+    const interactiveElements = document.querySelectorAll('button, a, .anime-button');
+    interactiveElements.forEach((element) => {
+      element.addEventListener('mouseenter', () => {
+        follower.classList.add('hover');
+      });
+      element.addEventListener('mouseleave', () => {
+        follower.classList.remove('hover');
+      });
+    });
+  </script>
+</body>
+</html>
