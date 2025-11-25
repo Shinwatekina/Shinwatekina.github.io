@@ -3,121 +3,600 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anime-Themed Website</title>
+  <title>Seylia - Private Authentication</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* General Styles */
-    body {
-      font-family: 'Arial', sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #1a1a1a;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0010 0%, #1a0024 50%, #240042 100%);
       color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Grid Background */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(138, 43, 226, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(138, 43, 226, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid-background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, transparent 0%, #0a0010 70%);
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
       overflow: hidden;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #a855f7;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 15s infinite;
+      box-shadow: 0 0 10px #a855f7;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
     }
 
     /* Header */
     header {
-      background-color: #333;
-      padding: 20px;
+      position: relative;
+      z-index: 10;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+    }
+
+    .logo-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 3px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 14, 16, 0.8);
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid rgba(139, 255, 167, 0.2);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #5EFF77;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #5EFF77, 0 0 20px #5EFF77;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .status-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      color: #8BFFA7;
+      letter-spacing: 2px;
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 200px);
+      padding: 40px 20px;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .auth-card {
+      background: linear-gradient(180deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 8, 0.98) 100%);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      box-shadow: 
+        0 0 60px rgba(168, 85, 247, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #a855f7, #ec4899, #a855f7, transparent);
+    }
+
+    .auth-header {
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: #ff6f61;
+      margin-bottom: 40px;
     }
 
-    /* Main Content */
-    .content {
-      padding: 20px;
-      text-align: center;
+    .auth-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(168, 85, 247, 0.3);
     }
 
-    .content h1 {
-      font-size: 36px;
-      color: #ff6f61;
+    .auth-icon svg {
+      width: 35px;
+      height: 35px;
+      stroke: #a855f7;
     }
 
-    .content p {
-      font-size: 18px;
-      line-height: 1.6;
+    .auth-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      letter-spacing: 4px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #fff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper svg {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      stroke: rgba(168, 85, 247, 0.5);
+      transition: stroke 0.3s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px 16px 52px;
+      background: rgba(26, 0, 36, 0.5);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 14px;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .form-input:focus {
+      border-color: #a855f7;
+      background: rgba(26, 0, 36, 0.8);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+    }
+
+    .form-input:focus + svg,
+    .input-wrapper:hover svg {
+      stroke: #a855f7;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 30px 0;
+      gap: 15px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+    }
+
+    .divider-text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+    }
+
+    /* Info Section */
+    .info-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 25px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+    }
+
+    .info-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: #a855f7;
     }
 
     /* Footer */
     footer {
-      background-color: #333;
-      padding: 10px;
+      position: relative;
+      z-index: 10;
       text-align: center;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      font-size: 14px;
-      color: #ccc;
+      padding: 30px;
+      border-top: 1px solid rgba(168, 85, 247, 0.1);
     }
 
-    /* Anime-themed Button */
-    .anime-button {
-      background-color: #ff6f61;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
+    .footer-text {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 1px;
     }
 
-    .anime-button:hover {
-      background-color: #ff3b2f;
+    .footer-text span {
+      color: #a855f7;
     }
 
-    /* Mouse Follower Effect */
+    /* Mouse Follower */
     .mouse-follower {
-      position: absolute;
+      position: fixed;
       width: 20px;
       height: 20px;
-      background-color: #ff6f61;
+      background: radial-gradient(circle, #a855f7, #ec4899);
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.1s ease-out, background-color 0.3s ease;
-      box-shadow: 0 0 10px #ff6f61, 0 0 20px #ff6f61, 0 0 30px #ff6f61;
+      transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+      box-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.5);
+      z-index: 9999;
+      opacity: 0.8;
     }
 
     .mouse-follower.hover {
-      transform: scale(2);
-      background-color: #ff3b2f;
+      width: 50px;
+      height: 50px;
+      opacity: 0.4;
+    }
+
+    .mouse-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(168, 85, 247, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: all 0.1s ease-out;
+      z-index: 9998;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .auth-card {
+        padding: 40px 25px;
+      }
+
+      .logo-text {
+        font-size: 22px;
+      }
+
+      .info-section {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Animated Background -->
+  <div class="grid-background"></div>
+  
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
   <header>
-    Welcome to My Anime World!
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+          <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">SEYLIA</span>
+    </div>
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span class="status-text">SYSTEM ONLINE</span>
+    </div>
   </header>
 
-  <div class="content">
-    <h1>Explore the Anime Universe</h1>
-    <p>Dive into the world of anime with your favorite characters, stories, and adventures. Whether you're a fan of action, romance, or fantasy, there's something for everyone!</p>
-    <button class="anime-button">Join the Adventure</button>
-  </div>
+  <!-- Main Content -->
+  <main>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              <circle cx="12" cy="16" r="1"/>
+            </svg>
+          </div>
+          <p class="auth-title">PRIVATE LOADER</p>
+          <h1 class="auth-subtitle">LICENSE AUTHENTICATION</h1>
+        </div>
 
+        <form id="authForm">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <div class="input-wrapper">
+              <input type="text" class="form-input" placeholder="Enter your username" required>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">License Key</label>
+            <div class="input-wrapper">
+              <input type="password" class="form-input" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+              </svg>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">AUTHENTICATE</button>
+        </form>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">SECURE CONNECTION</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span>256-bit Encryption</span>
+          </div>
+          <div class="info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>24/7 Uptime</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    &copy; 2023 Anime-Themed Website. All rights reserved.
+    <p class="footer-text">© 2025 <span>SEYLIA</span> — All rights reserved. Private access only.</p>
   </footer>
 
-  <!-- Mouse Follower Element -->
+  <!-- Mouse Follower Elements -->
   <div class="mouse-follower"></div>
+  <div class="mouse-ring"></div>
 
   <script>
-    // Mouse Follower Script
+    // Generate Floating Particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // Mouse Follower
     const follower = document.querySelector('.mouse-follower');
+    const ring = document.querySelector('.mouse-ring');
+    let mouseX = 0, mouseY = 0;
+    let followerX = 0, followerY = 0;
+    let ringX = 0, ringY = 0;
 
     document.addEventListener('mousemove', (e) => {
-      // Update the position of the follower
-      follower.style.left = `${e.pageX}px`;
-      follower.style.top = `${e.pageY}px`;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
 
-    // Add hover effect when hovering over interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, .anime-button');
+    function animate() {
+      // Smooth follower movement
+      followerX += (mouseX - followerX) * 0.15;
+      followerY += (mouseY - followerY) * 0.15;
+      follower.style.left = followerX + 'px';
+      follower.style.top = followerY + 'px';
+
+      // Smoother ring movement (trails behind)
+      ringX += (mouseX - ringX) * 0.08;
+      ringY += (mouseY - ringY) * 0.08;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Hover effect on interactive elements
+    const interactiveElements = document.querySelectorAll('button, input, a, .logo');
     interactiveElements.forEach((element) => {
       element.addEventListener('mouseenter', () => {
         follower.classList.add('hover');
@@ -125,6 +604,25 @@
       element.addEventListener('mouseleave', () => {
         follower.classList.remove('hover');
       });
+    });
+
+    // Form submission (demo)
+    document.getElementById('authForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.querySelector('.submit-btn');
+      btn.textContent = 'AUTHENTICATING...';
+      btn.style.pointerEvents = 'none';
+      
+      setTimeout(() => {
+        btn.textContent = 'AUTHENTICATED ✓';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        
+        setTimeout(() => {
+          btn.textContent = 'AUTHENTICATE';
+          btn.style.background = 'linear-gradient(135deg, #a855f7, #ec4899)';
+          btn.style.pointerEvents = 'auto';
+        }, 2000);
+      }, 1500);
     });
   </script>
 </body>
