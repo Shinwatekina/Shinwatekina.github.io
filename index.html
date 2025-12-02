@@ -20,6 +20,7 @@
             --magenta: #d946ef;
             --neon-green: #8BFFA7;
             --cyan: #22d3ee;
+            --orange: #f97316;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-dim: #64748b;
@@ -90,6 +91,7 @@
             font-size: 0.7rem; color: var(--neon-green);
             letter-spacing: 3px; text-transform: uppercase;
         }
+        .header-controls { display: flex; align-items: center; gap: 1rem; }
         .status-badge {
             display: flex; align-items: center; gap: 0.5rem;
             padding: 0.5rem 1rem;
@@ -100,6 +102,7 @@
             font-size: 0.75rem; color: var(--neon-green); letter-spacing: 2px;
         }
         .status-badge.error { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
+        .status-badge.dev { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); color: var(--orange); }
         .status-dot {
             width: 8px; height: 8px;
             background: var(--neon-green);
@@ -108,7 +111,27 @@
             box-shadow: 0 0 10px var(--neon-green);
         }
         .status-badge.error .status-dot { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        .status-badge.dev .status-dot { background: var(--orange); box-shadow: 0 0 10px var(--orange); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .dev-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 8px;
+            color: var(--orange);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dev-btn:hover {
+            background: rgba(249, 115, 22, 0.2);
+            border-color: var(--orange);
+        }
+        .dev-btn.active {
+            background: var(--orange);
+            color: var(--bg-dark);
+        }
         .search-container { flex: 1; max-width: 500px; position: relative; }
         .search-input {
             width: 100%;
@@ -233,6 +256,22 @@
             object-fit: contain; border-radius: 9px;
             image-rendering: pixelated;
         }
+        .edit-icon-btn {
+            position: absolute;
+            top: -4px; right: -4px;
+            width: 20px; height: 20px;
+            background: var(--orange);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .dev-mode .edit-icon-btn { display: flex; }
         .item-info { flex: 1; min-width: 0; }
         .item-name {
             font-family: 'Orbitron', sans-serif;
@@ -274,6 +313,7 @@
             box-shadow: 0 25px 80px rgba(139, 92, 246, 0.3);
             animation: modalIn 0.3s ease;
         }
+        .modal.wide { max-width: 900px; }
         @keyframes modalIn {
             from { opacity: 0; transform: scale(0.95) translateY(10px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -346,6 +386,181 @@
         .prop-value.bool { color: var(--neon-green); }
         .prop-value.number { color: var(--cyan); }
         .prop-value.ref { color: #f0abfc; }
+        /* Login Modal */
+        .login-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--orange);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: var(--orange);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .login-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+            margin-bottom: 1rem;
+        }
+        .login-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--orange);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .login-btn:hover { background: #ea580c; }
+        /* Icon Picker */
+        .icon-picker-header {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-search {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .icon-search:focus {
+            outline: none;
+            border-color: var(--purple-glow);
+        }
+        .icon-folder-select {
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+        .icon-option {
+            aspect-ratio: 1;
+            background: var(--bg-dark);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon-option:hover {
+            border-color: var(--purple-glow);
+            transform: scale(1.05);
+        }
+        .icon-option.selected {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(139, 255, 167, 0.3);
+        }
+        .icon-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+        .icon-picker-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .icon-picker-actions button {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-save {
+            background: var(--neon-green);
+            border: none;
+            color: var(--bg-dark);
+        }
+        .btn-save:hover { background: #6ee7a0; }
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .btn-cancel:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+        .btn-export {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--purple-glow);
+            color: var(--purple-bright);
+        }
+        .btn-export:hover {
+            background: rgba(139, 92, 246, 0.3);
+        }
+        .current-icon-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .current-icon-preview img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            image-rendering: pixelated;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+        .current-icon-info {
+            flex: 1;
+        }
+        .current-icon-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .current-icon-path {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
         .loading {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
@@ -398,6 +613,15 @@
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.85rem; color: var(--text-dim); padding: 0 0.5rem;
         }
+        .changes-indicator {
+            padding: 0.25rem 0.5rem;
+            background: rgba(139, 255, 167, 0.1);
+            border: 1px solid var(--neon-green);
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--neon-green);
+        }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 4px; }
@@ -426,7 +650,7 @@
                 </div>
                 <div>
                     <div class="logo-text">MO2 DATABASE</div>
-                    <div class="logo-sub">Content Browser v2.0</div>
+                    <div class="logo-sub">Content Browser v2.1</div>
                 </div>
             </div>
             <div class="search-container">
@@ -435,9 +659,13 @@
                 </svg>
                 <input type="text" class="search-input" id="searchInput" placeholder="Search entries...">
             </div>
-            <div class="status-badge" id="statusBadge">
-                <div class="status-dot"></div>
-                <span id="statusText">LOADING...</span>
+            <div class="header-controls">
+                <div class="status-badge" id="statusBadge">
+                    <div class="status-dot"></div>
+                    <span id="statusText">LOADING...</span>
+                </div>
+                <button class="dev-btn" id="devBtn">🔧 DEV</button>
+                <span class="changes-indicator" id="changesIndicator" style="display:none">0 changes</span>
             </div>
         </div>
     </header>
@@ -455,6 +683,8 @@
             </div>
         </section>
     </main>
+
+    <!-- Item Detail Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
@@ -468,6 +698,50 @@
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginOverlay">
+        <div class="login-modal">
+            <h2 class="login-title">🔐 Developer Access</h2>
+            <input type="password" class="login-input" id="loginPassword" placeholder="Enter password...">
+            <button class="login-btn" id="loginBtn">LOGIN</button>
+        </div>
+    </div>
+
+    <!-- Icon Picker Modal -->
+    <div class="modal-overlay" id="iconPickerOverlay">
+        <div class="modal wide">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <h2 class="modal-title" id="iconPickerTitle">Select Icon</h2>
+                    <span class="modal-class" id="iconPickerItem">item_name</span>
+                </div>
+                <button class="modal-close" id="iconPickerClose">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="current-icon-preview">
+                    <img id="currentIconImg" src="" alt="Current">
+                    <div class="current-icon-info">
+                        <div class="current-icon-name">Current Icon</div>
+                        <div class="current-icon-path" id="currentIconPath">-</div>
+                    </div>
+                </div>
+                <div class="icon-picker-header">
+                    <input type="text" class="icon-search" id="iconSearch" placeholder="Search icons...">
+                    <select class="icon-folder-select" id="iconFolderSelect">
+                        <option value="">All Folders</option>
+                    </select>
+                </div>
+                <div class="icon-grid" id="iconGrid"></div>
+                <div class="icon-picker-actions">
+                    <button class="btn-cancel" id="iconPickerCancel">Cancel</button>
+                    <button class="btn-export" id="exportChangesBtn">Export Changes</button>
+                    <button class="btn-save" id="iconPickerSave">Save Selection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
 const categoryIcons = {
     items: '📦', enemies: '👹', npcs: '🧑', skills: '⚡', structures: '🏛️',
@@ -484,17 +758,50 @@ const categoryNames = {
     ModularBuilding: 'Modular Building', NoBinding: 'No Binding', Stats: 'Stats'
 };
 
-// Embedded icon map - lowercase name -> path relative to Icons/
-const iconMap = {"arrow_1_left":"ActionBar/arrow_1_left.png","arrow_1_right":"ActionBar/arrow_1_right.png","arrow_2":"ActionBar/arrow_2.png","background":"Quest/BACKGROUND.png","alvarineclade_cape":"Armors/AlvarinEClade_Cape.png","alvarinnclade_cape":"Armors/AlvarinNClade_Cape.png","alvarinshroud_cape":"Armors/AlvarinShroud_Cape.png","berserkerrisar_cape":"Armors/BerserkerRisar_Cape.png","berserkerrisar_chest":"Armors/BerserkerRisar_Chest.png","berserkerrisar_helmet":"Armors/BerserkerRisar_Helmet.png","berserkerrisar_leftarm":"Armors/BerserkerRisar_LeftArm.png","berserkerrisar_pants":"Armors/BerserkerRisar_Pants.png","berserkerrisar_rightarm":"Armors/BerserkerRisar_RightArm.png","black_panther_cape":"Armors/Black_Panther_Cape.png","blainclade_cape":"Armors/BlainClade_Cape.png","coraxiseeker_cape":"Armors/CoraxiSeeker_Cape.png","dawningcloth_cape":"Armors/DawningCloth_Cape.png","draco_cape":"Armors/Draco_Cape.png","draco_chest":"Armors/Draco_Chest.png","draco_helmet":"Armors/Draco_Helmet.png","draco_leftarm":"Armors/Draco_LeftArm.png","draco_pants":"Armors/Draco_Pants.png","draco_rightarm":"Armors/Draco_RightArm.png","fledgling_cape":"Armors/Fledgling_Cape.png","huergarclade_cape":"Armors/HuergarClade_Cape.png","kallard_cape":"Armors/Kallard_Cape.png","kallard_chest":"Armors/Kallard_Chest.png","kallard_helmet":"Armors/Kallard_Helmet.png","kallard_leftarm":"Armors/Kallard_LeftArm.png","kallard_pants":"Armors/Kallard_Pants.png","kallard_rightarm":"Armors/Kallard_RightArm.png","kallardclade_cape":"Armors/KallardClade_Cape.png","kallardianbanded_cape":"Armors/KallardianBanded_Cape.png","kallardianbanded_chest":"Armors/KallardianBanded_Chest.png","kallardianbanded_helmet":"Armors/KallardianBanded_Helmet.png","kallardianbanded_leftarm":"Armors/KallardianBanded_LeftArm.png","kallardianbanded_pants":"Armors/KallardianBanded_Pants.png","kallardianbanded_rightarm":"Armors/KallardianBanded_RightArm.png","khurite_cape":"Armors/Khurite_Cape.png","khurite_cape_banner":"Items/Khurite_Cape_Banner.png","khurite_chest":"Armors/Khurite_Chest.png","khurite_helmet":"Armors/Khurite_Helmet.png","khurite_leftarm":"Armors/Khurite_LeftArm.png","khurite_pants":"Armors/Khurite_Pants.png","khurite_rightarm":"Armors/Khurite_RightArm.png","khuriteclade_cape":"Armors/KhuriteClade_Cape.png","magearmor_body":"Armors/MageArmor_Body.png","magearmor_cape":"Armors/MageArmor_Cape.png","magearmor_helmet":"Armors/MageArmor_Helmet.png","magearmor_leftarm":"Armors/MageArmor_LeftArm.png","magearmor_pants":"Armors/MageArmor_Pants.png","magearmor_rightarm":"Armors/MageArmor_RightArm.png","masterhunter_cape":"Armors/MasterHunter_Cape.png","mo2_armor_capereward_fishermancape":"Armors/MO2_armor_CapeReward_FishermanCape.png","mo2_armor_capereward_foragercape":"Armors/MO2_armor_CapeReward_ForagerCape.png","mo2_armor_capereward_hivebreakercloak":"Armors/MO2_armor_CapeReward_HivebreakerCloak.png","ranger_cape":"Armors/Ranger_Cape.png","ranger_chest":"Armors/Ranger_Chest.png","ranger_helmet":"Armors/Ranger_Helmet.png","ranger_leftarm":"Armors/Ranger_LeftArm.png","ranger_pants":"Armors/Ranger_Pants.png","ranger_rightarm":"Armors/Ranger_RightArm.png","realmwarden_cape":"Armors/RealmWarden_Cape.png","risar_cape":"Armors/Risar_Cape.png","risar_chest":"Armors/Risar_Chest.png","risar_helmet":"Armors/Risar_Helmet.png","risar_leftarm":"Armors/Risar_LeftArm.png","risar_pants":"Armors/Risar_Pants.png","risar_rightarm":"Armors/Risar_RightArm.png","rogue_cape":"Armors/Rogue_Cape.png","rogue_chest":"Armors/Rogue_Chest.png","rogue_helmet":"Armors/Rogue_Helmet.png","rogue_leftarm":"Armors/Rogue_LeftArm.png","rogue_pants":"Armors/Rogue_Pants.png","rogue_rightarm":"Armors/Rogue_RightArm.png","rustic_cape":"Armors/Rustic_Cape.png","rusticgarment_body":"Armors/RusticGarment_Body.png","rusticgarment_helmet":"Armors/RusticGarment_Helmet.png","rusticgarment_leftarm":"Armors/RusticGarment_LeftArm.png","rusticgarment_pants":"Armors/RusticGarment_Pants.png","rusticgarment_rightarm":"Armors/RusticGarment_RightArm.png","sarducaanclade_cape":"Armors/SarducaanClade_Cape.png","savagemantle_cape":"Armors/SavageMantle_Cape.png","sidoianclade_cape":"Armors/SidoianClade_Cape.png","tatteredveil_cape":"Armors/TatteredVeil_Cape.png","tguard_cape":"Armors/Tguard_Cape.png","tguard_chest":"Armors/Tguard_Chest.png","tguard_helmet":"Armors/Tguard_Helmet.png","tguard_leftarm":"Armors/Tguard_LeftArm.png","tguard_pants":"Armors/Tguard_Pants.png","tguard_rightarm":"Armors/Tguard_RightArm.png","thursarclade_cape":"Armors/ThursarClade_Cape.png","tindremeneclade_cape":"Armors/TindremeneClade_Cape.png","tindremicattire_body":"Armors/TindremicAttire_Body.png","tindremicattire_cape_banner":"Armors/TindremicAttire_Cape_Banner.png","tindremicattire_helmet":"Armors/TindremicAttire_Helmet.png","tindremicattire_leftarm":"Armors/TindremicAttire_LeftArm.png","tindremicattire_pants":"Armors/TindremicAttire_Pants.png","tindremicattire_rightarm":"Armors/TindremicAttire_RightArm.png","tknight_cape":"Armors/TKnight_Cape.png","tknight_chest":"Armors/TKnight_Chest.png","tknight_helmet":"Armors/TKnight_Helmet.png","tknight_leftarm":"Armors/TKnight_LeftArm.png","tknight_pants":"Armors/TKnight_Pants.png","tknight_rightarm":"Armors/TKnight_RightArm.png","tyriancloak_cape":"Armors/TyrianCloak_Cape.png","vagrantreg_body":"Armors/VagrantReg_Body.png","vagrantreg_cape":"Armors/VagrantReg_Cape.png","vagrantreg_helmet":"Armors/VagrantReg_Helmet.png","vagrantreg_leftarm":"Armors/VagrantReg_LeftArm.png","vagrantreg_pants":"Armors/VagrantReg_Pants.png","vagrantreg_rightarm":"Armors/VagrantReg_RightArm.png","beeswax":"Items/Beeswax.png","cuprum":"Items/cuprum.png","gold":"Items/Gold.png","silver":"Items/Silver.png","steel":"Items/Steel.png","water":"Items/Water.png","wood":"Items/Wood.png","coal":"Items/Coal.png","salt":"Items/Salt.png","book":"Items/book.png","torch":"Items/Torch.png","bandage":"Items/Bandage.png","potion":"Items/Potion.png","scroll":"Items/Scroll.png","bottle":"Items/Bottle.png","bag1":"Items/Bag1.png","bag2":"Items/Bag2.png","bag3":"Items/Bag3.png","horse":"Creatures/horse.png","wolf":"Creatures/Wolf.png","pig":"Items/Pig.png","chicken":"Pets/chicken.png","rabbit":"Items/Rabbit.png","fireball":"Spells/fireball.png","lightning":"Spells/lightning.png","resurrect":"Spells/resurrect.png","purify":"Spells/purify.png","black_bear":"Creatures/Black_Bear.png","brown_bear":"Creatures/Brown_Bear.png","polar_bear":"Creatures/Polar_Bear.png","bush_pig":"Creatures/Bush_Pig.png","razorback":"Creatures/Razorback.png","springbok":"Creatures/springbok.png","wisent":"Creatures/wisent.png","puma":"Creatures/Puma.png","direwolf":"Creatures/DireWolf.png","taurdog":"Creatures/Taurdog.png","minotaur":"Pets/Minotaur.png","campodon":"Pets/Campodon.png","terrorbird":"Items/TerrorBird.png"};
-
 const defaultIcon = 'Items/Beeswax.png';
+const DEV_PASSWORD = 'mo2dev';
 
 let db = null;
 let gameData = {};
+let iconMapping = {};
+let allIcons = [];
 let currentCategory = null;
 let currentPage = 1;
 let searchQuery = '';
+let devMode = false;
+let iconOverrides = {};
+let editingItem = null;
+let selectedIcon = null;
 const itemsPerPage = 50;
+
+// Load icon overrides from localStorage
+function loadIconOverrides() {
+    try {
+        const saved = localStorage.getItem('mo2_icon_overrides');
+        if (saved) {
+            iconOverrides = JSON.parse(saved);
+            updateChangesIndicator();
+        }
+    } catch (e) { console.warn('Failed to load icon overrides:', e); }
+}
+
+function saveIconOverrides() {
+    try {
+        localStorage.setItem('mo2_icon_overrides', JSON.stringify(iconOverrides));
+        updateChangesIndicator();
+    } catch (e) { console.warn('Failed to save icon overrides:', e); }
+}
+
+function updateChangesIndicator() {
+    const count = Object.keys(iconOverrides).length;
+    const indicator = document.getElementById('changesIndicator');
+    if (count > 0 && devMode) {
+        indicator.style.display = 'inline';
+        indicator.textContent = `${count} change${count > 1 ? 's' : ''}`;
+    } else {
+        indicator.style.display = 'none';
+    }
+}
 
 function parseDataBlob(dataStr) {
     if (!dataStr) return {};
@@ -522,52 +829,85 @@ function parseDataBlob(dataStr) {
     return props;
 }
 
-function findIcon(item) {
-    const name = (item.n || '').toLowerCase().replace(/\s+/g, '');
-    const displayName = (item.d || '').toLowerCase().replace(/\s+/g, '');
-    const contentClass = (item.p?.ContentClass || '').toLowerCase();
+function findIcon(item, category) {
+    const itemName = item.n || '';
     
-    // Direct match
-    if (iconMap[name]) return 'Icons/' + iconMap[name];
-    if (iconMap[displayName]) return 'Icons/' + iconMap[displayName];
-    
-    // Normalized (no underscores/hyphens)
-    const normalized = name.replace(/[_-]/g, '');
-    if (iconMap[normalized]) return 'Icons/' + iconMap[normalized];
-    
-    // ContentClass parsing
-    if (contentClass) {
-        const parts = contentClass.split('.');
-        for (let i = parts.length - 1; i >= 0; i--) {
-            const part = parts[i].toLowerCase();
-            if (iconMap[part]) return 'Icons/' + iconMap[part];
-        }
+    // Check for user overrides first
+    const overrideKey = `${category}:${itemName}`;
+    if (iconOverrides[overrideKey]) {
+        return 'Icons/' + iconOverrides[overrideKey];
     }
     
-    // Partial match
-    for (const [key, path] of Object.entries(iconMap)) {
-        if (name.includes(key) || key.includes(name)) {
-            return 'Icons/' + path;
+    // Check icon_mapping.json
+    if (iconMapping[category] && iconMapping[category][itemName]) {
+        return 'Icons/' + iconMapping[category][itemName];
+    }
+    
+    // Fallback: check all categories in iconMapping
+    for (const cat of Object.keys(iconMapping)) {
+        if (iconMapping[cat][itemName]) {
+            return 'Icons/' + iconMapping[cat][itemName];
         }
     }
     
     return 'Icons/' + defaultIcon;
 }
 
+async function loadIconMapping() {
+    try {
+        const response = await fetch('icon_mapping.json');
+        if (response.ok) {
+            iconMapping = await response.json();
+            console.log('Loaded icon mapping:', Object.keys(iconMapping));
+            
+            // Extract all unique icon paths for the picker
+            const iconSet = new Set();
+            for (const category of Object.values(iconMapping)) {
+                for (const path of Object.values(category)) {
+                    iconSet.add(path);
+                }
+            }
+            allIcons = Array.from(iconSet).sort();
+            populateIconFolders();
+        }
+    } catch (e) {
+        console.warn('Could not load icon_mapping.json:', e);
+    }
+}
+
+function populateIconFolders() {
+    const folders = new Set();
+    allIcons.forEach(path => {
+        const parts = path.split('/');
+        if (parts.length > 1) {
+            folders.add(parts[0]);
+        }
+    });
+    
+    const select = document.getElementById('iconFolderSelect');
+    select.innerHTML = '<option value="">All Folders</option>';
+    Array.from(folders).sort().forEach(folder => {
+        select.innerHTML += `<option value="${folder}">${folder}</option>`;
+    });
+}
+
 async function loadDatabase() {
     try {
+        await loadIconMapping();
+        loadIconOverrides();
+        
         const SQL = await initSqlJs({
             locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
         });
         
         const response = await fetch('content.db');
-        if (!response.ok) throw new Error('content.db not found - place it in the same folder as index.html');
+        if (!response.ok) throw new Error('content.db not found');
         
         const buffer = await response.arrayBuffer();
         db = new SQL.Database(new Uint8Array(buffer));
         
         const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name");
-        if (!tables.length) throw new Error('No tables found in database');
+        if (!tables.length) throw new Error('No tables found');
         
         gameData = {};
         for (const [tableName] of tables[0].values) {
@@ -606,10 +946,10 @@ async function loadDatabase() {
                     Failed to load database<br><br>
                     <span style="color: var(--text-secondary); font-size: 0.85rem;">
                         ${e.message}<br><br>
-                        Make sure:<br>
-                        • content.db is in the same folder as index.html<br>
-                        • Icons/ folder is in the same location<br>
-                        • You're running from a web server (not file://)
+                        Required files in same folder:<br>
+                        • content.db<br>
+                        • icon_mapping.json<br>
+                        • Icons/ folder
                     </span>
                 </div>
             </div>`;
@@ -658,13 +998,168 @@ function initUI() {
         }, 200);
     });
     
+    // Modal events
     document.getElementById('modalOverlay').addEventListener('click', (e) => {
         if (e.target.id === 'modalOverlay') closeModal();
     });
     document.getElementById('modalClose').addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    
+    // Dev mode events
+    document.getElementById('devBtn').addEventListener('click', toggleDevMode);
+    document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') attemptLogin();
+    });
+    document.getElementById('loginBtn').addEventListener('click', attemptLogin);
+    document.getElementById('loginOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'loginOverlay') closeLogin();
+    });
+    
+    // Icon picker events
+    document.getElementById('iconPickerClose').addEventListener('click', closeIconPicker);
+    document.getElementById('iconPickerCancel').addEventListener('click', closeIconPicker);
+    document.getElementById('iconPickerSave').addEventListener('click', saveIconSelection);
+    document.getElementById('iconPickerOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'iconPickerOverlay') closeIconPicker();
+    });
+    document.getElementById('iconSearch').addEventListener('input', filterIcons);
+    document.getElementById('iconFolderSelect').addEventListener('change', filterIcons);
+    document.getElementById('exportChangesBtn').addEventListener('click', exportChanges);
+    
+    document.addEventListener('keydown', (e) => { 
+        if (e.key === 'Escape') {
+            closeModal();
+            closeLogin();
+            closeIconPicker();
+        }
+    });
     
     renderContent();
+}
+
+function toggleDevMode() {
+    if (devMode) {
+        devMode = false;
+        document.body.classList.remove('dev-mode');
+        document.getElementById('devBtn').classList.remove('active');
+        document.getElementById('statusBadge').classList.remove('dev');
+        updateChangesIndicator();
+        renderContent();
+    } else {
+        document.getElementById('loginOverlay').classList.add('active');
+        document.getElementById('loginPassword').focus();
+    }
+}
+
+function attemptLogin() {
+    const password = document.getElementById('loginPassword').value;
+    if (password === DEV_PASSWORD) {
+        devMode = true;
+        document.body.classList.add('dev-mode');
+        document.getElementById('devBtn').classList.add('active');
+        document.getElementById('statusBadge').classList.add('dev');
+        closeLogin();
+        updateChangesIndicator();
+        renderContent();
+    } else {
+        document.getElementById('loginPassword').style.borderColor = '#ef4444';
+        setTimeout(() => {
+            document.getElementById('loginPassword').style.borderColor = '';
+        }, 1000);
+    }
+}
+
+function closeLogin() {
+    document.getElementById('loginOverlay').classList.remove('active');
+    document.getElementById('loginPassword').value = '';
+}
+
+function openIconPicker(item, category, event) {
+    event.stopPropagation();
+    editingItem = { item, category };
+    selectedIcon = null;
+    
+    const currentIconPath = findIcon(item, category).replace('Icons/', '');
+    
+    document.getElementById('iconPickerTitle').textContent = 'Select Icon';
+    document.getElementById('iconPickerItem').textContent = item.n;
+    document.getElementById('currentIconImg').src = 'Icons/' + currentIconPath;
+    document.getElementById('currentIconPath').textContent = currentIconPath;
+    document.getElementById('iconSearch').value = '';
+    document.getElementById('iconFolderSelect').value = '';
+    
+    renderIconGrid();
+    document.getElementById('iconPickerOverlay').classList.add('active');
+}
+
+function renderIconGrid(filter = '', folder = '') {
+    const grid = document.getElementById('iconGrid');
+    let icons = allIcons;
+    
+    if (folder) {
+        icons = icons.filter(p => p.startsWith(folder + '/'));
+    }
+    if (filter) {
+        const lowerFilter = filter.toLowerCase();
+        icons = icons.filter(p => p.toLowerCase().includes(lowerFilter));
+    }
+    
+    // Limit to 200 for performance
+    icons = icons.slice(0, 200);
+    
+    grid.innerHTML = icons.map(path => `
+        <div class="icon-option ${selectedIcon === path ? 'selected' : ''}" data-path="${path}" title="${path}">
+            <img src="Icons/${path}" alt="${path}" onerror="this.src='Icons/${defaultIcon}'">
+        </div>
+    `).join('');
+    
+    grid.querySelectorAll('.icon-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            grid.querySelectorAll('.icon-option').forEach(o => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            selectedIcon = opt.dataset.path;
+        });
+    });
+}
+
+function filterIcons() {
+    const filter = document.getElementById('iconSearch').value;
+    const folder = document.getElementById('iconFolderSelect').value;
+    renderIconGrid(filter, folder);
+}
+
+function saveIconSelection() {
+    if (!editingItem || !selectedIcon) {
+        closeIconPicker();
+        return;
+    }
+    
+    const overrideKey = `${editingItem.category}:${editingItem.item.n}`;
+    iconOverrides[overrideKey] = selectedIcon;
+    saveIconOverrides();
+    closeIconPicker();
+    renderContent();
+}
+
+function closeIconPicker() {
+    document.getElementById('iconPickerOverlay').classList.remove('active');
+    editingItem = null;
+    selectedIcon = null;
+}
+
+function exportChanges() {
+    const exportData = {
+        _generated: new Date().toISOString(),
+        _count: Object.keys(iconOverrides).length,
+        overrides: iconOverrides
+    };
+    
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'icon_overrides.json';
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 function filterItems(items) {
@@ -719,16 +1214,19 @@ function renderContent() {
         const internalName = item.n || '';
         const cls = item.c || 'unknown';
         const props = item.p || {};
-        const iconPath = findIcon(item);
+        const iconPath = findIcon(item, currentCategory);
         const propKeys = Object.keys(props).filter(k => 
             k !== 'DisplayName' && k !== 'ContentClass' && !k.endsWith('_Ref') && !k.endsWith('_GUID')
         ).slice(0, 3);
         
+        const hasOverride = iconOverrides[`${currentCategory}:${item.n}`];
+        
         html += `
             <div class="item-card" data-idx="${start + idx}">
                 <div class="item-header">
-                    <div class="item-icon">
+                    <div class="item-icon" style="${hasOverride ? 'border-color: var(--neon-green);' : ''}">
                         <img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">
+                        <button class="edit-icon-btn" data-item-idx="${start + idx}">✏️</button>
                     </div>
                     <div class="item-info">
                         <div class="item-name">${escapeHtml(displayName)}</div>
@@ -771,10 +1269,21 @@ function renderContent() {
     }
     
     contentArea.innerHTML = html;
+    
+    // Attach click handlers
     document.querySelectorAll('.item-card').forEach(card => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.edit-icon-btn')) return;
             const idx = parseInt(card.dataset.idx);
             openModal(filtered[idx]);
+        });
+    });
+    
+    // Attach edit icon handlers
+    document.querySelectorAll('.edit-icon-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const idx = parseInt(btn.dataset.itemIdx);
+            openIconPicker(filtered[idx], currentCategory, e);
         });
     });
 }
@@ -791,7 +1300,7 @@ function openModal(item) {
     const internalName = item.n || '';
     const cls = item.c || 'unknown';
     const props = item.p || {};
-    const iconPath = findIcon(item);
+    const iconPath = findIcon(item, currentCategory);
     
     document.getElementById('modalTitle').textContent = displayName;
     document.getElementById('modalClass').textContent = cls;
@@ -874,7 +1383,7 @@ function getValueClass(val) {
     return '';
 }
 
-// Auto-load on page ready
+// Auto-load
 loadDatabase();
 </script>
 </body>
