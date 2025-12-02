@@ -28,874 +28,198 @@
             --border-color: rgba(139, 92, 246, 0.3);
             --border-glow: rgba(139, 92, 246, 0.6);
         }
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: -1;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at bottom right, rgba(217, 70, 239, 0.08) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: -1;
-        }
-        .header {
-            background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-        }
-        .header-content {
-            max-width: 1800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-        }
+        body { font-family: 'Rajdhani', sans-serif; background: var(--bg-deep); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: -1; }
+        body::after { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.1) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(217, 70, 239, 0.08) 0%, transparent 40%); pointer-events: none; z-index: -1; }
+        .header { background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%); border-bottom: 1px solid var(--border-color); padding: 1.5rem 2rem; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); }
+        .header-content { max-width: 1800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
         .logo { display: flex; align-items: center; gap: 1rem; }
-        .logo-icon {
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--purple-glow), var(--magenta));
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
-        }
+        .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--purple-glow), var(--magenta)); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(139, 92, 246, 0.4); }
         .logo-icon svg { width: 28px; height: 28px; fill: white; }
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem; font-weight: 700; letter-spacing: 2px;
-            background: linear-gradient(90deg, var(--text-primary), var(--purple-bright));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .logo-sub {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem; color: var(--neon-green);
-            letter-spacing: 3px; text-transform: uppercase;
-        }
-        .header-controls { display: flex; align-items: center; gap: 1rem; }
-        .status-badge {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(139, 255, 167, 0.1);
-            border: 1px solid rgba(139, 255, 167, 0.3);
-            border-radius: 20px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem; color: var(--neon-green); letter-spacing: 2px;
-        }
+        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; background: linear-gradient(90deg, var(--text-primary), var(--purple-bright)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-green); letter-spacing: 3px; text-transform: uppercase; }
+        .header-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .status-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(139, 255, 167, 0.1); border: 1px solid rgba(139, 255, 167, 0.3); border-radius: 20px; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--neon-green); letter-spacing: 2px; }
         .status-badge.error { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
         .status-badge.dev { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); color: var(--orange); }
-        .status-dot {
-            width: 8px; height: 8px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 10px var(--neon-green);
-        }
+        .status-dot { width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 10px var(--neon-green); }
         .status-badge.error .status-dot { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
         .status-badge.dev .status-dot { background: var(--orange); box-shadow: 0 0 10px var(--orange); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .dev-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(249, 115, 22, 0.1);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 8px;
-            color: var(--orange);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .dev-btn:hover {
-            background: rgba(249, 115, 22, 0.2);
-            border-color: var(--orange);
-        }
-        .dev-btn.active {
-            background: var(--orange);
-            color: var(--bg-dark);
-        }
+        .dev-btn { padding: 0.5rem 1rem; background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 8px; color: var(--orange); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; cursor: pointer; transition: all 0.2s ease; }
+        .dev-btn:hover { background: rgba(249, 115, 22, 0.2); border-color: var(--orange); }
+        .dev-btn.active { background: var(--orange); color: var(--bg-dark); }
         .search-container { flex: 1; max-width: 500px; position: relative; }
-        .search-input {
-            width: 100%;
-            padding: 0.875rem 1.25rem 0.875rem 3rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem; font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .search-input:focus {
-            outline: none;
-            border-color: var(--purple-glow);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-        }
+        .search-input { width: 100%; padding: 0.875rem 1.25rem 0.875rem 3rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; }
+        .search-input:focus { outline: none; border-color: var(--purple-glow); box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
         .search-input::placeholder { color: var(--text-dim); }
-        .search-icon {
-            position: absolute; left: 1rem; top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-dim); pointer-events: none;
-        }
-        .main-container {
-            max-width: 1800px; margin: 0 auto; padding: 2rem;
-            display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
-        }
+        .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+        .main-container { max-width: 1800px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
         .sidebar { position: sticky; top: 100px; height: fit-content; }
-        .sidebar-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem; letter-spacing: 3px;
-            color: var(--text-dim); margin-bottom: 1rem; padding-left: 1rem;
-        }
+        .sidebar-title { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 1rem; padding-left: 1rem; }
         .nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
         .nav-item { position: relative; }
-        .nav-btn {
-            width: 100%;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0.875rem 1rem;
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem; font-weight: 500;
-            cursor: pointer; transition: all 0.2s ease; text-align: left;
-        }
+        .nav-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 1rem; background: transparent; border: 1px solid transparent; border-radius: 10px; color: var(--text-secondary); font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; text-align: left; }
         .nav-btn:hover { background: var(--bg-card); border-color: var(--border-color); color: var(--text-primary); }
-        .nav-btn.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.1));
-            border-color: var(--purple-glow); color: var(--text-primary);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
-        }
-        .nav-btn.active::before {
-            content: '';
-            position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-            width: 3px; height: 60%;
-            background: linear-gradient(180deg, var(--purple-glow), var(--magenta));
-            border-radius: 2px; box-shadow: 0 0 10px var(--purple-glow);
-        }
+        .nav-btn.active { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.1)); border-color: var(--purple-glow); color: var(--text-primary); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+        .nav-btn.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 60%; background: linear-gradient(180deg, var(--purple-glow), var(--magenta)); border-radius: 2px; box-shadow: 0 0 10px var(--purple-glow); }
         .nav-icon { font-size: 1.2rem; margin-right: 0.75rem; }
-        .nav-count {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem; padding: 0.25rem 0.5rem;
-            background: rgba(139, 92, 246, 0.2); border-radius: 6px;
-            color: var(--purple-bright);
-        }
+        .nav-count { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding: 0.25rem 0.5rem; background: rgba(139, 92, 246, 0.2); border-radius: 6px; color: var(--purple-bright); }
         .content { min-height: 500px; }
-        .content-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 1.5rem; padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .content-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem; font-weight: 600; letter-spacing: 1px;
-            display: flex; align-items: center; gap: 0.75rem;
-        }
+        .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+        .content-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 1px; display: flex; align-items: center; gap: 0.75rem; }
         .content-title-icon { font-size: 1.75rem; }
-        .results-count {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.875rem; color: var(--text-dim);
-        }
+        .results-count { font-family: 'Share Tech Mono', monospace; font-size: 0.875rem; color: var(--text-dim); }
         .results-count span { color: var(--neon-green); }
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-        }
-        .item-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 1.25rem;
-            cursor: pointer; transition: all 0.3s ease;
-            position: relative; overflow: hidden;
-        }
-        .item-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
-            opacity: 0; transition: opacity 0.3s ease;
-        }
-        .item-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-glow);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
-        }
+        .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+        .item-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .item-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--purple-glow), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .item-card:hover { background: var(--bg-card-hover); border-color: var(--border-glow); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15); }
         .item-card:hover::before { opacity: 1; }
         .item-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
-        .item-icon {
-            width: 56px; height: 56px;
-            background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; flex-shrink: 0;
-            position: relative; overflow: hidden;
-        }
-        .item-icon img {
-            width: 100%; height: 100%;
-            object-fit: contain; border-radius: 9px;
-            image-rendering: pixelated;
-        }
-        .edit-icon-btn {
-            position: absolute;
-            top: -4px; right: -4px;
-            width: 20px; height: 20px;
-            background: var(--orange);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 10px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
+        .item-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid)); border: 1px solid var(--border-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; position: relative; overflow: hidden; }
+        .item-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 9px; image-rendering: pixelated; }
+        .edit-icon-btn { position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: var(--orange); border: none; border-radius: 50%; color: white; font-size: 10px; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 10; }
         .dev-mode .edit-icon-btn { display: flex; }
         .item-info { flex: 1; min-width: 0; }
-        .item-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem; font-weight: 600;
-            color: var(--text-primary); margin-bottom: 0.25rem;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .item-class {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem; color: var(--cyan);
-            background: rgba(34, 211, 238, 0.1);
-            padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block;
-        }
-        .item-internal {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem; color: var(--text-dim); margin-top: 0.25rem;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
+        .item-name { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .item-class { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cyan); background: rgba(34, 211, 238, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; }
+        .item-internal { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); margin-top: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .item-props { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .item-prop {
-            font-size: 0.75rem; padding: 0.25rem 0.5rem;
-            background: rgba(139, 92, 246, 0.1); border-radius: 4px;
-            color: var(--text-secondary);
-        }
+        .item-prop { font-size: 0.75rem; padding: 0.25rem 0.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 4px; color: var(--text-secondary); }
         .item-prop-key { color: var(--purple-bright); }
         .item-prop-val { color: var(--text-primary); }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 1000; padding: 2rem;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 2rem; }
         .modal-overlay.active { display: flex; }
-        .modal {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px; width: 100%; max-width: 800px;
-            max-height: 90vh; overflow: hidden;
-            box-shadow: 0 25px 80px rgba(139, 92, 246, 0.3);
-            animation: modalIn 0.3s ease;
-        }
+        .modal { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 16px; width: 100%; max-width: 800px; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 80px rgba(139, 92, 246, 0.3); animation: modalIn 0.3s ease; }
         .modal.wide { max-width: 1000px; }
         .modal.extra-wide { max-width: 1200px; }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .modal-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(217, 70, 239, 0.1));
-            border-bottom: 1px solid var(--border-color);
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .modal-icon {
-            width: 64px; height: 64px;
-            background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; flex-shrink: 0; overflow: hidden;
-        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(217, 70, 239, 0.1)); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 1rem; }
+        .modal-icon { width: 64px; height: 64px; background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid)); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; overflow: hidden; }
         .modal-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
         .modal-title-section { flex: 1; min-width: 0; }
-        .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem; font-weight: 600;
-            color: var(--text-primary); margin-bottom: 0.25rem;
-        }
-        .modal-class {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.8rem; color: var(--cyan);
-            background: rgba(34, 211, 238, 0.15);
-            padding: 0.25rem 0.75rem; border-radius: 4px;
-        }
-        .modal-close {
-            width: 36px; height: 36px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 8px; color: var(--text-secondary);
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; transition: all 0.2s ease;
-        }
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary); border-color: var(--border-glow);
-        }
+        .modal-title { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+        .modal-class { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--cyan); background: rgba(34, 211, 238, 0.15); padding: 0.25rem 0.75rem; border-radius: 4px; }
+        .modal-close { width: 36px; height: 36px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s ease; }
+        .modal-close:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); border-color: var(--border-glow); }
         .modal-body { padding: 1.5rem; max-height: calc(90vh - 120px); overflow-y: auto; }
-        
-        /* Collapsible Sections */
-        .collapsible-section {
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background: rgba(139, 92, 246, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-        .section-header:hover {
-            background: rgba(139, 92, 246, 0.2);
-        }
-        .section-header-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--purple-bright);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .section-header-title .section-icon {
-            font-size: 1rem;
-        }
-        .section-count {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            background: rgba(0,0,0,0.2);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-        }
-        .section-toggle {
-            font-size: 1rem;
-            color: var(--text-dim);
-            transition: transform 0.3s ease;
-        }
-        .collapsible-section.collapsed .section-toggle {
-            transform: rotate(-90deg);
-        }
-        .section-content {
-            padding: 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        .collapsible-section.collapsed .section-content {
-            display: none;
-        }
-        .prop-item {
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.15);
-            border-radius: 8px; padding: 0.75rem;
-        }
-        .prop-key {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem; color: var(--text-dim);
-            margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px;
-        }
+        .collapsible-section { margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(139, 92, 246, 0.1); cursor: pointer; transition: all 0.2s ease; user-select: none; }
+        .section-header:hover { background: rgba(139, 92, 246, 0.2); }
+        .section-header-title { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; color: var(--purple-bright); display: flex; align-items: center; gap: 0.5rem; }
+        .section-header-title .section-icon { font-size: 1rem; }
+        .section-count { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); background: rgba(0,0,0,0.2); padding: 0.2rem 0.5rem; border-radius: 4px; margin-right: 0.5rem; }
+        .section-toggle { font-size: 1rem; color: var(--text-dim); transition: transform 0.3s ease; }
+        .collapsible-section.collapsed .section-toggle { transform: rotate(-90deg); }
+        .section-content { padding: 1rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+        .collapsible-section.collapsed .section-content { display: none; }
+        .prop-item { background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.15); border-radius: 8px; padding: 0.75rem; }
+        .prop-key { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px; }
         .prop-value { font-size: 0.9rem; color: var(--text-primary); word-break: break-word; }
         .prop-value.bool { color: var(--neon-green); }
         .prop-value.number { color: var(--cyan); }
         .prop-value.ref { color: #f0abfc; }
-        
-        /* Loot Table Styles */
-        .loot-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .loot-table th, .loot-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .loot-table th {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: var(--purple-bright);
-            background: rgba(139, 92, 246, 0.1);
-        }
-        .loot-table td {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem;
-        }
-        .loot-item-name {
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-        .loot-item-name:hover {
-            color: var(--cyan);
-            text-decoration: underline;
-        }
-        .loot-chance {
-            color: var(--neon-green);
-        }
-        .loot-quantity {
-            color: var(--cyan);
-        }
-        
-        /* Login Modal */
-        .login-modal {
-            background: var(--bg-card);
-            border: 1px solid var(--orange);
-            border-radius: 16px;
-            padding: 2rem;
-            width: 100%;
-            max-width: 400px;
-        }
-        .login-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
-            color: var(--orange);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        .login-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'Share Tech Mono', monospace;
-            margin-bottom: 1rem;
-        }
-        .login-input:focus {
-            outline: none;
-            border-color: var(--orange);
-        }
-        .login-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--orange);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+        .prop-value.range { color: var(--orange); }
+        .loot-table { width: 100%; border-collapse: collapse; }
+        .loot-table th, .loot-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+        .loot-table th { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--purple-bright); background: rgba(139, 92, 246, 0.1); }
+        .loot-table td { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+        .loot-item-name { color: var(--text-primary); cursor: pointer; }
+        .loot-item-name:hover { color: var(--cyan); text-decoration: underline; }
+        .loot-chance { color: var(--neon-green); }
+        .loot-quantity { color: var(--cyan); }
+        .login-modal { background: var(--bg-card); border: 1px solid var(--orange); border-radius: 16px; padding: 2rem; width: 100%; max-width: 400px; }
+        .login-title { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; color: var(--orange); margin-bottom: 1.5rem; text-align: center; }
+        .login-input { width: 100%; padding: 0.75rem 1rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; margin-bottom: 1rem; }
+        .login-input:focus { outline: none; border-color: var(--orange); }
+        .login-btn { width: 100%; padding: 0.75rem; background: var(--orange); border: none; border-radius: 8px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
         .login-btn:hover { background: #ea580c; }
-        
-        /* Icon Picker */
-        .icon-picker-header {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .icon-search, .config-input {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'Share Tech Mono', monospace;
-        }
-        .icon-search:focus, .config-input:focus {
-            outline: none;
-            border-color: var(--purple-glow);
-        }
-        .icon-folder-select, .config-select {
-            padding: 0.75rem 1rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'Share Tech Mono', monospace;
-        }
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 0.5rem;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 0.5rem;
-        }
-        .icon-option {
-            aspect-ratio: 1;
-            background: var(--bg-dark);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .icon-option:hover {
-            border-color: var(--purple-glow);
-            transform: scale(1.05);
-        }
-        .icon-option.selected {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 10px rgba(139, 255, 167, 0.3);
-        }
-        .icon-option img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            image-rendering: pixelated;
-        }
-        .picker-actions, .config-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-        .picker-actions button, .config-actions button {
-            flex: 1;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-save {
-            background: var(--neon-green);
-            border: none;
-            color: var(--bg-dark);
-        }
+        .icon-picker-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+        .icon-search, .config-input { flex: 1; padding: 0.75rem 1rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; }
+        .icon-search:focus, .config-input:focus { outline: none; border-color: var(--purple-glow); }
+        .icon-folder-select, .config-select { padding: 0.75rem 1rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; }
+        .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 0.5rem; max-height: 400px; overflow-y: auto; padding: 0.5rem; }
+        .icon-option { aspect-ratio: 1; background: var(--bg-dark); border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; padding: 0.5rem; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; }
+        .icon-option:hover { border-color: var(--purple-glow); transform: scale(1.05); }
+        .icon-option.selected { border-color: var(--neon-green); box-shadow: 0 0 10px rgba(139, 255, 167, 0.3); }
+        .icon-option img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+        .picker-actions, .config-actions { display: flex; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        .picker-actions button, .config-actions button { flex: 1; padding: 0.75rem; border-radius: 8px; font-family: 'Orbitron', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+        .btn-save { background: var(--neon-green); border: none; color: var(--bg-dark); }
         .btn-save:hover { background: #6ee7a0; }
-        .btn-cancel {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-        .btn-cancel:hover {
-            border-color: var(--text-secondary);
-            color: var(--text-primary);
-        }
-        .btn-export {
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid var(--purple-glow);
-            color: var(--purple-bright);
-        }
-        .btn-export:hover {
-            background: rgba(139, 92, 246, 0.3);
-        }
-        .btn-danger {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid var(--red);
-            color: var(--red);
-        }
-        .btn-danger:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-        .current-icon-preview {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        .current-icon-preview img {
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
-            image-rendering: pixelated;
-            background: var(--bg-dark);
-            border-radius: 8px;
-            padding: 0.5rem;
-        }
+        .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-cancel { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); }
+        .btn-cancel:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+        .btn-export { background: rgba(139, 92, 246, 0.2); border: 1px solid var(--purple-glow); color: var(--purple-bright); }
+        .btn-export:hover { background: rgba(139, 92, 246, 0.3); }
+        .btn-danger { background: rgba(239, 68, 68, 0.2); border: 1px solid var(--red); color: var(--red); }
+        .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+        .current-icon-preview { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(139, 92, 246, 0.1); border-radius: 8px; margin-bottom: 1rem; }
+        .current-icon-preview img { width: 64px; height: 64px; object-fit: contain; image-rendering: pixelated; background: var(--bg-dark); border-radius: 8px; padding: 0.5rem; }
         .current-icon-info { flex: 1; }
-        .current-icon-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-        }
-        .current-icon-path {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-        
-        /* Config Editor Styles */
-        .config-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-        .config-tab {
-            padding: 0.5rem 1rem;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 8px 8px 0 0;
-            color: var(--text-secondary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .config-tab:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--text-primary);
-        }
-        .config-tab.active {
-            background: var(--purple-glow);
-            color: white;
-            border-color: var(--purple-glow);
-        }
-        .config-panel {
-            display: none;
-        }
-        .config-panel.active {
-            display: block;
-        }
-        .config-section {
-            margin-bottom: 1.5rem;
-        }
-        .config-section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--purple-bright);
-            margin-bottom: 0.75rem;
-            letter-spacing: 1px;
-        }
-        .field-list {
-            max-height: 300px;
-            overflow-y: auto;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.5rem;
-        }
-        .field-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: background 0.2s ease;
-        }
-        .field-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-        }
-        .field-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--purple-glow);
-        }
-        .field-item label {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-        .field-item.hidden label {
-            color: var(--text-dim);
-            text-decoration: line-through;
-        }
-        .section-group-editor {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .section-group-list {
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.5rem;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-        .section-group-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        .section-group-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-        }
-        .section-group-item.selected {
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid var(--purple-glow);
-        }
-        
-        /* Misc */
-        .loading {
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 4rem; gap: 1.5rem;
-        }
-        .loading-spinner {
-            width: 48px; height: 48px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--purple-glow);
-            border-radius: 50%; animation: spin 1s linear infinite;
-        }
+        .current-icon-name { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--text-primary); }
+        .current-icon-path { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-dim); }
+        .config-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; flex-wrap: wrap; }
+        .config-tab { padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--border-color); border-radius: 8px 8px 0 0; color: var(--text-secondary); font-family: 'Orbitron', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; }
+        .config-tab:hover { background: rgba(139, 92, 246, 0.1); color: var(--text-primary); }
+        .config-tab.active { background: var(--purple-glow); color: white; border-color: var(--purple-glow); }
+        .config-panel { display: none; }
+        .config-panel.active { display: block; }
+        .config-section { margin-bottom: 1.5rem; }
+        .config-section-title { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--purple-bright); margin-bottom: 0.75rem; letter-spacing: 1px; }
+        .field-list { max-height: 300px; overflow-y: auto; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; }
+        .field-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; border-radius: 4px; transition: background 0.2s ease; }
+        .field-item:hover { background: rgba(139, 92, 246, 0.1); }
+        .field-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--purple-glow); }
+        .field-item label { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; flex: 1; }
+        .field-item.hidden label { color: var(--text-dim); text-decoration: line-through; }
+        .override-item { display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 0.5rem; }
+        .override-item img { width: 40px; height: 40px; object-fit: contain; image-rendering: pixelated; }
+        .override-item-info { flex: 1; }
+        .override-item-name { font-size: 0.9rem; color: var(--text-primary); }
+        .override-item-path { font-size: 0.7rem; color: var(--text-dim); }
+        .override-item-remove { background: none; border: none; color: var(--red); cursor: pointer; font-size: 1.2rem; padding: 0.25rem 0.5rem; }
+        .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem; gap: 1.5rem; }
+        .loading-spinner { width: 48px; height: 48px; border: 3px solid var(--border-color); border-top-color: var(--purple-glow); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .loading-text {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px;
-        }
-        .empty-state {
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 4rem; gap: 1rem;
-        }
+        .loading-text { font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem; gap: 1rem; }
         .empty-icon { font-size: 3rem; opacity: 0.5; }
-        .empty-text {
-            font-family: 'Share Tech Mono', monospace;
-            color: var(--text-dim); text-align: center;
-        }
-        .pagination {
-            display: flex; justify-content: center; align-items: center;
-            gap: 0.5rem; margin-top: 2rem; padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-        .page-btn {
-            padding: 0.5rem 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px; color: var(--text-secondary);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
-        }
-        .page-btn:hover:not(:disabled) {
-            background: var(--bg-card-hover);
-            border-color: var(--border-glow); color: var(--text-primary);
-        }
-        .page-btn.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(217, 70, 239, 0.2));
-            border-color: var(--purple-glow); color: var(--text-primary);
-        }
+        .empty-text { font-family: 'Share Tech Mono', monospace; color: var(--text-dim); text-align: center; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; }
+        .page-btn { padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
+        .page-btn:hover:not(:disabled) { background: var(--bg-card-hover); border-color: var(--border-glow); color: var(--text-primary); }
+        .page-btn.active { background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(217, 70, 239, 0.2)); border-color: var(--purple-glow); color: var(--text-primary); }
         .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .page-info {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.85rem; color: var(--text-dim); padding: 0 0.5rem;
-        }
-        .changes-indicator {
-            padding: 0.25rem 0.5rem;
-            background: rgba(139, 255, 167, 0.1);
-            border: 1px solid var(--neon-green);
-            border-radius: 4px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--neon-green);
-        }
+        .page-info { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: var(--text-dim); padding: 0 0.5rem; }
+        .changes-indicator { padding: 0.25rem 0.5rem; background: rgba(139, 255, 167, 0.1); border: 1px solid var(--neon-green); border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-green); }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
         ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--purple-mid); }
-        @media (max-width: 1024px) {
-            .main-container { grid-template-columns: 1fr; }
-            .sidebar { position: static; }
-            .nav-list { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
-            .nav-btn { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
-        }
-        @media (max-width: 640px) {
-            .header-content { flex-wrap: wrap; }
-            .search-container { order: 3; max-width: none; width: 100%; }
-            .items-grid { grid-template-columns: 1fr; }
-        }
-        
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            padding: 1rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            color: var(--neon-green);
-            font-family: 'Share Tech Mono', monospace;
-            z-index: 2000;
-            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
-        }
-        .toast.error {
-            border-color: var(--red);
-            color: var(--red);
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
+        @media (max-width: 1024px) { .main-container { grid-template-columns: 1fr; } .sidebar { position: static; } .nav-list { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; } .nav-btn { padding: 0.5rem 0.75rem; font-size: 0.85rem; } }
+        @media (max-width: 640px) { .header-content { flex-wrap: wrap; } .search-container { order: 3; max-width: none; width: 100%; } .items-grid { grid-template-columns: 1fr; } }
+        .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: var(--bg-card); border: 1px solid var(--neon-green); border-radius: 8px; color: var(--neon-green); font-family: 'Share Tech Mono', monospace; z-index: 2000; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; }
+        .toast.error { border-color: var(--red); color: var(--red); }
+        .toast.warning { border-color: var(--orange); color: var(--orange); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                </div>
-                <div>
-                    <div class="logo-text">MO2 DATABASE</div>
-                    <div class="logo-sub">Content Browser v3.0</div>
-                </div>
+                <div class="logo-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div><div class="logo-text">MO2 DATABASE</div><div class="logo-sub">Content Browser v3.1</div></div>
             </div>
             <div class="search-container">
-                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                </svg>
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                 <input type="text" class="search-input" id="searchInput" placeholder="Search entries...">
             </div>
             <div class="header-controls">
-                <div class="status-badge" id="statusBadge">
-                    <div class="status-dot"></div>
-                    <span id="statusText">LOADING...</span>
-                </div>
+                <div class="status-badge" id="statusBadge"><div class="status-dot"></div><span id="statusText">LOADING...</span></div>
                 <button class="dev-btn" id="devBtn">🔧 DEV</button>
                 <button class="dev-btn" id="configBtn" style="display:none">⚙️ CONFIG</button>
                 <span class="changes-indicator" id="changesIndicator" style="display:none">0 changes</span>
@@ -903,1478 +227,431 @@
         </div>
     </header>
     <main class="main-container">
-        <aside class="sidebar">
-            <div class="sidebar-title">CATEGORIES</div>
-            <ul class="nav-list" id="navList"></ul>
-        </aside>
-        <section class="content">
-            <div id="contentArea">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">LOADING DATABASE...</div>
-                </div>
-            </div>
-        </section>
+        <aside class="sidebar"><div class="sidebar-title">CATEGORIES</div><ul class="nav-list" id="navList"></ul></aside>
+        <section class="content"><div id="contentArea"><div class="loading"><div class="loading-spinner"></div><div class="loading-text">LOADING DATABASE...</div></div></div></section>
     </main>
-
-    <!-- Item Detail Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-icon" id="modalIcon"></div>
-                <div class="modal-title-section">
-                    <h2 class="modal-title" id="modalTitle">Item Name</h2>
-                    <span class="modal-class" id="modalClass">class</span>
-                </div>
-                <button class="modal-close" id="modalClose">✕</button>
-            </div>
-            <div class="modal-body" id="modalBody"></div>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginOverlay">
-        <div class="login-modal">
-            <h2 class="login-title">🔐 Developer Access</h2>
-            <input type="password" class="login-input" id="loginPassword" placeholder="Enter password...">
-            <button class="login-btn" id="loginBtn">LOGIN</button>
-        </div>
-    </div>
-
-    <!-- Icon Picker Modal -->
-    <div class="modal-overlay" id="iconPickerOverlay">
-        <div class="modal wide">
-            <div class="modal-header">
-                <div class="modal-title-section">
-                    <h2 class="modal-title" id="iconPickerTitle">Select Icon</h2>
-                    <span class="modal-class" id="iconPickerItem">item_name</span>
-                </div>
-                <button class="modal-close" id="iconPickerClose">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="current-icon-preview">
-                    <img id="currentIconImg" src="" alt="Current">
-                    <div class="current-icon-info">
-                        <div class="current-icon-name">Current Icon</div>
-                        <div class="current-icon-path" id="currentIconPath">-</div>
-                    </div>
-                </div>
-                <div class="icon-picker-header">
-                    <input type="text" class="icon-search" id="iconSearch" placeholder="Search icons...">
-                    <select class="icon-folder-select" id="iconFolderSelect">
-                        <option value="">All Folders</option>
-                    </select>
-                </div>
-                <div class="icon-grid" id="iconGrid"></div>
-                <div class="picker-actions">
-                    <button class="btn-cancel" id="iconPickerCancel">Cancel</button>
-                    <button class="btn-save" id="iconPickerSave">Save Selection</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Config Editor Modal -->
-    <div class="modal-overlay" id="configOverlay">
-        <div class="modal extra-wide">
-            <div class="modal-header">
-                <div class="modal-title-section">
-                    <h2 class="modal-title">⚙️ Configuration Editor</h2>
-                    <span class="modal-class">Modify tables, classes, and field visibility</span>
-                </div>
-                <button class="modal-close" id="configClose">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="config-tabs">
-                    <button class="config-tab active" data-tab="icons">Icons</button>
-                    <button class="config-tab" data-tab="fields">Field Visibility</button>
-                    <button class="config-tab" data-tab="sections">Section Groups</button>
-                    <button class="config-tab" data-tab="tables">Tables & Classes</button>
-                </div>
-                
-                <div class="config-panel active" id="panel-icons">
-                    <div class="config-section">
-                        <div class="config-section-title">Icon Overrides</div>
-                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
-                            Icon overrides are saved globally and affect all users. Click the ✏️ button on any item card to change its icon.
-                        </p>
-                        <div id="iconOverridesList" style="max-height: 300px; overflow-y: auto;"></div>
-                    </div>
-                    <div class="config-actions">
-                        <button class="btn-export" id="exportIconsBtn">📥 Export Icons JSON</button>
-                        <button class="btn-danger" id="clearIconsBtn">🗑️ Clear All Overrides</button>
-                    </div>
-                </div>
-                
-                <div class="config-panel" id="panel-fields">
-                    <div class="config-section">
-                        <div class="config-section-title">Select Table / Class</div>
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                            <select class="config-select" id="fieldTableSelect" style="flex:1">
-                                <option value="">Select a table...</option>
-                            </select>
-                            <select class="config-select" id="fieldClassSelect" style="flex:1">
-                                <option value="">Select a class...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="config-section">
-                        <div class="config-section-title">Visible Fields</div>
-                        <div class="field-list" id="fieldsList"></div>
-                    </div>
-                    <div class="config-actions">
-                        <button class="btn-cancel" onclick="document.getElementById('configOverlay').classList.remove('active')">Cancel</button>
-                        <button class="btn-save" id="saveFieldsBtn">Save Field Config</button>
-                    </div>
-                </div>
-                
-                <div class="config-panel" id="panel-sections">
-                    <div class="config-section">
-                        <div class="config-section-title">Property Section Groups</div>
-                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
-                            Define how properties are grouped into collapsible sections in the detail view.
-                        </p>
-                        <div class="section-group-editor">
-                            <div>
-                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Sections</div>
-                                <div class="section-group-list" id="sectionsList"></div>
-                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                                    <input type="text" class="config-input" id="newSectionName" placeholder="New section name..." style="flex:1">
-                                    <button class="btn-save" id="addSectionBtn" style="flex:0; padding: 0.5rem 1rem;">+</button>
-                                </div>
-                            </div>
-                            <div>
-                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Fields in Selected Section</div>
-                                <div class="field-list" id="sectionFieldsList"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="config-actions">
-                        <button class="btn-cancel" onclick="document.getElementById('configOverlay').classList.remove('active')">Cancel</button>
-                        <button class="btn-save" id="saveSectionsBtn">Save Section Config</button>
-                    </div>
-                </div>
-                
-                <div class="config-panel" id="panel-tables">
-                    <div class="config-section">
-                        <div class="config-section-title">Table & Class Mappings</div>
-                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
-                            Configure which base field definitions apply to each table and class.
-                        </p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div>
-                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Tables</div>
-                                <div class="section-group-list" id="tablesList"></div>
-                            </div>
-                            <div>
-                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Class Mappings</div>
-                                <div class="section-group-list" id="classMappingsList"></div>
-                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                                    <input type="text" class="config-input" id="newClassName" placeholder="Class name" style="flex:1">
-                                    <select class="config-select" id="newClassBase" style="flex:1">
-                                        <option value="">Base type...</option>
-                                    </select>
-                                    <button class="btn-save" id="addClassBtn" style="flex:0; padding: 0.5rem 1rem;">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="config-actions">
-                        <button class="btn-export" id="exportConfigBtn">📥 Export Full Config</button>
-                        <button class="btn-save" id="saveTablesBtn">Save Config</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal-overlay" id="modalOverlay"><div class="modal"><div class="modal-header"><div class="modal-icon" id="modalIcon"></div><div class="modal-title-section"><h2 class="modal-title" id="modalTitle">Item Name</h2><span class="modal-class" id="modalClass">class</span></div><button class="modal-close" id="modalClose">✕</button></div><div class="modal-body" id="modalBody"></div></div></div>
+    <div class="modal-overlay" id="loginOverlay"><div class="login-modal"><h2 class="login-title">🔐 Developer Access</h2><input type="password" class="login-input" id="loginPassword" placeholder="Enter password..."><button class="login-btn" id="loginBtn">LOGIN</button></div></div>
+    <div class="modal-overlay" id="iconPickerOverlay"><div class="modal wide"><div class="modal-header"><div class="modal-title-section"><h2 class="modal-title" id="iconPickerTitle">Select Icon</h2><span class="modal-class" id="iconPickerItem">item_name</span></div><button class="modal-close" id="iconPickerClose">✕</button></div><div class="modal-body"><div class="current-icon-preview"><img id="currentIconImg" src="" alt="Current"><div class="current-icon-info"><div class="current-icon-name">Current Icon</div><div class="current-icon-path" id="currentIconPath">-</div></div></div><div class="icon-picker-header"><input type="text" class="icon-search" id="iconSearch" placeholder="Search icons..."><select class="icon-folder-select" id="iconFolderSelect"><option value="">All Folders</option></select></div><div class="icon-grid" id="iconGrid"></div><div class="picker-actions"><button class="btn-cancel" id="iconPickerCancel">Cancel</button><button class="btn-save" id="iconPickerSave">Save to Server</button></div></div></div></div>
+    <div class="modal-overlay" id="configOverlay"><div class="modal extra-wide"><div class="modal-header"><div class="modal-title-section"><h2 class="modal-title">⚙️ Configuration Editor</h2><span class="modal-class">Modify icons and view configuration</span></div><button class="modal-close" id="configClose">✕</button></div><div class="modal-body"><div class="config-tabs"><button class="config-tab active" data-tab="icons">Icons</button><button class="config-tab" data-tab="fields">Field Config</button><button class="config-tab" data-tab="tables">Tables</button></div><div class="config-panel active" id="panel-icons"><div class="config-section"><div class="config-section-title">Icon Overrides (Server-Side)</div><p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">Overrides are saved to server and affect all users. Click ✏️ on any item card to change its icon.</p><div id="iconOverridesList" style="max-height: 400px; overflow-y: auto;"></div></div><div class="config-actions"><button class="btn-export" id="exportIconsBtn">📥 Export JSON</button><button class="btn-danger" id="clearIconsBtn">🗑️ Clear All</button></div></div><div class="config-panel" id="panel-fields"><div class="config-section"><div class="config-section-title">Field Visibility (from table_config.json)</div><p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">Edit table_config.json to control which fields are visible. Set <code>visible: false</code> to hide fields.</p><select class="config-select" id="fieldTableSelect" style="margin-bottom: 1rem; width: 100%;"><option value="">Select a table...</option></select><div class="field-list" id="fieldsList" style="max-height: 400px;"></div></div></div><div class="config-panel" id="panel-tables"><div class="config-section"><div class="config-section-title">Table Configuration</div><p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">Configure via table_config.json file.</p><div id="tableConfigDisplay" style="max-height: 400px; overflow-y: auto;"></div></div><div class="config-actions"><button class="btn-export" id="exportConfigBtn">📥 Export Full Config</button></div></div></div></div></div>
 
 <script>
-// ============== CONSTANTS ==============
-const categoryIcons = {
-    items: '📦', enemies: '👹', npcs: '🧑', skills: '⚡', structures: '🏛️',
-    spawners: '🎯', misc: '🔧', AIattacks: '⚔️', spells: '✨', GemEffects: '💎',
-    Decorations: '🎨', buffs: '🛡️', drops: '💰', projectiles: '🏹', quests: '📜',
-    recipes: '📖', ModularBuilding: '🏗️', NoBinding: '🔓', Stats: '📊'
-};
-const categoryNames = {
-    items: 'Items', enemies: 'Enemies', npcs: 'NPCs', skills: 'Skills',
-    structures: 'Structures', spawners: 'Spawners', misc: 'Miscellaneous',
-    AIattacks: 'AI Attacks', spells: 'Spells', GemEffects: 'Gem Effects',
-    Decorations: 'Decorations', buffs: 'Buffs', drops: 'Drops',
-    projectiles: 'Projectiles', quests: 'Quests', recipes: 'Recipes',
-    ModularBuilding: 'Modular Building', NoBinding: 'No Binding', Stats: 'Stats'
-};
+const categoryIcons = { items: '📦', enemies: '👹', npcs: '🧑', skills: '⚡', structures: '🏛️', spawners: '🎯', misc: '🔧', AIattacks: '⚔️', spells: '✨', GemEffects: '💎', Decorations: '🎨', buffs: '🛡️', drops: '💰', projectiles: '🏹', quests: '📜', recipes: '📖', ModularBuilding: '🏗️', NoBinding: '🔓', Stats: '📊' };
+const categoryNames = { items: 'Items', enemies: 'Enemies', npcs: 'NPCs', skills: 'Skills', structures: 'Structures', spawners: 'Spawners', misc: 'Miscellaneous', AIattacks: 'AI Attacks', spells: 'Spells', GemEffects: 'Gem Effects', Decorations: 'Decorations', buffs: 'Buffs', drops: 'Drops', projectiles: 'Projectiles', quests: 'Quests', recipes: 'Recipes', ModularBuilding: 'Modular Building', NoBinding: 'No Binding', Stats: 'Stats' };
 
-// Property section groupings for modal display
 const propertySections = {
-    'AI Information': {
-        icon: '🤖',
-        patterns: [/^Ai/],
-        subsections: {
-            'AI Combat': ['AiAttackBlockChance', 'AiAttackDoNothingChance', 'AiAttackHoldBlockChance', 'AiAttackHoldChargeChance', 'AiAttackList', 'AiAttackMistakeChance', 'AiAttackParryChance', 'AiAttackPctMagic', 'AiAttackPctMelee', 'AiAttackPctRanged', 'AiDyingAttack', 'AiStartCombatAttack', 'AiStopCombatAttack', 'AiStartHiddenSpawnAttack', 'AiStopHiddenSpawnAttack'],
-            'AI Defense': ['AiDefencePctBluntArmL', 'AiDefencePctBluntArmR', 'AiDefencePctBluntHead', 'AiDefencePctBluntLegs', 'AiDefencePctBluntTorso', 'AiDefencePctMagic', 'AiDefencePctPiercingArmL', 'AiDefencePctPiercingArmR', 'AiDefencePctPiercingHead', 'AiDefencePctPiercingLegs', 'AiDefencePctPiercingTorso', 'AiDefencePctSlashingArmL', 'AiDefencePctSlashingArmR', 'AiDefencePctSlashingHead', 'AiDefencePctSlashingLegs', 'AiDefencePctSlashingTorso'],
-            'AI Movement': ['AiMoveSpeed', 'AiWalkSpeed', 'AiMoveTarget', 'AiMoveTargetNext', 'AiMoveTimer', 'AiMovementFleeDistance', 'AiMovementType', 'AiFollowOffset'],
-            'AI Targeting': ['AiTarget', 'AiTargetCheckDistance', 'AiTargetCheckDistanceReaction', 'AiTargetCheckTimer', 'AiTargetFieldOfView', 'AiTargetFleeHealthPct', 'AiTargetListenDistance', 'AiTargetRemoveAggro', 'AiTargetRoamingMoveTimer'],
-            'AI Stats': ['AiLevel', 'AiLevelLock', 'AiLevelXP', 'AiPerLevelXP', 'AiHpRegen', 'AiFocusCur', 'AiFocusThreshold', 'AiControlPoints', 'AiCarryWeightCur', 'AiCarryWeightMax', 'AiBodyHeat', 'AiHunger'],
-            'AI Taming': ['AiTameType', 'AiTamingLevelAddMinMax', 'AiTamingMinMax', 'AiMountableFromLevel', 'AiMountableSlots', 'AiLoyalty', 'AiPlayerOwner'],
-            'AI Equipment': ['AiEquipmentBody', 'AiEquipmentLeft', 'AiEquipmentRight', 'AiEquipmentType'],
-            'AI Behavior': ['AiState', 'AiSpecialState', 'AiHuntMode', 'AiEatMode', 'AiNeverSleep', 'AiShowMercy', 'AiCommunicationCanTalk', 'AiCommunicationCheckDistance', 'AiCommunicationCheckGroup'],
-            'AI Other': []
-        }
-    },
-    'Loot & Drops': {
-        icon: '💰',
-        patterns: [/^LootContent/, /^Loot/],
-        isLootSection: true
-    },
-    'Combat Stats': {
-        icon: '⚔️',
-        patterns: [/Damage$/, /Defence$/, /Attack/, /^hp/, /^Blunt/, /^Piercing/, /^Slashing/]
-    },
-    'Item Properties': {
-        icon: '📦',
-        patterns: [/^item/, /^bag/, /^equip/, /^slot/, /Stack$/, /^dur/, /^Quality/]
-    },
-    'Crafting': {
-        icon: '🔨',
-        patterns: [/Craft/, /Material/, /Recipe/]
-    },
-    'Display & Visuals': {
-        icon: '🎨',
-        patterns: [/^Display/, /^dynamic/, /^color/, /Icon/, /^GFX/]
-    },
-    'Location & World': {
-        icon: '🌍',
-        patterns: [/^pos$/, /^rot$/, /^vel$/, /^Zone/, /^Continent/, /Location/]
-    },
-    'References': {
-        icon: '🔗',
-        patterns: [/_Ref$/, /_GUID$/, /^Guid$/, /Content$/]
-    },
-    'Other Properties': {
-        icon: '📋',
-        patterns: []  // Catch-all
-    }
+    'AI Information': { icon: '🤖', patterns: [/^Ai/] },
+    'Loot & Drops': { icon: '💰', patterns: [/^LootContent/], isLootSection: true },
+    'Spell Info': { icon: '✨', patterns: [/^Spell/] },
+    'Gem Effects': { icon: '💎', patterns: [/^GE/] },
+    'Combat': { icon: '⚔️', patterns: [/Damage/, /Defence/, /^hp/, /^crit/, /Attack/] },
+    'Item Props': { icon: '📦', patterns: [/^item/, /^bag/, /^equip/, /^slot/, /Stack/, /^dur/, /Quality/] },
+    'Crafting': { icon: '🔨', patterns: [/Craft/, /Material/, /Recipe/] },
+    'Display': { icon: '🎨', patterns: [/Display/, /dynamic/, /color/, /Icon/] },
+    'Location': { icon: '🌍', patterns: [/^pos$/, /^rot$/, /^vel$/, /Zone/, /Continent/] },
+    'References': { icon: '🔗', patterns: [/_Ref$/] },
+    'Other': { icon: '📋', patterns: [] }
 };
 
 const defaultIcon = 'Items/Beeswax.png';
 const DEV_PASSWORD = 'mo2dev';
+const API_URL = 'api.php';
 
-// ============== STATE ==============
-let db = null;
-let gameData = {};
-let iconMapping = {};
-let tableConfig = { bases: {}, tables: {} };
-let allIcons = [];
-let currentCategory = null;
-let currentPage = 1;
-let searchQuery = '';
-let devMode = false;
-let iconOverrides = {};
-let hiddenFields = {};
-let customSections = {};
-let editingItem = null;
-let selectedIcon = null;
+let db = null, gameData = {}, iconMapping = {}, tableConfig = {}, allIcons = [];
+let currentCategory = null, currentPage = 1, searchQuery = '', devMode = false;
+let iconOverrides = {}, editingItem = null, selectedIcon = null, serverAvailable = false;
 const itemsPerPage = 50;
 
-// ============== UTILITY FUNCTIONS ==============
-function showToast(message, isError = false) {
-    const toast = document.createElement('div');
-    toast.className = 'toast' + (isError ? ' error' : '');
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+function showToast(msg, type = 'success') {
+    const t = document.createElement('div');
+    t.className = 'toast' + (type === 'error' ? ' error' : type === 'warning' ? ' warning' : '');
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
 }
 
-function escapeHtml(str) {
-    if (typeof str !== 'string') return String(str);
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function escapeHtml(s) { return typeof s !== 'string' ? String(s) : s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+function formatValue(v) {
+    if (v === true) return 'Yes';
+    if (v === false) return 'No';
+    if (v == null) return '-';
+    if (typeof v === 'object') {
+        if (v.min !== undefined) return `${v.min} - ${v.max}`;
+        if (v.x !== undefined) return `(${v.x}, ${v.y}, ${v.z || 0})`;
+        return JSON.stringify(v);
+    }
+    if (typeof v === 'number') return Number.isInteger(v) ? v.toLocaleString() : v.toFixed(2);
+    return String(v);
 }
 
-function formatValue(val) {
-    if (val === true) return 'Yes';
-    if (val === false) return 'No';
-    if (typeof val === 'number') return Number.isInteger(val) ? val.toLocaleString() : val.toFixed(2);
-    return String(val);
-}
-
-function getValueClass(val) {
-    if (typeof val === 'boolean') return 'bool';
-    if (typeof val === 'number') return 'number';
+function getValueClass(v) {
+    if (typeof v === 'boolean') return 'bool';
+    if (typeof v === 'number') return 'number';
+    if (typeof v === 'object' && v?.min !== undefined) return 'range';
     return '';
 }
 
-// ============== CONFIG MANAGEMENT ==============
-function loadConfig() {
-    // Load icon overrides from config file (for now, use localStorage as fallback)
-    try {
-        const savedIcons = localStorage.getItem('mo2_icon_overrides');
-        if (savedIcons) iconOverrides = JSON.parse(savedIcons);
-        
-        const savedHidden = localStorage.getItem('mo2_hidden_fields');
-        if (savedHidden) hiddenFields = JSON.parse(savedHidden);
-        
-        const savedSections = localStorage.getItem('mo2_custom_sections');
-        if (savedSections) customSections = JSON.parse(savedSections);
-        
-        updateChangesIndicator();
-    } catch (e) { console.warn('Failed to load config:', e); }
-}
-
-function saveConfig() {
-    try {
-        localStorage.setItem('mo2_icon_overrides', JSON.stringify(iconOverrides));
-        localStorage.setItem('mo2_hidden_fields', JSON.stringify(hiddenFields));
-        localStorage.setItem('mo2_custom_sections', JSON.stringify(customSections));
-        updateChangesIndicator();
-        showToast('Configuration saved!');
-    } catch (e) {
-        console.warn('Failed to save config:', e);
-        showToast('Failed to save configuration', true);
-    }
-}
-
-function exportFullConfig() {
-    const config = {
-        _generated: new Date().toISOString(),
-        iconOverrides,
-        hiddenFields,
-        customSections,
-        tableConfig
-    };
-    downloadJSON(config, 'mo2_full_config.json');
-}
-
-function downloadJSON(data, filename) {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function updateChangesIndicator() {
-    const count = Object.keys(iconOverrides).length + Object.keys(hiddenFields).length;
-    const indicator = document.getElementById('changesIndicator');
-    if (count > 0 && devMode) {
-        indicator.style.display = 'inline';
-        indicator.textContent = `${count} change${count > 1 ? 's' : ''}`;
-    } else {
-        indicator.style.display = 'none';
-    }
-}
-
-// ============== DATA PARSING ==============
 function parseDataBlob(dataStr) {
     if (!dataStr) return {};
     const props = {};
-    const lines = dataStr.split('\n');
-    for (const line of lines) {
-        const match = line.match(/\[(\w+)\]\s*=>\s*(.*)/);
-        if (match) {
-            const key = match[1];
-            const valueStr = match[2];
-            
-            // Parse various value types
-            const sDataMatch = valueStr.match(/sData:"([^"]*)"/);
-            if (sDataMatch) { props[key] = sDataMatch[1]; continue; }
-            
-            const iDataMatch = valueStr.match(/iData:(-?\d+)/);
-            if (iDataMatch) { props[key] = parseInt(iDataMatch[1]); continue; }
-            
-            const fDataMatch = valueStr.match(/fData:([\d.-]+)/);
-            if (fDataMatch) { props[key] = parseFloat(fDataMatch[1]); continue; }
-            
-            if (valueStr.includes('eType:Bool')) {
-                props[key] = valueStr.includes('bData:true') || valueStr.includes('bData:True');
-                continue;
+    for (const line of dataStr.split('\n')) {
+        const m = line.match(/\[(\w+)\]\s*=>\s*(.*)/);
+        if (!m) continue;
+        const [, key, val] = m;
+        if (val.includes('[UNDEFINED_FLAG]')) continue;
+        
+        let match;
+        if ((match = val.match(/sData:"([^"]*)"/))) { props[key] = match[1]; continue; }
+        if ((match = val.match(/iData:(-?\d+)/))) { props[key] = parseInt(match[1]); continue; }
+        if ((match = val.match(/fData:([\d.-]+)/))) { props[key] = parseFloat(match[1]); continue; }
+        if (val.includes('eType:Bool')) { props[key] = val.includes('bData:true') || val.includes('bData:True'); continue; }
+        if ((match = val.match(/IntPair:\{iRange:\[(-?\d+),(-?\d+)\]\}/))) { props[key] = { min: parseInt(match[1]), max: parseInt(match[2]) }; continue; }
+        if ((match = val.match(/FloatPair:\{fRange:\[([\d.-]+),([\d.-]+)\]\}/))) { props[key] = { min: parseFloat(match[1]), max: parseFloat(match[2]) }; continue; }
+        if ((match = val.match(/Vec:\((-?[\d.]+),(-?[\d.]+),(-?[\d.]+)\)/))) { props[key] = { x: parseFloat(match[1]), y: parseFloat(match[2]), z: parseFloat(match[3]) }; continue; }
+        if ((match = val.match(/Ref:\{Name:"([^"]+)"/))) {
+            props[key + '_Ref'] = match[1];
+            const gm = val.match(/GUID:"([^"]+)"/);
+            if (gm) props[key + '_GUID'] = gm[1];
+            if (key.startsWith('LootContent')) {
+                const cm = val.match(/fData:([\d.]+)/), rm = val.match(/iRange:\[(\d+),(\d+)\]/);
+                props[key + '_Chance'] = cm ? parseFloat(cm[1]) : 100;
+                props[key + '_Min'] = rm ? parseInt(rm[1]) : 1;
+                props[key + '_Max'] = rm ? parseInt(rm[2]) : 1;
             }
-            
-            // Parse references
-            const refMatch = valueStr.match(/Ref:\{Name:"([^"]+)"/);
-            if (refMatch) {
-                props[key + '_Ref'] = refMatch[1];
-                // Also extract GUID
-                const guidMatch = valueStr.match(/GUID:"([^"]+)"/);
-                if (guidMatch) props[key + '_GUID'] = guidMatch[1];
-            }
-            
-            // Parse IntPair ranges (for loot)
-            const rangeMatch = valueStr.match(/iRange:\[(\d+),(\d+)\]/);
-            if (rangeMatch) {
-                props[key + '_Min'] = parseInt(rangeMatch[1]);
-                props[key + '_Max'] = parseInt(rangeMatch[2]);
-            }
-            
-            // Store raw value for loot content
-            if (key.startsWith('LootContent') && !key.endsWith('Class')) {
-                props[key + '_Raw'] = valueStr;
-            }
+            continue;
+        }
+        if (val.includes('eType:ContentRefLootTriplet')) {
+            const cm = val.match(/fData:([\d.]+)/), rm = val.match(/iRange:\[(\d+),(\d+)\]/);
+            props[key + '_Chance'] = cm ? parseFloat(cm[1]) : 0;
+            props[key + '_Min'] = rm ? parseInt(rm[1]) : 1;
+            props[key + '_Max'] = rm ? parseInt(rm[2]) : 1;
         }
     }
     return props;
 }
 
 function parseLootContent(props) {
-    const lootItems = [];
+    const items = [];
     for (let i = 0; i <= 9; i++) {
-        const key = `LootContent${i}`;
-        const rawKey = `${key}_Raw`;
-        const refKey = `${key}_Ref`;
-        
-        if (props[rawKey]) {
-            const raw = props[rawKey];
-            
-            // Extract chance (fData)
-            const chanceMatch = raw.match(/fData:([\d.]+)/);
-            const chance = chanceMatch ? parseFloat(chanceMatch[1]) : 0;
-            
-            // Extract quantity range
-            const rangeMatch = raw.match(/iRange:\[(\d+),(\d+)\]/);
-            const minQty = rangeMatch ? parseInt(rangeMatch[1]) : 1;
-            const maxQty = rangeMatch ? parseInt(rangeMatch[2]) : 1;
-            
-            // Extract item reference
-            const refMatch = raw.match(/Ref:\{Name:"([^"]+)"/);
-            const itemName = refMatch ? refMatch[1] : props[refKey] || null;
-            
-            if (itemName && chance > 0) {
-                lootItems.push({
-                    slot: i,
-                    item: itemName,
-                    chance: chance,
-                    minQty: minQty,
-                    maxQty: maxQty
-                });
-            }
-        } else if (props[refKey]) {
-            // Fallback for simpler format
-            lootItems.push({
-                slot: i,
-                item: props[refKey],
-                chance: 100,
-                minQty: 1,
-                maxQty: 1
-            });
-        }
+        const ref = props[`LootContent${i}_Ref`], chance = props[`LootContent${i}_Chance`];
+        if (ref && chance > 0) items.push({ slot: i, item: ref, chance, minQty: props[`LootContent${i}_Min`] || 1, maxQty: props[`LootContent${i}_Max`] || 1 });
     }
-    return lootItems;
+    return items;
 }
 
-// ============== ICON MANAGEMENT ==============
-function findIcon(item, category) {
-    const itemName = item.n || '';
-    
-    // Check for user overrides first
-    const overrideKey = `${category}:${itemName}`;
-    if (iconOverrides[overrideKey]) {
-        return 'Icons/' + iconOverrides[overrideKey];
-    }
-    
-    // Check icon_mapping.json
-    if (iconMapping[category] && iconMapping[category][itemName]) {
-        return 'Icons/' + iconMapping[category][itemName];
-    }
-    
-    // Fallback: check all categories in iconMapping
-    for (const cat of Object.keys(iconMapping)) {
-        if (iconMapping[cat][itemName]) {
-            return 'Icons/' + iconMapping[cat][itemName];
+async function loadServerConfig() {
+    try {
+        const r = await fetch(`${API_URL}?action=load_all`);
+        if (r.ok) {
+            const j = await r.json();
+            if (j.success) { serverAvailable = true; iconOverrides = j.data.icon_overrides || {}; console.log('Server config loaded'); }
         }
-    }
-    
+    } catch (e) { console.warn('Server unavailable:', e.message); }
+}
+
+async function saveServerConfig(type, config) {
+    if (!serverAvailable) { showToast('Server unavailable - export JSON instead', 'warning'); return false; }
+    try {
+        const r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'save', type, config }) });
+        const j = await r.json();
+        if (j.success) { showToast('Saved to server!'); return true; }
+        showToast('Save failed: ' + j.error, 'error');
+    } catch (e) { showToast('Server error: ' + e.message, 'error'); }
+    return false;
+}
+
+function findIcon(item, cat) {
+    const n = item.n || '', k = `${cat}:${n}`;
+    if (iconOverrides[k]) return 'Icons/' + iconOverrides[k];
+    if (iconMapping[cat]?.[n]) return 'Icons/' + iconMapping[cat][n];
+    for (const c of Object.keys(iconMapping)) if (iconMapping[c][n]) return 'Icons/' + iconMapping[c][n];
     return 'Icons/' + defaultIcon;
 }
 
 async function loadIconMapping() {
     try {
-        const response = await fetch('icon_mapping.json');
-        if (response.ok) {
-            iconMapping = await response.json();
-            console.log('Loaded icon mapping:', Object.keys(iconMapping));
-            
-            // Extract all unique icon paths for the picker
-            const iconSet = new Set();
-            for (const category of Object.values(iconMapping)) {
-                for (const path of Object.values(category)) {
-                    iconSet.add(path);
-                }
-            }
-            allIcons = Array.from(iconSet).sort();
+        const r = await fetch('icon_mapping.json');
+        if (r.ok) {
+            iconMapping = await r.json();
+            const s = new Set();
+            for (const c of Object.values(iconMapping)) for (const p of Object.values(c)) s.add(p);
+            allIcons = [...s].sort();
             populateIconFolders();
         }
-    } catch (e) {
-        console.warn('Could not load icon_mapping.json:', e);
-    }
+    } catch (e) { console.warn('icon_mapping.json not found:', e); }
 }
 
 async function loadTableConfig() {
     try {
-        const response = await fetch('table_config.json');
-        if (response.ok) {
-            tableConfig = await response.json();
-            console.log('Loaded table config:', Object.keys(tableConfig));
-        }
-    } catch (e) {
-        console.warn('Could not load table_config.json:', e);
-    }
+        const r = await fetch('table_config.json');
+        if (r.ok) tableConfig = await r.json();
+    } catch (e) { console.warn('table_config.json not found:', e); }
 }
 
 function populateIconFolders() {
-    const folders = new Set();
-    allIcons.forEach(path => {
-        const parts = path.split('/');
-        if (parts.length > 1) {
-            folders.add(parts[0]);
-        }
-    });
-    
-    const select = document.getElementById('iconFolderSelect');
-    select.innerHTML = '<option value="">All Folders</option>';
-    Array.from(folders).sort().forEach(folder => {
-        select.innerHTML += `<option value="${folder}">${folder}</option>`;
-    });
+    const f = new Set();
+    allIcons.forEach(p => { const s = p.split('/'); if (s.length > 1) f.add(s[0]); });
+    document.getElementById('iconFolderSelect').innerHTML = '<option value="">All Folders</option>' + [...f].sort().map(x => `<option value="${x}">${x}</option>`).join('');
 }
 
-// ============== DATABASE LOADING ==============
 async function loadDatabase() {
     try {
         await loadIconMapping();
         await loadTableConfig();
-        loadConfig();
+        await loadServerConfig();
         
-        const SQL = await initSqlJs({
-            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
-        });
-        
-        const response = await fetch('content.db');
-        if (!response.ok) throw new Error('content.db not found');
-        
-        const buffer = await response.arrayBuffer();
-        db = new SQL.Database(new Uint8Array(buffer));
+        const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${f}` });
+        const r = await fetch('content.db');
+        if (!r.ok) throw new Error('content.db not found');
+        db = new SQL.Database(new Uint8Array(await r.arrayBuffer()));
         
         const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name");
-        if (!tables.length) throw new Error('No tables found');
+        if (!tables.length) throw new Error('No tables');
         
         gameData = {};
-        for (const [tableName] of tables[0].values) {
-            if (tableName === 'version') continue;
+        for (const [tbl] of tables[0].values) {
+            if (tbl === 'version') continue;
             try {
-                const result = db.exec(`SELECT * FROM "${tableName}"`);
-                if (result.length && result[0].values.length) {
-                    const columns = result[0].columns;
-                    gameData[tableName] = result[0].values.map(row => {
-                        const obj = {};
-                        columns.forEach((col, idx) => obj[col] = row[idx]);
-                        const props = parseDataBlob(obj.data);
-                        return {
-                            n: obj.name || obj.guid || 'Unknown',
-                            d: props.DisplayName || obj.name || 'Unknown',
-                            c: obj.class || 'unknown',
-                            guid: obj.guid,
-                            p: props,
-                            _raw: obj
-                        };
+                const res = db.exec(`SELECT * FROM "${tbl}"`);
+                if (res.length && res[0].values.length) {
+                    const cols = res[0].columns;
+                    gameData[tbl] = res[0].values.map(row => {
+                        const obj = {}; cols.forEach((c, i) => obj[c] = row[i]);
+                        const dataStr = typeof obj.data === 'string' ? obj.data : (obj.data ? new TextDecoder().decode(obj.data) : '');
+                        const props = parseDataBlob(dataStr);
+                        return { n: obj.name || obj.guid || 'Unknown', d: props.DisplayName || props.SpellName || props.AiAttackName || props.GEDisplayName || obj.name || 'Unknown', c: obj.class || 'unknown', guid: obj.guid, p: props };
                     });
                 }
-            } catch (e) { console.warn(`Error loading ${tableName}:`, e); }
+            } catch (e) { console.warn(`Error loading ${tbl}:`, e); }
         }
         
         document.getElementById('statusText').textContent = 'SYSTEM ONLINE';
         document.getElementById('statusBadge').classList.remove('error');
         initUI();
     } catch (e) {
-        console.error('Failed to load database:', e);
+        console.error('Load failed:', e);
         document.getElementById('statusText').textContent = 'ERROR';
         document.getElementById('statusBadge').classList.add('error');
-        document.getElementById('contentArea').innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">⚠️</div>
-                <div class="empty-text">
-                    Failed to load database<br><br>
-                    <span style="color: var(--text-secondary); font-size: 0.85rem;">
-                        ${e.message}<br><br>
-                        Required files in same folder:<br>
-                        • content.db<br>
-                        • icon_mapping.json<br>
-                        • table_config.json<br>
-                        • Icons/ folder
-                    </span>
-                </div>
-            </div>`;
+        document.getElementById('contentArea').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Failed to load: ${e.message}</div></div>`;
     }
 }
 
-// ============== UI INITIALIZATION ==============
 function initUI() {
-    const categories = Object.keys(gameData).filter(cat => gameData[cat]?.length > 0);
-    if (!categories.length) {
-        document.getElementById('contentArea').innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">📭</div>
-                <div class="empty-text">No entries found in database</div>
-            </div>`;
-        return;
-    }
+    const cats = Object.keys(gameData).filter(c => gameData[c]?.length > 0);
+    if (!cats.length) { document.getElementById('contentArea').innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No entries</div></div>`; return; }
     
-    currentCategory = categories[0];
-    const navList = document.getElementById('navList');
-    navList.innerHTML = categories.map((cat, idx) => `
-        <li class="nav-item">
-            <button class="nav-btn ${idx === 0 ? 'active' : ''}" data-category="${cat}">
-                <span><span class="nav-icon">${categoryIcons[cat] || '📁'}</span>${categoryNames[cat] || cat}</span>
-                <span class="nav-count">${gameData[cat].length}</span>
-            </button>
-        </li>
-    `).join('');
+    currentCategory = cats[0];
+    document.getElementById('navList').innerHTML = cats.map((c, i) => `<li class="nav-item"><button class="nav-btn ${i === 0 ? 'active' : ''}" data-category="${c}"><span><span class="nav-icon">${categoryIcons[c] || '📁'}</span>${categoryNames[c] || c}</span><span class="nav-count">${gameData[c].length}</span></button></li>`).join('');
     
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentCategory = btn.dataset.category;
-            currentPage = 1;
-            renderContent();
-        });
-    });
+    document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.nav-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); currentCategory = b.dataset.category; currentPage = 1; renderContent(); }));
     
-    // Search
-    let searchTimeout;
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            searchQuery = e.target.value.toLowerCase();
-            currentPage = 1;
-            renderContent();
-        }, 200);
-    });
+    let st; document.getElementById('searchInput').addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => { searchQuery = e.target.value.toLowerCase(); currentPage = 1; renderContent(); }, 200); });
     
-    // Modal events
-    document.getElementById('modalOverlay').addEventListener('click', (e) => {
-        if (e.target.id === 'modalOverlay') closeModal();
-    });
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
     document.getElementById('modalClose').addEventListener('click', closeModal);
-    
-    // Dev mode events
     document.getElementById('devBtn').addEventListener('click', toggleDevMode);
-    document.getElementById('loginPassword').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') attemptLogin();
-    });
+    document.getElementById('loginPassword').addEventListener('keypress', e => { if (e.key === 'Enter') attemptLogin(); });
     document.getElementById('loginBtn').addEventListener('click', attemptLogin);
-    document.getElementById('loginOverlay').addEventListener('click', (e) => {
-        if (e.target.id === 'loginOverlay') closeLogin();
-    });
-    
-    // Icon picker events
+    document.getElementById('loginOverlay').addEventListener('click', e => { if (e.target.id === 'loginOverlay') closeLogin(); });
     document.getElementById('iconPickerClose').addEventListener('click', closeIconPicker);
     document.getElementById('iconPickerCancel').addEventListener('click', closeIconPicker);
     document.getElementById('iconPickerSave').addEventListener('click', saveIconSelection);
-    document.getElementById('iconPickerOverlay').addEventListener('click', (e) => {
-        if (e.target.id === 'iconPickerOverlay') closeIconPicker();
-    });
+    document.getElementById('iconPickerOverlay').addEventListener('click', e => { if (e.target.id === 'iconPickerOverlay') closeIconPicker(); });
     document.getElementById('iconSearch').addEventListener('input', filterIcons);
     document.getElementById('iconFolderSelect').addEventListener('change', filterIcons);
-    
-    // Config modal events
     document.getElementById('configBtn').addEventListener('click', openConfigEditor);
-    document.getElementById('configClose').addEventListener('click', () => {
-        document.getElementById('configOverlay').classList.remove('active');
-    });
-    document.getElementById('configOverlay').addEventListener('click', (e) => {
-        if (e.target.id === 'configOverlay') {
-            document.getElementById('configOverlay').classList.remove('active');
-        }
-    });
-    
-    // Config tabs
-    document.querySelectorAll('.config-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.config-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.config-panel').forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
-        });
-    });
-    
-    // Config action buttons
-    document.getElementById('exportIconsBtn').addEventListener('click', () => {
-        downloadJSON({ iconOverrides, _generated: new Date().toISOString() }, 'icon_overrides.json');
-    });
-    document.getElementById('clearIconsBtn').addEventListener('click', () => {
-        if (confirm('Clear all icon overrides?')) {
-            iconOverrides = {};
-            saveConfig();
-            renderContent();
-            renderIconOverridesList();
-        }
-    });
-    document.getElementById('exportConfigBtn').addEventListener('click', exportFullConfig);
-    document.getElementById('saveFieldsBtn').addEventListener('click', saveFieldConfig);
-    document.getElementById('saveSectionsBtn').addEventListener('click', saveSectionConfig);
-    document.getElementById('saveTablesBtn').addEventListener('click', saveTableConfig);
-    
-    // Field selects
-    document.getElementById('fieldTableSelect').addEventListener('change', populateFieldClassSelect);
-    document.getElementById('fieldClassSelect').addEventListener('change', populateFieldsList);
-    
-    document.addEventListener('keydown', (e) => { 
-        if (e.key === 'Escape') {
-            closeModal();
-            closeLogin();
-            closeIconPicker();
-            document.getElementById('configOverlay').classList.remove('active');
-        }
-    });
+    document.getElementById('configClose').addEventListener('click', () => document.getElementById('configOverlay').classList.remove('active'));
+    document.getElementById('configOverlay').addEventListener('click', e => { if (e.target.id === 'configOverlay') document.getElementById('configOverlay').classList.remove('active'); });
+    document.querySelectorAll('.config-tab').forEach(t => t.addEventListener('click', () => { document.querySelectorAll('.config-tab').forEach(x => x.classList.remove('active')); document.querySelectorAll('.config-panel').forEach(x => x.classList.remove('active')); t.classList.add('active'); document.getElementById('panel-' + t.dataset.tab).classList.add('active'); }));
+    document.getElementById('exportIconsBtn').addEventListener('click', () => downloadJSON(iconOverrides, 'icon_overrides.json'));
+    document.getElementById('clearIconsBtn').addEventListener('click', async () => { if (confirm('Clear all?')) { iconOverrides = {}; await saveServerConfig('icon_overrides', iconOverrides); renderContent(); renderIconOverridesList(); } });
+    document.getElementById('exportConfigBtn').addEventListener('click', () => downloadJSON({ iconOverrides, tableConfig }, 'mo2_config.json'));
+    document.getElementById('fieldTableSelect').addEventListener('change', populateFieldsList);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeLogin(); closeIconPicker(); document.getElementById('configOverlay').classList.remove('active'); } });
     
     renderContent();
 }
 
-// ============== DEV MODE ==============
+function downloadJSON(d, f) { const b = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }), u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = f; a.click(); URL.revokeObjectURL(u); }
+
 function toggleDevMode() {
-    if (devMode) {
-        devMode = false;
-        document.body.classList.remove('dev-mode');
-        document.getElementById('devBtn').classList.remove('active');
-        document.getElementById('configBtn').style.display = 'none';
-        document.getElementById('statusBadge').classList.remove('dev');
-        updateChangesIndicator();
-        renderContent();
-    } else {
-        document.getElementById('loginOverlay').classList.add('active');
-        document.getElementById('loginPassword').focus();
-    }
+    if (devMode) { devMode = false; document.body.classList.remove('dev-mode'); document.getElementById('devBtn').classList.remove('active'); document.getElementById('configBtn').style.display = 'none'; document.getElementById('statusBadge').classList.remove('dev'); document.getElementById('changesIndicator').style.display = 'none'; renderContent(); }
+    else { document.getElementById('loginOverlay').classList.add('active'); document.getElementById('loginPassword').focus(); }
 }
 
 function attemptLogin() {
-    const password = document.getElementById('loginPassword').value;
-    if (password === DEV_PASSWORD) {
-        devMode = true;
-        document.body.classList.add('dev-mode');
-        document.getElementById('devBtn').classList.add('active');
-        document.getElementById('configBtn').style.display = 'inline-block';
-        document.getElementById('statusBadge').classList.add('dev');
-        closeLogin();
-        updateChangesIndicator();
-        renderContent();
-        showToast('Developer mode activated!');
-    } else {
-        document.getElementById('loginPassword').style.borderColor = '#ef4444';
-        setTimeout(() => {
-            document.getElementById('loginPassword').style.borderColor = '';
-        }, 1000);
-    }
+    if (document.getElementById('loginPassword').value === DEV_PASSWORD) { devMode = true; document.body.classList.add('dev-mode'); document.getElementById('devBtn').classList.add('active'); document.getElementById('configBtn').style.display = 'inline-block'; document.getElementById('statusBadge').classList.add('dev'); closeLogin(); updateChangesIndicator(); renderContent(); showToast('Dev mode on!'); }
+    else { document.getElementById('loginPassword').style.borderColor = '#ef4444'; setTimeout(() => document.getElementById('loginPassword').style.borderColor = '', 1000); }
 }
 
-function closeLogin() {
-    document.getElementById('loginOverlay').classList.remove('active');
-    document.getElementById('loginPassword').value = '';
-}
+function closeLogin() { document.getElementById('loginOverlay').classList.remove('active'); document.getElementById('loginPassword').value = ''; }
 
-// ============== ICON PICKER ==============
-function openIconPicker(item, category, event) {
-    event.stopPropagation();
-    editingItem = { item, category };
+function updateChangesIndicator() { const c = Object.keys(iconOverrides).length, i = document.getElementById('changesIndicator'); if (c > 0 && devMode) { i.style.display = 'inline'; i.textContent = `${c} override${c > 1 ? 's' : ''}`; } else i.style.display = 'none'; }
+
+function openIconPicker(item, cat, e) {
+    e.stopPropagation();
+    editingItem = { item, category: cat };
     selectedIcon = null;
-    
-    const currentIconPath = findIcon(item, category).replace('Icons/', '');
-    
+    const cur = findIcon(item, cat).replace('Icons/', '');
     document.getElementById('iconPickerTitle').textContent = 'Select Icon';
-    document.getElementById('iconPickerItem').textContent = item.n;
-    document.getElementById('currentIconImg').src = 'Icons/' + currentIconPath;
-    document.getElementById('currentIconPath').textContent = currentIconPath;
+    document.getElementById('iconPickerItem').textContent = item.d || item.n;
+    document.getElementById('currentIconImg').src = 'Icons/' + cur;
+    document.getElementById('currentIconPath').textContent = cur;
     document.getElementById('iconSearch').value = '';
     document.getElementById('iconFolderSelect').value = '';
-    
     renderIconGrid();
     document.getElementById('iconPickerOverlay').classList.add('active');
 }
 
 function renderIconGrid(filter = '', folder = '') {
-    const grid = document.getElementById('iconGrid');
     let icons = allIcons;
-    
-    if (folder) {
-        icons = icons.filter(p => p.startsWith(folder + '/'));
-    }
-    if (filter) {
-        const lowerFilter = filter.toLowerCase();
-        icons = icons.filter(p => p.toLowerCase().includes(lowerFilter));
-    }
-    
+    if (folder) icons = icons.filter(p => p.startsWith(folder + '/'));
+    if (filter) icons = icons.filter(p => p.toLowerCase().includes(filter.toLowerCase()));
     icons = icons.slice(0, 200);
-    
-    grid.innerHTML = icons.map(path => `
-        <div class="icon-option ${selectedIcon === path ? 'selected' : ''}" data-path="${path}" title="${path}">
-            <img src="Icons/${path}" alt="${path}" onerror="this.src='Icons/${defaultIcon}'">
-        </div>
-    `).join('');
-    
-    grid.querySelectorAll('.icon-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-            grid.querySelectorAll('.icon-option').forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            selectedIcon = opt.dataset.path;
-        });
-    });
+    const g = document.getElementById('iconGrid');
+    g.innerHTML = icons.map(p => `<div class="icon-option ${selectedIcon === p ? 'selected' : ''}" data-path="${p}" title="${p}"><img src="Icons/${p}" onerror="this.src='Icons/${defaultIcon}'"></div>`).join('');
+    g.querySelectorAll('.icon-option').forEach(o => o.addEventListener('click', () => { g.querySelectorAll('.icon-option').forEach(x => x.classList.remove('selected')); o.classList.add('selected'); selectedIcon = o.dataset.path; }));
 }
 
-function filterIcons() {
-    const filter = document.getElementById('iconSearch').value;
-    const folder = document.getElementById('iconFolderSelect').value;
-    renderIconGrid(filter, folder);
-}
+function filterIcons() { renderIconGrid(document.getElementById('iconSearch').value, document.getElementById('iconFolderSelect').value); }
 
-function saveIconSelection() {
-    if (!editingItem || !selectedIcon) {
-        closeIconPicker();
-        return;
-    }
-    
-    const overrideKey = `${editingItem.category}:${editingItem.item.n}`;
-    iconOverrides[overrideKey] = selectedIcon;
-    saveConfig();
+async function saveIconSelection() {
+    if (!editingItem || !selectedIcon) { closeIconPicker(); return; }
+    iconOverrides[`${editingItem.category}:${editingItem.item.n}`] = selectedIcon;
+    await saveServerConfig('icon_overrides', iconOverrides);
+    updateChangesIndicator();
     closeIconPicker();
     renderContent();
 }
 
-function closeIconPicker() {
-    document.getElementById('iconPickerOverlay').classList.remove('active');
-    editingItem = null;
-    selectedIcon = null;
-}
+function closeIconPicker() { document.getElementById('iconPickerOverlay').classList.remove('active'); editingItem = null; selectedIcon = null; }
 
-// ============== CONFIG EDITOR ==============
-function openConfigEditor() {
-    document.getElementById('configOverlay').classList.add('active');
-    renderIconOverridesList();
-    populateFieldTableSelect();
-    populateSectionsList();
-    populateTablesList();
-}
+function openConfigEditor() { document.getElementById('configOverlay').classList.add('active'); renderIconOverridesList(); populateFieldTableSelect(); renderTableConfigDisplay(); }
 
 function renderIconOverridesList() {
-    const list = document.getElementById('iconOverridesList');
-    const entries = Object.entries(iconOverrides);
-    
-    if (!entries.length) {
-        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">No icon overrides set.</div>';
-        return;
-    }
-    
-    list.innerHTML = entries.map(([key, path]) => {
-        const [cat, name] = key.split(':');
-        return `
-            <div class="field-item" style="display: flex; align-items: center; gap: 1rem;">
-                <img src="Icons/${path}" style="width: 32px; height: 32px; object-fit: contain; image-rendering: pixelated;" onerror="this.src='Icons/${defaultIcon}'">
-                <div style="flex: 1;">
-                    <div style="color: var(--text-primary); font-size: 0.85rem;">${escapeHtml(name)}</div>
-                    <div style="color: var(--text-dim); font-size: 0.7rem;">${escapeHtml(cat)} → ${escapeHtml(path)}</div>
-                </div>
-                <button onclick="removeIconOverride('${escapeHtml(key)}')" style="background: none; border: none; color: var(--red); cursor: pointer; font-size: 1rem;">✕</button>
-            </div>
-        `;
-    }).join('');
+    const l = document.getElementById('iconOverridesList'), e = Object.entries(iconOverrides);
+    if (!e.length) { l.innerHTML = '<div style="color: var(--text-dim); padding: 1rem; text-align: center;">No overrides.</div>'; return; }
+    l.innerHTML = e.map(([k, p]) => { const [cat, name] = k.split(':'); return `<div class="override-item"><img src="Icons/${p}" onerror="this.src='Icons/${defaultIcon}'"><div class="override-item-info"><div class="override-item-name">${escapeHtml(name)}</div><div class="override-item-path">${escapeHtml(cat)} → ${escapeHtml(p)}</div></div><button class="override-item-remove" onclick="removeIconOverride('${escapeHtml(k)}')">✕</button></div>`; }).join('');
 }
 
-function removeIconOverride(key) {
-    delete iconOverrides[key];
-    saveConfig();
-    renderIconOverridesList();
-    renderContent();
-}
+async function removeIconOverride(k) { delete iconOverrides[k]; await saveServerConfig('icon_overrides', iconOverrides); updateChangesIndicator(); renderIconOverridesList(); renderContent(); }
 
-function populateFieldTableSelect() {
-    const select = document.getElementById('fieldTableSelect');
-    const tables = Object.keys(gameData).filter(t => gameData[t]?.length > 0);
-    select.innerHTML = '<option value="">Select a table...</option>' + 
-        tables.map(t => `<option value="${t}">${categoryNames[t] || t}</option>`).join('');
-}
-
-function populateFieldClassSelect() {
-    const table = document.getElementById('fieldTableSelect').value;
-    const select = document.getElementById('fieldClassSelect');
-    
-    if (!table || !gameData[table]) {
-        select.innerHTML = '<option value="">Select a class...</option>';
-        return;
-    }
-    
-    const classes = [...new Set(gameData[table].map(item => item.c))].filter(Boolean).sort();
-    select.innerHTML = '<option value="">All classes</option>' + 
-        classes.map(c => `<option value="${c}">${c}</option>`).join('');
-    
-    populateFieldsList();
-}
+function populateFieldTableSelect() { const s = document.getElementById('fieldTableSelect'), t = Object.keys(gameData).filter(x => gameData[x]?.length > 0); s.innerHTML = '<option value="">Select a table...</option>' + t.map(x => `<option value="${x}">${categoryNames[x] || x}</option>`).join(''); }
 
 function populateFieldsList() {
-    const table = document.getElementById('fieldTableSelect').value;
-    const cls = document.getElementById('fieldClassSelect').value;
-    const list = document.getElementById('fieldsList');
-    
-    if (!table || !gameData[table]) {
-        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">Select a table first.</div>';
-        return;
-    }
-    
-    // Get all fields from items in this table/class
-    const allFields = new Set();
-    gameData[table].forEach(item => {
-        if (!cls || item.c === cls) {
-            Object.keys(item.p || {}).forEach(k => allFields.add(k));
-        }
-    });
-    
-    // Get hidden fields config
-    const hiddenKey = `${table}:${cls || '_all'}`;
-    const hidden = hiddenFields[hiddenKey] || [];
-    
-    const sortedFields = Array.from(allFields).sort();
-    
-    list.innerHTML = sortedFields.map(field => {
-        const isHidden = hidden.includes(field);
-        return `
-            <div class="field-item ${isHidden ? 'hidden' : ''}">
-                <input type="checkbox" id="field-${field}" ${!isHidden ? 'checked' : ''} data-field="${field}">
-                <label for="field-${field}">${field}</label>
-            </div>
-        `;
-    }).join('');
+    const tbl = document.getElementById('fieldTableSelect').value, l = document.getElementById('fieldsList');
+    if (!tbl || !gameData[tbl]) { l.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">Select a table.</div>'; return; }
+    const fields = new Set(); gameData[tbl].forEach(i => Object.keys(i.p || {}).forEach(k => fields.add(k)));
+    const ti = tableConfig.other_tables?.[tbl], kf = ti?.key_fields || {};
+    l.innerHTML = [...fields].sort().map(f => { const ki = kf[f], vis = ki?.visible !== false, dn = ki?.display_name || f; return `<div class="field-item ${!vis ? 'hidden' : ''}"><input type="checkbox" ${vis ? 'checked' : ''} disabled><label>${dn} <span style="color:var(--text-dim)">(${f})</span></label></div>`; }).join('');
 }
 
-function saveFieldConfig() {
-    const table = document.getElementById('fieldTableSelect').value;
-    const cls = document.getElementById('fieldClassSelect').value;
-    
-    if (!table) {
-        showToast('Please select a table first', true);
-        return;
-    }
-    
-    const hidden = [];
-    document.querySelectorAll('#fieldsList input[type="checkbox"]').forEach(cb => {
-        if (!cb.checked) {
-            hidden.push(cb.dataset.field);
-        }
-    });
-    
-    const hiddenKey = `${table}:${cls || '_all'}`;
-    hiddenFields[hiddenKey] = hidden;
-    saveConfig();
+function renderTableConfigDisplay() {
+    const d = document.getElementById('tableConfigDisplay');
+    let h = '<div style="font-family: Share Tech Mono, monospace; font-size: 0.8rem;">';
+    if (tableConfig.categories) { h += '<div style="color: var(--purple-bright); margin-bottom: 0.5rem;">📁 Item Categories</div>'; for (const [n, c] of Object.entries(tableConfig.categories)) h += `<div style="margin-left: 1rem; margin-bottom: 0.25rem;"><span style="color: var(--cyan);">${n}</span>: ${Object.keys(c.classes || {}).length} classes</div>`; }
+    if (tableConfig.other_tables) { h += '<div style="color: var(--purple-bright); margin: 1rem 0 0.5rem;">📋 Other Tables</div>'; for (const [n, t] of Object.entries(tableConfig.other_tables)) h += `<div style="margin-left: 1rem; margin-bottom: 0.25rem; ${t.visible === false ? 'opacity:0.5;' : ''}"><span style="color: var(--cyan);">${t.display_name || n}</span>${t.visible === false ? ' <span style="color:var(--red);">(hidden)</span>' : ''}</div>`; }
+    h += '</div>';
+    d.innerHTML = h;
 }
 
-function populateSectionsList() {
-    const list = document.getElementById('sectionsList');
-    const sections = Object.keys(propertySections);
-    
-    list.innerHTML = sections.map(section => `
-        <div class="section-group-item" data-section="${section}">
-            <span>${propertySections[section].icon} ${section}</span>
-            <span style="color: var(--text-dim); font-size: 0.7rem;">${(propertySections[section].patterns || []).length} patterns</span>
-        </div>
-    `).join('');
-    
-    list.querySelectorAll('.section-group-item').forEach(item => {
-        item.addEventListener('click', () => {
-            list.querySelectorAll('.section-group-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-            showSectionFields(item.dataset.section);
-        });
-    });
-}
-
-function showSectionFields(sectionName) {
-    const list = document.getElementById('sectionFieldsList');
-    const section = propertySections[sectionName];
-    
-    if (!section) {
-        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">Select a section.</div>';
-        return;
-    }
-    
-    let content = '<div style="color: var(--text-dim); padding: 0.5rem;">Patterns:</div>';
-    (section.patterns || []).forEach(p => {
-        content += `<div class="field-item"><code style="color: var(--cyan);">${p.toString()}</code></div>`;
-    });
-    
-    if (section.subsections) {
-        content += '<div style="color: var(--text-dim); padding: 0.5rem; margin-top: 1rem;">Subsections:</div>';
-        Object.entries(section.subsections).forEach(([name, fields]) => {
-            content += `<div class="field-item"><strong>${name}</strong>: ${fields.length} fields</div>`;
-        });
-    }
-    
-    list.innerHTML = content;
-}
-
-function saveSectionConfig() {
-    showToast('Section config saved!');
-}
-
-function populateTablesList() {
-    const tablesList = document.getElementById('tablesList');
-    const tables = Object.keys(tableConfig.tables || {});
-    
-    tablesList.innerHTML = tables.map(table => `
-        <div class="section-group-item" data-table="${table}">
-            <span>${categoryIcons[table] || '📁'} ${table}</span>
-            <span style="color: var(--text-dim); font-size: 0.7rem;">${Object.keys(tableConfig.tables[table] || {}).length} classes</span>
-        </div>
-    `).join('');
-    
-    tablesList.querySelectorAll('.section-group-item').forEach(item => {
-        item.addEventListener('click', () => {
-            tablesList.querySelectorAll('.section-group-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-            showClassMappings(item.dataset.table);
-        });
-    });
-    
-    // Populate base types dropdown
-    const baseSelect = document.getElementById('newClassBase');
-    const bases = Object.keys(tableConfig.bases || {});
-    baseSelect.innerHTML = '<option value="">Base type...</option>' + 
-        bases.map(b => `<option value="${b}">${b}</option>`).join('');
-}
-
-function showClassMappings(tableName) {
-    const list = document.getElementById('classMappingsList');
-    const tableClasses = tableConfig.tables[tableName] || {};
-    
-    list.innerHTML = Object.entries(tableClasses).map(([cls, config]) => `
-        <div class="section-group-item">
-            <span>${cls}</span>
-            <span style="color: var(--cyan); font-size: 0.7rem;">→ ${config.base || 'unknown'}</span>
-        </div>
-    `).join('');
-}
-
-function saveTableConfig() {
-    showToast('Table config saved!');
-}
-
-// ============== CONTENT RENDERING ==============
-function filterItems(items) {
-    if (!searchQuery) return items;
-    return items.filter(item => {
-        const name = (item.n || '').toLowerCase();
-        const displayName = (item.d || '').toLowerCase();
-        const cls = (item.c || '').toLowerCase();
-        const props = JSON.stringify(item.p || {}).toLowerCase();
-        return name.includes(searchQuery) || displayName.includes(searchQuery) || 
-               cls.includes(searchQuery) || props.includes(searchQuery);
-    });
-}
-
-function getVisibleProps(item, category) {
-    const props = item.p || {};
-    const cls = item.c;
-    
-    // Check hidden fields config
-    const hiddenKey = `${category}:${cls || '_all'}`;
-    const hiddenAllKey = `${category}:_all`;
-    const hidden = [...(hiddenFields[hiddenKey] || []), ...(hiddenFields[hiddenAllKey] || [])];
-    
-    const visible = {};
-    Object.entries(props).forEach(([key, val]) => {
-        if (!hidden.includes(key) && !key.endsWith('_Raw') && !key.endsWith('_GUID')) {
-            visible[key] = val;
-        }
-    });
-    
-    return visible;
-}
+function filterItems(items) { if (!searchQuery) return items; return items.filter(i => [i.n, i.d, i.c, JSON.stringify(i.p)].map(s => (s || '').toLowerCase()).some(s => s.includes(searchQuery))); }
 
 function renderContent() {
-    const items = gameData[currentCategory] || [];
-    const filtered = filterItems(items);
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
-    const contentArea = document.getElementById('contentArea');
+    const items = gameData[currentCategory] || [], filtered = filterItems(items), totalPages = Math.ceil(filtered.length / itemsPerPage), start = (currentPage - 1) * itemsPerPage, pageItems = filtered.slice(start, start + itemsPerPage), ca = document.getElementById('contentArea');
     
-    if (!filtered.length) {
-        contentArea.innerHTML = `
-            <div class="content-header">
-                <h2 class="content-title">
-                    <span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>
-                    ${categoryNames[currentCategory] || currentCategory}
-                </h2>
-            </div>
-            <div class="empty-state">
-                <div class="empty-icon">🔍</div>
-                <div class="empty-text">${searchQuery ? 'No results for "' + escapeHtml(searchQuery) + '"' : 'No entries'}</div>
-            </div>`;
-        return;
-    }
+    if (!filtered.length) { ca.innerHTML = `<div class="content-header"><h2 class="content-title"><span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>${categoryNames[currentCategory] || currentCategory}</h2></div><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">${searchQuery ? 'No results for "' + escapeHtml(searchQuery) + '"' : 'No entries'}</div></div>`; return; }
     
-    let html = `
-        <div class="content-header">
-            <h2 class="content-title">
-                <span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>
-                ${categoryNames[currentCategory] || currentCategory}
-            </h2>
-            <div class="results-count">
-                Showing <span>${start + 1}-${Math.min(start + itemsPerPage, filtered.length)}</span> of <span>${filtered.length}</span>
-            </div>
-        </div>
-        <div class="items-grid">`;
+    const ti = tableConfig.other_tables?.[currentCategory], kf = Object.keys(ti?.key_fields || {}).filter(k => k !== 'DisplayName');
+    
+    let html = `<div class="content-header"><h2 class="content-title"><span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>${categoryNames[currentCategory] || currentCategory}</h2><div class="results-count">Showing <span>${start + 1}-${Math.min(start + itemsPerPage, filtered.length)}</span> of <span>${filtered.length}</span></div></div><div class="items-grid">`;
     
     pageItems.forEach((item, idx) => {
-        const displayName = item.d || item.n || 'Unknown';
-        const internalName = item.n || '';
-        const cls = item.c || 'unknown';
-        const props = getVisibleProps(item, currentCategory);
-        const iconPath = findIcon(item, currentCategory);
-        const propKeys = Object.keys(props).filter(k => 
-            k !== 'DisplayName' && k !== 'ContentClass' && !k.endsWith('_Ref')
-        ).slice(0, 3);
-        
-        const hasOverride = iconOverrides[`${currentCategory}:${item.n}`];
-        
-        html += `
-            <div class="item-card" data-idx="${start + idx}">
-                <div class="item-header">
-                    <div class="item-icon" style="${hasOverride ? 'border-color: var(--neon-green);' : ''}">
-                        <img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">
-                        <button class="edit-icon-btn" data-item-idx="${start + idx}">✏️</button>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${escapeHtml(displayName)}</div>
-                        <span class="item-class">${escapeHtml(cls)}</span>
-                        <div class="item-internal">${escapeHtml(internalName)}</div>
-                    </div>
-                </div>
-                <div class="item-props">
-                    ${propKeys.map(k => `
-                        <span class="item-prop">
-                            <span class="item-prop-key">${k}:</span>
-                            <span class="item-prop-val">${formatValue(props[k])}</span>
-                        </span>
-                    `).join('')}
-                </div>
-            </div>`;
+        const dn = item.d || item.n || 'Unknown', n = item.n || '', cls = item.c || 'unknown', props = item.p || {}, icon = findIcon(item, currentCategory), hasOvr = iconOverrides[`${currentCategory}:${item.n}`];
+        const pk = kf.length > 0 ? kf.filter(k => props[k] !== undefined).slice(0, 3) : Object.keys(props).filter(k => !k.includes('_') && k !== 'DisplayName' && k !== 'ContentClass').slice(0, 3);
+        html += `<div class="item-card" data-idx="${start + idx}"><div class="item-header"><div class="item-icon" style="${hasOvr ? 'border-color: var(--neon-green);' : ''}"><img src="${icon}" onerror="this.src='Icons/${defaultIcon}'"><button class="edit-icon-btn" data-item-idx="${start + idx}">✏️</button></div><div class="item-info"><div class="item-name">${escapeHtml(dn)}</div><span class="item-class">${escapeHtml(cls)}</span><div class="item-internal">${escapeHtml(n)}</div></div></div><div class="item-props">${pk.map(k => `<span class="item-prop"><span class="item-prop-key">${k}:</span> <span class="item-prop-val">${formatValue(props[k])}</span></span>`).join('')}</div></div>`;
     });
     
     html += '</div>';
     
     if (totalPages > 1) {
-        html += `<div class="pagination">
-            <button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">← Prev</button>`;
-        const maxBtns = 7;
-        let startPage = Math.max(1, currentPage - Math.floor(maxBtns / 2));
-        let endPage = Math.min(totalPages, startPage + maxBtns - 1);
-        if (endPage - startPage < maxBtns - 1) startPage = Math.max(1, endPage - maxBtns + 1);
-        if (startPage > 1) {
-            html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
-            if (startPage > 2) html += `<span class="page-info">...</span>`;
-        }
-        for (let i = startPage; i <= endPage; i++) {
-            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-        }
-        if (endPage < totalPages) {
-            if (endPage < totalPages - 1) html += `<span class="page-info">...</span>`;
-            html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
-        }
+        html += `<div class="pagination"><button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">← Prev</button>`;
+        const max = 7; let sp = Math.max(1, currentPage - Math.floor(max / 2)), ep = Math.min(totalPages, sp + max - 1);
+        if (ep - sp < max - 1) sp = Math.max(1, ep - max + 1);
+        if (sp > 1) { html += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if (sp > 2) html += `<span class="page-info">...</span>`; }
+        for (let i = sp; i <= ep; i++) html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        if (ep < totalPages) { if (ep < totalPages - 1) html += `<span class="page-info">...</span>`; html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`; }
         html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">Next →</button></div>`;
     }
     
-    contentArea.innerHTML = html;
-    
-    // Attach click handlers
-    document.querySelectorAll('.item-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.edit-icon-btn')) return;
-            const idx = parseInt(card.dataset.idx);
-            openModal(filtered[idx]);
-        });
-    });
-    
-    // Attach edit icon handlers
-    document.querySelectorAll('.edit-icon-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const idx = parseInt(btn.dataset.itemIdx);
-            openIconPicker(filtered[idx], currentCategory, e);
-        });
-    });
+    ca.innerHTML = html;
+    document.querySelectorAll('.item-card').forEach(c => c.addEventListener('click', e => { if (e.target.closest('.edit-icon-btn')) return; openModal(filtered[parseInt(c.dataset.idx)]); }));
+    document.querySelectorAll('.edit-icon-btn').forEach(b => b.addEventListener('click', e => openIconPicker(filtered[parseInt(b.dataset.itemIdx)], currentCategory, e)));
 }
 
-function goToPage(page) {
-    currentPage = page;
-    renderContent();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+function goToPage(p) { currentPage = p; renderContent(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// ============== MODAL ==============
 function openModal(item) {
-    const modal = document.getElementById('modalOverlay');
-    const displayName = item.d || item.n || 'Unknown';
-    const internalName = item.n || '';
-    const cls = item.c || 'unknown';
-    const props = item.p || {};
-    const iconPath = findIcon(item, currentCategory);
-    
-    document.getElementById('modalTitle').textContent = displayName;
+    const dn = item.d || item.n || 'Unknown', cls = item.c || 'unknown', props = item.p || {}, icon = findIcon(item, currentCategory);
+    document.getElementById('modalTitle').textContent = dn;
     document.getElementById('modalClass').textContent = cls;
-    document.getElementById('modalIcon').innerHTML = `<img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">`;
+    document.getElementById('modalIcon').innerHTML = `<img src="${icon}" onerror="this.src='Icons/${defaultIcon}'">`;
     
-    // Organize properties into sections
-    const organizedProps = organizePropsIntoSections(props);
+    const org = organizeProps(props);
+    let html = '';
     
-    let bodyHtml = '';
+    if (item.n && item.n !== dn) html += `<div class="collapsible-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-header-title"><span class="section-icon">🏷️</span>Identity</div><span class="section-toggle">▼</span></div><div class="section-content"><div class="prop-item"><div class="prop-key">Internal Name</div><div class="prop-value">${escapeHtml(item.n)}</div></div>${item.guid ? `<div class="prop-item"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.65rem">${escapeHtml(item.guid)}</div></div>` : ''}</div></div>`;
     
-    // Internal name section
-    if (internalName && internalName !== displayName) {
-        bodyHtml += `
-            <div class="collapsible-section">
-                <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
-                    <div class="section-header-title">
-                        <span class="section-icon">🏷️</span>
-                        Identity
-                    </div>
-                    <span class="section-toggle">▼</span>
-                </div>
-                <div class="section-content">
-                    <div class="prop-item"><div class="prop-key">Internal Name</div><div class="prop-value">${escapeHtml(internalName)}</div></div>
-                    ${item.guid ? `<div class="prop-item"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.7rem">${escapeHtml(item.guid)}</div></div>` : ''}
-                </div>
-            </div>`;
-    }
-    
-    // Render organized sections
-    for (const [sectionName, sectionData] of Object.entries(organizedProps)) {
-        if (sectionData.props.length === 0 && !sectionData.isLootSection) continue;
-        
-        const sectionConfig = propertySections[sectionName] || { icon: '📋' };
-        
-        if (sectionData.isLootSection) {
-            // Special loot table rendering
-            const lootItems = parseLootContent(props);
-            if (lootItems.length === 0) continue;
-            
-            bodyHtml += `
-                <div class="collapsible-section">
-                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
-                        <div class="section-header-title">
-                            <span class="section-icon">${sectionConfig.icon}</span>
-                            ${sectionName}
-                        </div>
-                        <span class="section-count">${lootItems.length} items</span>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content" style="display: block;">
-                        <table class="loot-table">
-                            <thead>
-                                <tr>
-                                    <th>Slot</th>
-                                    <th>Item</th>
-                                    <th>Chance</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${lootItems.map(loot => `
-                                    <tr>
-                                        <td>${loot.slot}</td>
-                                        <td><span class="loot-item-name" onclick="searchForItem('${escapeHtml(loot.item)}')">${escapeHtml(loot.item)}</span></td>
-                                        <td class="loot-chance">${loot.chance}%</td>
-                                        <td class="loot-quantity">${loot.minQty === loot.maxQty ? loot.minQty : `${loot.minQty}-${loot.maxQty}`}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>`;
-        } else if (sectionData.subsections) {
-            // Section with subsections
-            let subsectionHtml = '';
-            for (const [subName, subProps] of Object.entries(sectionData.subsections)) {
-                if (subProps.length === 0) continue;
-                subsectionHtml += `
-                    <div class="collapsible-section" style="margin: 0.5rem 0;">
-                        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" style="padding: 0.5rem;">
-                            <div class="section-header-title" style="font-size: 0.75rem;">
-                                ${subName}
-                            </div>
-                            <span class="section-count">${subProps.length}</span>
-                            <span class="section-toggle">▼</span>
-                        </div>
-                        <div class="section-content">
-                            ${subProps.map(([k, v]) => `
-                                <div class="prop-item">
-                                    <div class="prop-key">${escapeHtml(k)}</div>
-                                    <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>`;
-            }
-            
-            // Add remaining props not in subsections
-            const remainingHtml = sectionData.props.map(([k, v]) => `
-                <div class="prop-item">
-                    <div class="prop-key">${escapeHtml(k)}</div>
-                    <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
-                </div>
-            `).join('');
-            
-            bodyHtml += `
-                <div class="collapsible-section">
-                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
-                        <div class="section-header-title">
-                            <span class="section-icon">${sectionConfig.icon}</span>
-                            ${sectionName}
-                        </div>
-                        <span class="section-count">${sectionData.totalCount} properties</span>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content" style="display: block;">
-                        ${subsectionHtml}
-                        ${remainingHtml ? `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">${remainingHtml}</div>` : ''}
-                    </div>
-                </div>`;
+    for (const [name, data] of Object.entries(org)) {
+        if (data.props.length === 0 && !data.loot?.length) continue;
+        const cfg = propertySections[name] || { icon: '📋' };
+        if (data.loot?.length) {
+            html += `<div class="collapsible-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-header-title"><span class="section-icon">${cfg.icon}</span>${name}</div><span class="section-count">${data.loot.length} items</span><span class="section-toggle">▼</span></div><div class="section-content" style="display:block"><table class="loot-table"><thead><tr><th>#</th><th>Item</th><th>Chance</th><th>Qty</th></tr></thead><tbody>${data.loot.map(l => `<tr><td>${l.slot}</td><td><span class="loot-item-name" onclick="searchForItem('${escapeHtml(l.item)}')">${escapeHtml(l.item)}</span></td><td class="loot-chance">${l.chance}%</td><td class="loot-quantity">${l.minQty === l.maxQty ? l.minQty : l.minQty + '-' + l.maxQty}</td></tr>`).join('')}</tbody></table></div></div>`;
         } else {
-            // Regular section
-            bodyHtml += `
-                <div class="collapsible-section">
-                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
-                        <div class="section-header-title">
-                            <span class="section-icon">${sectionConfig.icon}</span>
-                            ${sectionName}
-                        </div>
-                        <span class="section-count">${sectionData.props.length}</span>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        ${sectionData.props.map(([k, v]) => `
-                            <div class="prop-item">
-                                <div class="prop-key">${escapeHtml(k)}</div>
-                                <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>`;
+            html += `<div class="collapsible-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-header-title"><span class="section-icon">${cfg.icon}</span>${name}</div><span class="section-count">${data.props.length}</span><span class="section-toggle">▼</span></div><div class="section-content">${data.props.map(([k, v]) => `<div class="prop-item"><div class="prop-key">${escapeHtml(k)}</div><div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div></div>`).join('')}</div></div>`;
         }
     }
     
-    if (!bodyHtml) {
-        bodyHtml = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No additional properties</div></div>`;
-    }
+    if (!html) html = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No additional properties</div></div>`;
     
-    document.getElementById('modalBody').innerHTML = bodyHtml;
-    modal.classList.add('active');
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-function organizePropsIntoSections(props) {
-    const organized = {};
-    const assigned = new Set();
+function organizeProps(props) {
+    const org = {}, assigned = new Set();
+    for (const [name, cfg] of Object.entries(propertySections)) org[name] = { props: [], loot: cfg.isLootSection ? parseLootContent(props) : null };
     
-    // Initialize sections
-    for (const [sectionName, config] of Object.entries(propertySections)) {
-        organized[sectionName] = {
-            props: [],
-            subsections: config.subsections ? {} : null,
-            isLootSection: config.isLootSection || false,
-            totalCount: 0
-        };
-        if (config.subsections) {
-            for (const subName of Object.keys(config.subsections)) {
-                organized[sectionName].subsections[subName] = [];
-            }
+    for (const [k, v] of Object.entries(props)) {
+        if (k.endsWith('_GUID') || k.endsWith('_Chance') || k.endsWith('_Min') || k.endsWith('_Max') || k === 'DisplayName' || k.startsWith('LootContent')) continue;
+        for (const [name, cfg] of Object.entries(propertySections)) {
+            if (cfg.isLootSection) continue;
+            if ((cfg.patterns || []).some(p => p.test(k))) { org[name].props.push([k, v]); assigned.add(k); break; }
         }
     }
     
-    // Assign properties to sections
-    for (const [key, value] of Object.entries(props)) {
-        if (key === 'DisplayName' || key.endsWith('_Raw')) continue;
-        
-        for (const [sectionName, config] of Object.entries(propertySections)) {
-            if (config.isLootSection) continue; // Skip loot section, handled separately
-            
-            // Check patterns
-            const matchesPattern = (config.patterns || []).some(pattern => pattern.test(key));
-            
-            if (matchesPattern) {
-                // Check if it belongs to a subsection
-                let assignedToSub = false;
-                if (config.subsections) {
-                    for (const [subName, subFields] of Object.entries(config.subsections)) {
-                        if (subFields.includes(key)) {
-                            organized[sectionName].subsections[subName].push([key, value]);
-                            organized[sectionName].totalCount++;
-                            assignedToSub = true;
-                            break;
-                        }
-                    }
-                    if (!assignedToSub && config.subsections['AI Other'] !== undefined) {
-                        // Add to "Other" subsection if it exists
-                        organized[sectionName].subsections['AI Other'].push([key, value]);
-                        organized[sectionName].totalCount++;
-                        assignedToSub = true;
-                    }
-                }
-                
-                if (!assignedToSub) {
-                    organized[sectionName].props.push([key, value]);
-                    organized[sectionName].totalCount++;
-                }
-                assigned.add(key);
-                break;
-            }
-        }
+    for (const [k, v] of Object.entries(props)) {
+        if (!assigned.has(k) && !k.endsWith('_GUID') && !k.endsWith('_Chance') && !k.endsWith('_Min') && !k.endsWith('_Max') && k !== 'DisplayName' && !k.startsWith('LootContent')) org['Other'].props.push([k, v]);
     }
     
-    // Add unassigned to "Other Properties"
-    for (const [key, value] of Object.entries(props)) {
-        if (!assigned.has(key) && key !== 'DisplayName' && !key.endsWith('_Raw')) {
-            organized['Other Properties'].props.push([key, value]);
-            organized['Other Properties'].totalCount++;
-        }
-    }
-    
-    // Update total counts for subsection sections
-    for (const sectionData of Object.values(organized)) {
-        if (sectionData.subsections) {
-            let total = sectionData.props.length;
-            for (const subProps of Object.values(sectionData.subsections)) {
-                total += subProps.length;
-            }
-            sectionData.totalCount = total;
-        }
-    }
-    
-    return organized;
+    return org;
 }
 
-function searchForItem(itemName) {
+function searchForItem(name) {
     closeModal();
-    document.getElementById('searchInput').value = itemName;
-    searchQuery = itemName.toLowerCase();
+    document.getElementById('searchInput').value = name;
+    searchQuery = name.toLowerCase();
     currentPage = 1;
-    
-    // Try to find which category has this item
-    for (const [cat, items] of Object.entries(gameData)) {
-        if (items.some(item => item.n === itemName || item.d === itemName)) {
-            // Switch to that category
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.category === cat);
-            });
-            currentCategory = cat;
-            break;
-        }
+    for (const [c, items] of Object.entries(gameData)) {
+        if (items.some(i => i.n === name || i.d === name)) { document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.category === c)); currentCategory = c; break; }
     }
-    
     renderContent();
 }
 
-function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); document.body.style.overflow = ''; }
 
-// ============== INIT ==============
 loadDatabase();
 </script>
 </body>
