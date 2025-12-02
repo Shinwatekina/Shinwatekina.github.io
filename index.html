@@ -1,629 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seylia - Private Authentication</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0a0010 0%, #1a0024 50%, #240042 100%);
-      color: #fff;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Animated Grid Background */
-    .grid-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(138, 43, 226, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(138, 43, 226, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .grid-background::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center, transparent 0%, #0a0010 70%);
-    }
-
-    /* Floating Particles */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: #a855f7;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 15s infinite;
-      box-shadow: 0 0 10px #a855f7;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.3; }
-      90% { opacity: 0.3; }
-      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-    }
-
-    /* Header */
-    header {
-      position: relative;
-      z-index: 10;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(168, 85, 247, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-icon {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
-    }
-
-    .logo-icon svg {
-      width: 28px;
-      height: 28px;
-      fill: white;
-    }
-
-    .logo-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #fff, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 3px;
-    }
-
-    .status-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(14, 14, 16, 0.8);
-      padding: 10px 20px;
-      border-radius: 50px;
-      border: 1px solid rgba(139, 255, 167, 0.2);
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      background: #5EFF77;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #5EFF77, 0 0 20px #5EFF77;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
-    }
-
-    .status-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 12px;
-      color: #8BFFA7;
-      letter-spacing: 2px;
-    }
-
-    /* Main Container */
-    main {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 200px);
-      padding: 40px 20px;
-    }
-
-    .auth-container {
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .auth-card {
-      background: linear-gradient(180deg, rgba(14, 14, 16, 0.95) 0%, rgba(8, 8, 8, 0.98) 100%);
-      border-radius: 24px;
-      padding: 50px 40px;
-      border: 1px solid rgba(168, 85, 247, 0.15);
-      box-shadow: 
-        0 0 60px rgba(168, 85, 247, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .auth-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #a855f7, #ec4899, #a855f7, transparent);
-    }
-
-    .auth-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .auth-icon {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-
-    .auth-icon svg {
-      width: 35px;
-      height: 35px;
-      stroke: #a855f7;
-    }
-
-    .auth-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      letter-spacing: 4px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 8px;
-    }
-
-    .auth-subtitle {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      background: linear-gradient(90deg, #fff, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 24px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .input-wrapper svg {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      stroke: rgba(168, 85, 247, 0.5);
-      transition: stroke 0.3s ease;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 16px 20px 16px 52px;
-      background: rgba(26, 0, 36, 0.5);
-      border: 1px solid rgba(168, 85, 247, 0.2);
-      border-radius: 14px;
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      outline: none;
-    }
-
-    .form-input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    .form-input:focus {
-      border-color: #a855f7;
-      background: rgba(26, 0, 36, 0.8);
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
-    }
-
-    .form-input:focus + svg,
-    .input-wrapper:hover svg {
-      stroke: #a855f7;
-    }
-
-    /* Submit Button */
-    .submit-btn {
-      width: 100%;
-      padding: 18px 24px;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      border: none;
-      border-radius: 14px;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
-    }
-
-    .submit-btn:hover::before {
-      left: 100%;
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    /* Divider */
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 30px 0;
-      gap: 15px;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
-    }
-
-    .divider-text {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 2px;
-    }
-
-    /* Info Section */
-    .info-section {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 25px;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 13px;
-    }
-
-    .info-item svg {
-      width: 16px;
-      height: 16px;
-      stroke: #a855f7;
-    }
-
-    /* Footer */
-    footer {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid rgba(168, 85, 247, 0.1);
-    }
-
-    .footer-text {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 1px;
-    }
-
-    .footer-text span {
-      color: #a855f7;
-    }
-
-    /* Mouse Follower */
-    .mouse-follower {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #a855f7, #ec4899);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-      box-shadow: 0 0 20px #a855f7, 0 0 40px rgba(168, 85, 247, 0.5);
-      z-index: 9999;
-      opacity: 0.8;
-    }
-
-    .mouse-follower.hover {
-      width: 50px;
-      height: 50px;
-      opacity: 0.4;
-    }
-
-    .mouse-ring {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(168, 85, 247, 0.5);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: all 0.1s ease-out;
-      z-index: 9998;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      header {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .auth-card {
-        padding: 40px 25px;
-      }
-
-      .logo-text {
-        font-size: 22px;
-      }
-
-      .info-section {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO2 Database Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-deep: #0a0012;
+            --bg-dark: #0E0E10;
+            --bg-card: #12081a;
+            --bg-card-hover: #1a0d24;
+            --purple-dark: #1a0024;
+            --purple-mid: #240042;
+            --purple-glow: #8b5cf6;
+            --purple-bright: #a78bfa;
+            --magenta: #d946ef;
+            --neon-green: #8BFFA7;
+            --cyan: #22d3ee;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-dim: #64748b;
+            --border-color: rgba(139, 92, 246, 0.3);
+            --border-glow: rgba(139, 92, 246, 0.6);
+        }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(217, 70, 239, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .header {
+            background: linear-gradient(180deg, var(--bg-card) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+        .header-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        .logo-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--purple-glow), var(--magenta));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+        .logo-icon svg { width: 28px; height: 28px; fill: white; }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem; font-weight: 700; letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--text-primary), var(--purple-bright));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .logo-sub {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--neon-green);
+            letter-spacing: 3px; text-transform: uppercase;
+        }
+        .status-badge {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 255, 167, 0.1);
+            border: 1px solid rgba(139, 255, 167, 0.3);
+            border-radius: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem; color: var(--neon-green); letter-spacing: 2px;
+        }
+        .status-badge.error { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #ef4444; }
+        .status-dot {
+            width: 8px; height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        .status-badge.error .status-dot { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .search-container { flex: 1; max-width: 500px; position: relative; }
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem 0.875rem 3rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem; font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--purple-glow);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+        .search-input::placeholder { color: var(--text-dim); }
+        .search-icon {
+            position: absolute; left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim); pointer-events: none;
+        }
+        .main-container {
+            max-width: 1800px; margin: 0 auto; padding: 2rem;
+            display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
+        }
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem; letter-spacing: 3px;
+            color: var(--text-dim); margin-bottom: 1rem; padding-left: 1rem;
+        }
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+        .nav-item { position: relative; }
+        .nav-btn {
+            width: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.875rem 1rem;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease; text-align: left;
+        }
+        .nav-btn:hover { background: var(--bg-card); border-color: var(--border-color); color: var(--text-primary); }
+        .nav-btn.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.1));
+            border-color: var(--purple-glow); color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+        .nav-btn.active::before {
+            content: '';
+            position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+            width: 3px; height: 60%;
+            background: linear-gradient(180deg, var(--purple-glow), var(--magenta));
+            border-radius: 2px; box-shadow: 0 0 10px var(--purple-glow);
+        }
+        .nav-icon { font-size: 1.2rem; margin-right: 0.75rem; }
+        .nav-count {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem; padding: 0.25rem 0.5rem;
+            background: rgba(139, 92, 246, 0.2); border-radius: 6px;
+            color: var(--purple-bright);
+        }
+        .content { min-height: 500px; }
+        .content-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1.5rem; padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .content-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem; font-weight: 600; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .content-title-icon { font-size: 1.75rem; }
+        .results-count {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.875rem; color: var(--text-dim);
+        }
+        .results-count span { color: var(--neon-green); }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+        .item-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 1.25rem;
+            cursor: pointer; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+        .item-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .item-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
+        }
+        .item-card:hover::before { opacity: 1; }
+        .item-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .item-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; flex-shrink: 0;
+            position: relative; overflow: hidden;
+        }
+        .item-icon img {
+            width: 100%; height: 100%;
+            object-fit: contain; border-radius: 9px;
+            image-rendering: pixelated;
+        }
+        .item-info { flex: 1; min-width: 0; }
+        .item-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 0.25rem;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .item-class {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem; color: var(--cyan);
+            background: rgba(34, 211, 238, 0.1);
+            padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block;
+        }
+        .item-internal {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--text-dim); margin-top: 0.25rem;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .item-props { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .item-prop {
+            font-size: 0.75rem; padding: 0.25rem 0.5rem;
+            background: rgba(139, 92, 246, 0.1); border-radius: 4px;
+            color: var(--text-secondary);
+        }
+        .item-prop-key { color: var(--purple-bright); }
+        .item-prop-val { color: var(--text-primary); }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 2rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px; width: 100%; max-width: 700px;
+            max-height: 85vh; overflow: hidden;
+            box-shadow: 0 25px 80px rgba(139, 92, 246, 0.3);
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(217, 70, 239, 0.1));
+            border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .modal-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, var(--purple-dark), var(--purple-mid));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; flex-shrink: 0; overflow: hidden;
+        }
+        .modal-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+        .modal-title-section { flex: 1; min-width: 0; }
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 0.25rem;
+        }
+        .modal-class {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem; color: var(--cyan);
+            background: rgba(34, 211, 238, 0.15);
+            padding: 0.25rem 0.75rem; border-radius: 4px;
+        }
+        .modal-close {
+            width: 36px; height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; color: var(--text-secondary);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; transition: all 0.2s ease;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary); border-color: var(--border-glow);
+        }
+        .modal-body { padding: 1.5rem; max-height: calc(85vh - 120px); overflow-y: auto; }
+        .modal-section { margin-bottom: 1.5rem; }
+        .modal-section:last-child { margin-bottom: 0; }
+        .modal-section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 2px;
+            color: var(--purple-bright); margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        .prop-item {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 8px; padding: 0.75rem;
+        }
+        .prop-key {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem; color: var(--text-dim);
+            margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .prop-value { font-size: 0.9rem; color: var(--text-primary); word-break: break-word; }
+        .prop-value.bool { color: var(--neon-green); }
+        .prop-value.number { color: var(--cyan); }
+        .prop-value.ref { color: #f0abfc; }
+        .loading {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 4rem; gap: 1.5rem;
+        }
+        .loading-spinner {
+            width: 48px; height: 48px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--purple-glow);
+            border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px;
+        }
+        .empty-state {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 4rem; gap: 1rem;
+        }
+        .empty-icon { font-size: 3rem; opacity: 0.5; }
+        .empty-text {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-dim); text-align: center;
+        }
+        .pagination {
+            display: flex; justify-content: center; align-items: center;
+            gap: 0.5rem; margin-top: 2rem; padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .page-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; color: var(--text-secondary);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
+        }
+        .page-btn:hover:not(:disabled) {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow); color: var(--text-primary);
+        }
+        .page-btn.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(217, 70, 239, 0.2));
+            border-color: var(--purple-glow); color: var(--text-primary);
+        }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-info {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem; color: var(--text-dim); padding: 0 0.5rem;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--purple-mid); }
+        @media (max-width: 1024px) {
+            .main-container { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .nav-list { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
+            .nav-btn { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+        }
+        @media (max-width: 640px) {
+            .header-content { flex-wrap: wrap; }
+            .search-container { order: 3; max-width: none; width: 100%; }
+            .items-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="grid-background"></div>
-  
-  <!-- Floating Particles -->
-  <div class="particles" id="particles"></div>
-
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
-          <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <span class="logo-text">SEYLIA</span>
-    </div>
-    <div class="status-badge">
-      <div class="status-dot"></div>
-      <span class="status-text">SYSTEM ONLINE</span>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main>
-    <div class="auth-container">
-      <div class="auth-card">
-        <div class="auth-header">
-          <div class="auth-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              <circle cx="12" cy="16" r="1"/>
-            </svg>
-          </div>
-          <p class="auth-title">PRIVATE LOADER</p>
-          <h1 class="auth-subtitle">LICENSE AUTHENTICATION</h1>
-        </div>
-
-        <form id="authForm">
-          <div class="form-group">
-            <label class="form-label">Username</label>
-            <div class="input-wrapper">
-              <input type="text" class="form-input" placeholder="Enter your username" required>
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="logo-text">MO2 DATABASE</div>
+                    <div class="logo-sub">Content Browser v2.0</div>
+                </div>
             </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">License Key</label>
-            <div class="input-wrapper">
-              <input type="password" class="form-input" placeholder="XXXX-XXXX-XXXX-XXXX" required>
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
-              </svg>
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search entries...">
             </div>
-          </div>
-
-          <button type="submit" class="submit-btn">AUTHENTICATE</button>
-        </form>
-
-        <div class="divider">
-          <div class="divider-line"></div>
-          <span class="divider-text">SECURE CONNECTION</span>
-          <div class="divider-line"></div>
+            <div class="status-badge" id="statusBadge">
+                <div class="status-dot"></div>
+                <span id="statusText">LOADING...</span>
+            </div>
         </div>
-
-        <div class="info-section">
-          <div class="info-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <span>256-bit Encryption</span>
-          </div>
-          <div class="info-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>24/7 Uptime</span>
-          </div>
+    </header>
+    <main class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-title">CATEGORIES</div>
+            <ul class="nav-list" id="navList"></ul>
+        </aside>
+        <section class="content">
+            <div id="contentArea">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">LOADING DATABASE...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title-section">
+                    <h2 class="modal-title" id="modalTitle">Item Name</h2>
+                    <span class="modal-class" id="modalClass">class</span>
+                </div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
-      </div>
     </div>
-  </main>
+<script>
+const categoryIcons = {
+    items: '📦', enemies: '👹', npcs: '🧑', skills: '⚡', structures: '🏛️',
+    spawners: '🎯', misc: '🔧', AIattacks: '⚔️', spells: '✨', GemEffects: '💎',
+    Decorations: '🎨', buffs: '🛡️', drops: '💰', projectiles: '🏹', quests: '📜',
+    recipes: '📖', ModularBuilding: '🏗️', NoBinding: '🔓', Stats: '📊'
+};
+const categoryNames = {
+    items: 'Items', enemies: 'Enemies', npcs: 'NPCs', skills: 'Skills',
+    structures: 'Structures', spawners: 'Spawners', misc: 'Miscellaneous',
+    AIattacks: 'AI Attacks', spells: 'Spells', GemEffects: 'Gem Effects',
+    Decorations: 'Decorations', buffs: 'Buffs', drops: 'Drops',
+    projectiles: 'Projectiles', quests: 'Quests', recipes: 'Recipes',
+    ModularBuilding: 'Modular Building', NoBinding: 'No Binding', Stats: 'Stats'
+};
 
-  <!-- Footer -->
-  <footer>
-    <p class="footer-text">© 2025 <span>SEYLIA</span> — All rights reserved. Private access only.</p>
-  </footer>
+// Embedded icon map - lowercase name -> path relative to Icons/
+const iconMap = {"arrow_1_left":"ActionBar/arrow_1_left.png","arrow_1_right":"ActionBar/arrow_1_right.png","arrow_2":"ActionBar/arrow_2.png","background":"Quest/BACKGROUND.png","alvarineclade_cape":"Armors/AlvarinEClade_Cape.png","alvarinnclade_cape":"Armors/AlvarinNClade_Cape.png","alvarinshroud_cape":"Armors/AlvarinShroud_Cape.png","berserkerrisar_cape":"Armors/BerserkerRisar_Cape.png","berserkerrisar_chest":"Armors/BerserkerRisar_Chest.png","berserkerrisar_helmet":"Armors/BerserkerRisar_Helmet.png","berserkerrisar_leftarm":"Armors/BerserkerRisar_LeftArm.png","berserkerrisar_pants":"Armors/BerserkerRisar_Pants.png","berserkerrisar_rightarm":"Armors/BerserkerRisar_RightArm.png","black_panther_cape":"Armors/Black_Panther_Cape.png","blainclade_cape":"Armors/BlainClade_Cape.png","coraxiseeker_cape":"Armors/CoraxiSeeker_Cape.png","dawningcloth_cape":"Armors/DawningCloth_Cape.png","draco_cape":"Armors/Draco_Cape.png","draco_chest":"Armors/Draco_Chest.png","draco_helmet":"Armors/Draco_Helmet.png","draco_leftarm":"Armors/Draco_LeftArm.png","draco_pants":"Armors/Draco_Pants.png","draco_rightarm":"Armors/Draco_RightArm.png","fledgling_cape":"Armors/Fledgling_Cape.png","huergarclade_cape":"Armors/HuergarClade_Cape.png","kallard_cape":"Armors/Kallard_Cape.png","kallard_chest":"Armors/Kallard_Chest.png","kallard_helmet":"Armors/Kallard_Helmet.png","kallard_leftarm":"Armors/Kallard_LeftArm.png","kallard_pants":"Armors/Kallard_Pants.png","kallard_rightarm":"Armors/Kallard_RightArm.png","kallardclade_cape":"Armors/KallardClade_Cape.png","kallardianbanded_cape":"Armors/KallardianBanded_Cape.png","kallardianbanded_chest":"Armors/KallardianBanded_Chest.png","kallardianbanded_helmet":"Armors/KallardianBanded_Helmet.png","kallardianbanded_leftarm":"Armors/KallardianBanded_LeftArm.png","kallardianbanded_pants":"Armors/KallardianBanded_Pants.png","kallardianbanded_rightarm":"Armors/KallardianBanded_RightArm.png","khurite_cape":"Armors/Khurite_Cape.png","khurite_cape_banner":"Items/Khurite_Cape_Banner.png","khurite_chest":"Armors/Khurite_Chest.png","khurite_helmet":"Armors/Khurite_Helmet.png","khurite_leftarm":"Armors/Khurite_LeftArm.png","khurite_pants":"Armors/Khurite_Pants.png","khurite_rightarm":"Armors/Khurite_RightArm.png","khuriteclade_cape":"Armors/KhuriteClade_Cape.png","magearmor_body":"Armors/MageArmor_Body.png","magearmor_cape":"Armors/MageArmor_Cape.png","magearmor_helmet":"Armors/MageArmor_Helmet.png","magearmor_leftarm":"Armors/MageArmor_LeftArm.png","magearmor_pants":"Armors/MageArmor_Pants.png","magearmor_rightarm":"Armors/MageArmor_RightArm.png","masterhunter_cape":"Armors/MasterHunter_Cape.png","mo2_armor_capereward_fishermancape":"Armors/MO2_armor_CapeReward_FishermanCape.png","mo2_armor_capereward_foragercape":"Armors/MO2_armor_CapeReward_ForagerCape.png","mo2_armor_capereward_hivebreakercloak":"Armors/MO2_armor_CapeReward_HivebreakerCloak.png","ranger_cape":"Armors/Ranger_Cape.png","ranger_chest":"Armors/Ranger_Chest.png","ranger_helmet":"Armors/Ranger_Helmet.png","ranger_leftarm":"Armors/Ranger_LeftArm.png","ranger_pants":"Armors/Ranger_Pants.png","ranger_rightarm":"Armors/Ranger_RightArm.png","realmwarden_cape":"Armors/RealmWarden_Cape.png","risar_cape":"Armors/Risar_Cape.png","risar_chest":"Armors/Risar_Chest.png","risar_helmet":"Armors/Risar_Helmet.png","risar_leftarm":"Armors/Risar_LeftArm.png","risar_pants":"Armors/Risar_Pants.png","risar_rightarm":"Armors/Risar_RightArm.png","rogue_cape":"Armors/Rogue_Cape.png","rogue_chest":"Armors/Rogue_Chest.png","rogue_helmet":"Armors/Rogue_Helmet.png","rogue_leftarm":"Armors/Rogue_LeftArm.png","rogue_pants":"Armors/Rogue_Pants.png","rogue_rightarm":"Armors/Rogue_RightArm.png","rustic_cape":"Armors/Rustic_Cape.png","rusticgarment_body":"Armors/RusticGarment_Body.png","rusticgarment_helmet":"Armors/RusticGarment_Helmet.png","rusticgarment_leftarm":"Armors/RusticGarment_LeftArm.png","rusticgarment_pants":"Armors/RusticGarment_Pants.png","rusticgarment_rightarm":"Armors/RusticGarment_RightArm.png","sarducaanclade_cape":"Armors/SarducaanClade_Cape.png","savagemantle_cape":"Armors/SavageMantle_Cape.png","sidoianclade_cape":"Armors/SidoianClade_Cape.png","tatteredveil_cape":"Armors/TatteredVeil_Cape.png","tguard_cape":"Armors/Tguard_Cape.png","tguard_chest":"Armors/Tguard_Chest.png","tguard_helmet":"Armors/Tguard_Helmet.png","tguard_leftarm":"Armors/Tguard_LeftArm.png","tguard_pants":"Armors/Tguard_Pants.png","tguard_rightarm":"Armors/Tguard_RightArm.png","thursarclade_cape":"Armors/ThursarClade_Cape.png","tindremeneclade_cape":"Armors/TindremeneClade_Cape.png","tindremicattire_body":"Armors/TindremicAttire_Body.png","tindremicattire_cape_banner":"Armors/TindremicAttire_Cape_Banner.png","tindremicattire_helmet":"Armors/TindremicAttire_Helmet.png","tindremicattire_leftarm":"Armors/TindremicAttire_LeftArm.png","tindremicattire_pants":"Armors/TindremicAttire_Pants.png","tindremicattire_rightarm":"Armors/TindremicAttire_RightArm.png","tknight_cape":"Armors/TKnight_Cape.png","tknight_chest":"Armors/TKnight_Chest.png","tknight_helmet":"Armors/TKnight_Helmet.png","tknight_leftarm":"Armors/TKnight_LeftArm.png","tknight_pants":"Armors/TKnight_Pants.png","tknight_rightarm":"Armors/TKnight_RightArm.png","tyriancloak_cape":"Armors/TyrianCloak_Cape.png","vagrantreg_body":"Armors/VagrantReg_Body.png","vagrantreg_cape":"Armors/VagrantReg_Cape.png","vagrantreg_helmet":"Armors/VagrantReg_Helmet.png","vagrantreg_leftarm":"Armors/VagrantReg_LeftArm.png","vagrantreg_pants":"Armors/VagrantReg_Pants.png","vagrantreg_rightarm":"Armors/VagrantReg_RightArm.png","beeswax":"Items/Beeswax.png","cuprum":"Items/cuprum.png","gold":"Items/Gold.png","silver":"Items/Silver.png","steel":"Items/Steel.png","water":"Items/Water.png","wood":"Items/Wood.png","coal":"Items/Coal.png","salt":"Items/Salt.png","book":"Items/book.png","torch":"Items/Torch.png","bandage":"Items/Bandage.png","potion":"Items/Potion.png","scroll":"Items/Scroll.png","bottle":"Items/Bottle.png","bag1":"Items/Bag1.png","bag2":"Items/Bag2.png","bag3":"Items/Bag3.png","horse":"Creatures/horse.png","wolf":"Creatures/Wolf.png","pig":"Items/Pig.png","chicken":"Pets/chicken.png","rabbit":"Items/Rabbit.png","fireball":"Spells/fireball.png","lightning":"Spells/lightning.png","resurrect":"Spells/resurrect.png","purify":"Spells/purify.png","black_bear":"Creatures/Black_Bear.png","brown_bear":"Creatures/Brown_Bear.png","polar_bear":"Creatures/Polar_Bear.png","bush_pig":"Creatures/Bush_Pig.png","razorback":"Creatures/Razorback.png","springbok":"Creatures/springbok.png","wisent":"Creatures/wisent.png","puma":"Creatures/Puma.png","direwolf":"Creatures/DireWolf.png","taurdog":"Creatures/Taurdog.png","minotaur":"Pets/Minotaur.png","campodon":"Pets/Campodon.png","terrorbird":"Items/TerrorBird.png"};
 
-  <!-- Mouse Follower Elements -->
-  <div class="mouse-follower"></div>
-  <div class="mouse-ring"></div>
+const defaultIcon = 'Items/Beeswax.png';
 
-  <script>
-    // Generate Floating Particles
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 50; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDelay = Math.random() * 15 + 's';
-      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-      particlesContainer.appendChild(particle);
+let db = null;
+let gameData = {};
+let currentCategory = null;
+let currentPage = 1;
+let searchQuery = '';
+const itemsPerPage = 50;
+
+function parseDataBlob(dataStr) {
+    if (!dataStr) return {};
+    const props = {};
+    const lines = dataStr.split('\n');
+    for (const line of lines) {
+        const match = line.match(/\[(\w+)\]\s*=>\s*(.*)/);
+        if (match) {
+            const key = match[1];
+            const valueStr = match[2];
+            const sDataMatch = valueStr.match(/sData:"([^"]*)"/);
+            if (sDataMatch) { props[key] = sDataMatch[1]; continue; }
+            const iDataMatch = valueStr.match(/iData:(-?\d+)/);
+            if (iDataMatch) { props[key] = parseInt(iDataMatch[1]); continue; }
+            const fDataMatch = valueStr.match(/fData:([\d.-]+)/);
+            if (fDataMatch) { props[key] = parseFloat(fDataMatch[1]); continue; }
+            if (valueStr.includes('eType:Bool')) {
+                props[key] = valueStr.includes('bData:true') || valueStr.includes('bData:True');
+                continue;
+            }
+            const refMatch = valueStr.match(/Ref:\{Name:"([^"]+)"/);
+            if (refMatch) { props[key + '_Ref'] = refMatch[1]; }
+        }
     }
+    return props;
+}
 
-    // Mouse Follower
-    const follower = document.querySelector('.mouse-follower');
-    const ring = document.querySelector('.mouse-ring');
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    let ringX = 0, ringY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animate() {
-      // Smooth follower movement
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
-      follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
-
-      // Smoother ring movement (trails behind)
-      ringX += (mouseX - ringX) * 0.08;
-      ringY += (mouseY - ringY) * 0.08;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-
-      requestAnimationFrame(animate);
+function findIcon(item) {
+    const name = (item.n || '').toLowerCase().replace(/\s+/g, '');
+    const displayName = (item.d || '').toLowerCase().replace(/\s+/g, '');
+    const contentClass = (item.p?.ContentClass || '').toLowerCase();
+    
+    // Direct match
+    if (iconMap[name]) return 'Icons/' + iconMap[name];
+    if (iconMap[displayName]) return 'Icons/' + iconMap[displayName];
+    
+    // Normalized (no underscores/hyphens)
+    const normalized = name.replace(/[_-]/g, '');
+    if (iconMap[normalized]) return 'Icons/' + iconMap[normalized];
+    
+    // ContentClass parsing
+    if (contentClass) {
+        const parts = contentClass.split('.');
+        for (let i = parts.length - 1; i >= 0; i--) {
+            const part = parts[i].toLowerCase();
+            if (iconMap[part]) return 'Icons/' + iconMap[part];
+        }
     }
-    animate();
+    
+    // Partial match
+    for (const [key, path] of Object.entries(iconMap)) {
+        if (name.includes(key) || key.includes(name)) {
+            return 'Icons/' + path;
+        }
+    }
+    
+    return 'Icons/' + defaultIcon;
+}
 
-    // Hover effect on interactive elements
-    const interactiveElements = document.querySelectorAll('button, input, a, .logo');
-    interactiveElements.forEach((element) => {
-      element.addEventListener('mouseenter', () => {
-        follower.classList.add('hover');
-      });
-      element.addEventListener('mouseleave', () => {
-        follower.classList.remove('hover');
-      });
-    });
-
-    // Form submission (demo)
-    document.getElementById('authForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = document.querySelector('.submit-btn');
-      btn.textContent = 'AUTHENTICATING...';
-      btn.style.pointerEvents = 'none';
-      
-      setTimeout(() => {
-        btn.textContent = 'AUTHENTICATED ✓';
-        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+async function loadDatabase() {
+    try {
+        const SQL = await initSqlJs({
+            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+        });
         
-        setTimeout(() => {
-          btn.textContent = 'AUTHENTICATE';
-          btn.style.background = 'linear-gradient(135deg, #a855f7, #ec4899)';
-          btn.style.pointerEvents = 'auto';
-        }, 2000);
-      }, 1500);
+        const response = await fetch('content.db');
+        if (!response.ok) throw new Error('content.db not found - place it in the same folder as index.html');
+        
+        const buffer = await response.arrayBuffer();
+        db = new SQL.Database(new Uint8Array(buffer));
+        
+        const tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name");
+        if (!tables.length) throw new Error('No tables found in database');
+        
+        gameData = {};
+        for (const [tableName] of tables[0].values) {
+            if (tableName === 'version') continue;
+            try {
+                const result = db.exec(`SELECT * FROM "${tableName}"`);
+                if (result.length && result[0].values.length) {
+                    const columns = result[0].columns;
+                    gameData[tableName] = result[0].values.map(row => {
+                        const obj = {};
+                        columns.forEach((col, idx) => obj[col] = row[idx]);
+                        const props = parseDataBlob(obj.data);
+                        return {
+                            n: obj.name || obj.guid || 'Unknown',
+                            d: props.DisplayName || obj.name || 'Unknown',
+                            c: obj.class || 'unknown',
+                            guid: obj.guid,
+                            p: props
+                        };
+                    });
+                }
+            } catch (e) { console.warn(`Error loading ${tableName}:`, e); }
+        }
+        
+        document.getElementById('statusText').textContent = 'SYSTEM ONLINE';
+        document.getElementById('statusBadge').classList.remove('error');
+        initUI();
+    } catch (e) {
+        console.error('Failed to load database:', e);
+        document.getElementById('statusText').textContent = 'ERROR';
+        document.getElementById('statusBadge').classList.add('error');
+        document.getElementById('contentArea').innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">⚠️</div>
+                <div class="empty-text">
+                    Failed to load database<br><br>
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                        ${e.message}<br><br>
+                        Make sure:<br>
+                        • content.db is in the same folder as index.html<br>
+                        • Icons/ folder is in the same location<br>
+                        • You're running from a web server (not file://)
+                    </span>
+                </div>
+            </div>`;
+    }
+}
+
+function initUI() {
+    const categories = Object.keys(gameData).filter(cat => gameData[cat]?.length > 0);
+    if (!categories.length) {
+        document.getElementById('contentArea').innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">📭</div>
+                <div class="empty-text">No entries found in database</div>
+            </div>`;
+        return;
+    }
+    
+    currentCategory = categories[0];
+    const navList = document.getElementById('navList');
+    navList.innerHTML = categories.map((cat, idx) => `
+        <li class="nav-item">
+            <button class="nav-btn ${idx === 0 ? 'active' : ''}" data-category="${cat}">
+                <span><span class="nav-icon">${categoryIcons[cat] || '📁'}</span>${categoryNames[cat] || cat}</span>
+                <span class="nav-count">${gameData[cat].length}</span>
+            </button>
+        </li>
+    `).join('');
+    
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.dataset.category;
+            currentPage = 1;
+            renderContent();
+        });
     });
-  </script>
+    
+    let searchTimeout;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            searchQuery = e.target.value.toLowerCase();
+            currentPage = 1;
+            renderContent();
+        }, 200);
+    });
+    
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'modalOverlay') closeModal();
+    });
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    
+    renderContent();
+}
+
+function filterItems(items) {
+    if (!searchQuery) return items;
+    return items.filter(item => {
+        const name = (item.n || '').toLowerCase();
+        const displayName = (item.d || '').toLowerCase();
+        const cls = (item.c || '').toLowerCase();
+        const props = JSON.stringify(item.p || {}).toLowerCase();
+        return name.includes(searchQuery) || displayName.includes(searchQuery) || 
+               cls.includes(searchQuery) || props.includes(searchQuery);
+    });
+}
+
+function renderContent() {
+    const items = gameData[currentCategory] || [];
+    const filtered = filterItems(items);
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
+    const contentArea = document.getElementById('contentArea');
+    
+    if (!filtered.length) {
+        contentArea.innerHTML = `
+            <div class="content-header">
+                <h2 class="content-title">
+                    <span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>
+                    ${categoryNames[currentCategory] || currentCategory}
+                </h2>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <div class="empty-text">${searchQuery ? 'No results for "' + searchQuery + '"' : 'No entries'}</div>
+            </div>`;
+        return;
+    }
+    
+    let html = `
+        <div class="content-header">
+            <h2 class="content-title">
+                <span class="content-title-icon">${categoryIcons[currentCategory] || '📁'}</span>
+                ${categoryNames[currentCategory] || currentCategory}
+            </h2>
+            <div class="results-count">
+                Showing <span>${start + 1}-${Math.min(start + itemsPerPage, filtered.length)}</span> of <span>${filtered.length}</span>
+            </div>
+        </div>
+        <div class="items-grid">`;
+    
+    pageItems.forEach((item, idx) => {
+        const displayName = item.d || item.n || 'Unknown';
+        const internalName = item.n || '';
+        const cls = item.c || 'unknown';
+        const props = item.p || {};
+        const iconPath = findIcon(item);
+        const propKeys = Object.keys(props).filter(k => 
+            k !== 'DisplayName' && k !== 'ContentClass' && !k.endsWith('_Ref') && !k.endsWith('_GUID')
+        ).slice(0, 3);
+        
+        html += `
+            <div class="item-card" data-idx="${start + idx}">
+                <div class="item-header">
+                    <div class="item-icon">
+                        <img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${escapeHtml(displayName)}</div>
+                        <span class="item-class">${escapeHtml(cls)}</span>
+                        <div class="item-internal">${escapeHtml(internalName)}</div>
+                    </div>
+                </div>
+                <div class="item-props">
+                    ${propKeys.map(k => `
+                        <span class="item-prop">
+                            <span class="item-prop-key">${k}:</span>
+                            <span class="item-prop-val">${formatValue(props[k])}</span>
+                        </span>
+                    `).join('')}
+                </div>
+            </div>`;
+    });
+    
+    html += '</div>';
+    
+    if (totalPages > 1) {
+        html += `<div class="pagination">
+            <button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">← Prev</button>`;
+        const maxBtns = 7;
+        let startPage = Math.max(1, currentPage - Math.floor(maxBtns / 2));
+        let endPage = Math.min(totalPages, startPage + maxBtns - 1);
+        if (endPage - startPage < maxBtns - 1) startPage = Math.max(1, endPage - maxBtns + 1);
+        if (startPage > 1) {
+            html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+            if (startPage > 2) html += `<span class="page-info">...</span>`;
+        }
+        for (let i = startPage; i <= endPage; i++) {
+            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        }
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) html += `<span class="page-info">...</span>`;
+            html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+        }
+        html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">Next →</button></div>`;
+    }
+    
+    contentArea.innerHTML = html;
+    document.querySelectorAll('.item-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const idx = parseInt(card.dataset.idx);
+            openModal(filtered[idx]);
+        });
+    });
+}
+
+function goToPage(page) {
+    currentPage = page;
+    renderContent();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openModal(item) {
+    const modal = document.getElementById('modalOverlay');
+    const displayName = item.d || item.n || 'Unknown';
+    const internalName = item.n || '';
+    const cls = item.c || 'unknown';
+    const props = item.p || {};
+    const iconPath = findIcon(item);
+    
+    document.getElementById('modalTitle').textContent = displayName;
+    document.getElementById('modalClass').textContent = cls;
+    document.getElementById('modalIcon').innerHTML = `<img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">`;
+    
+    let bodyHtml = '';
+    if (internalName && internalName !== displayName) {
+        bodyHtml += `
+            <div class="modal-section">
+                <div class="modal-section-title">Internal Name</div>
+                <div class="props-grid">
+                    <div class="prop-item"><div class="prop-key">Name</div><div class="prop-value">${escapeHtml(internalName)}</div></div>
+                    ${item.guid ? `<div class="prop-item"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.75rem">${escapeHtml(item.guid)}</div></div>` : ''}
+                </div>
+            </div>`;
+    }
+    
+    const regularProps = {}, refProps = {};
+    Object.entries(props).forEach(([key, val]) => {
+        if (key === 'DisplayName') return;
+        if (key.endsWith('_Ref')) refProps[key.replace('_Ref', '')] = val;
+        else if (!key.endsWith('_GUID')) regularProps[key] = val;
+    });
+    
+    if (Object.keys(regularProps).length) {
+        bodyHtml += `
+            <div class="modal-section">
+                <div class="modal-section-title">Properties</div>
+                <div class="props-grid">
+                    ${Object.entries(regularProps).map(([k, v]) => `
+                        <div class="prop-item">
+                            <div class="prop-key">${escapeHtml(k)}</div>
+                            <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
+                        </div>`).join('')}
+                </div>
+            </div>`;
+    }
+    
+    if (Object.keys(refProps).length) {
+        bodyHtml += `
+            <div class="modal-section">
+                <div class="modal-section-title">References</div>
+                <div class="props-grid">
+                    ${Object.entries(refProps).map(([k, v]) => `
+                        <div class="prop-item">
+                            <div class="prop-key">${escapeHtml(k)}</div>
+                            <div class="prop-value ref">${escapeHtml(v)}</div>
+                        </div>`).join('')}
+                </div>
+            </div>`;
+    }
+    
+    if (!bodyHtml) bodyHtml = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No additional properties</div></div>`;
+    
+    document.getElementById('modalBody').innerHTML = bodyHtml;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function escapeHtml(str) {
+    if (typeof str !== 'string') return String(str);
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function formatValue(val) {
+    if (val === true) return 'Yes';
+    if (val === false) return 'No';
+    if (typeof val === 'number') return Number.isInteger(val) ? val.toLocaleString() : val.toFixed(2);
+    return String(val);
+}
+
+function getValueClass(val) {
+    if (typeof val === 'boolean') return 'bool';
+    if (typeof val === 'number') return 'number';
+    return '';
+}
+
+// Auto-load on page ready
+loadDatabase();
+</script>
 </body>
 </html>
