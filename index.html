@@ -21,6 +21,7 @@
             --neon-green: #8BFFA7;
             --cyan: #22d3ee;
             --orange: #f97316;
+            --red: #ef4444;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-dim: #64748b;
@@ -298,6 +299,8 @@
         }
         .item-prop-key { color: var(--purple-bright); }
         .item-prop-val { color: var(--text-primary); }
+        
+        /* Modal Styles */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
@@ -308,12 +311,13 @@
         .modal {
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
-            border-radius: 16px; width: 100%; max-width: 700px;
-            max-height: 85vh; overflow: hidden;
+            border-radius: 16px; width: 100%; max-width: 800px;
+            max-height: 90vh; overflow: hidden;
             box-shadow: 0 25px 80px rgba(139, 92, 246, 0.3);
             animation: modalIn 0.3s ease;
         }
-        .modal.wide { max-width: 900px; }
+        .modal.wide { max-width: 1000px; }
+        .modal.extra-wide { max-width: 1200px; }
         @keyframes modalIn {
             from { opacity: 0; transform: scale(0.95) translateY(10px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -358,19 +362,66 @@
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary); border-color: var(--border-glow);
         }
-        .modal-body { padding: 1.5rem; max-height: calc(85vh - 120px); overflow-y: auto; }
-        .modal-section { margin-bottom: 1.5rem; }
-        .modal-section:last-child { margin-bottom: 0; }
-        .modal-section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem; font-weight: 600; letter-spacing: 2px;
-            color: var(--purple-bright); margin-bottom: 0.75rem;
-            text-transform: uppercase;
+        .modal-body { padding: 1.5rem; max-height: calc(90vh - 120px); overflow-y: auto; }
+        
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .props-grid {
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .section-header:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+        .section-header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--purple-bright);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-header-title .section-icon {
+            font-size: 1rem;
+        }
+        .section-count {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            background: rgba(0,0,0,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        .section-toggle {
+            font-size: 1rem;
+            color: var(--text-dim);
+            transition: transform 0.3s ease;
+        }
+        .collapsible-section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+        .section-content {
+            padding: 1rem;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .collapsible-section.collapsed .section-content {
+            display: none;
         }
         .prop-item {
             background: rgba(139, 92, 246, 0.05);
@@ -386,6 +437,43 @@
         .prop-value.bool { color: var(--neon-green); }
         .prop-value.number { color: var(--cyan); }
         .prop-value.ref { color: #f0abfc; }
+        
+        /* Loot Table Styles */
+        .loot-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .loot-table th, .loot-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .loot-table th {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--purple-bright);
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .loot-table td {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+        }
+        .loot-item-name {
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        .loot-item-name:hover {
+            color: var(--cyan);
+            text-decoration: underline;
+        }
+        .loot-chance {
+            color: var(--neon-green);
+        }
+        .loot-quantity {
+            color: var(--cyan);
+        }
+        
         /* Login Modal */
         .login-modal {
             background: var(--bg-card);
@@ -429,6 +517,7 @@
             transition: all 0.2s ease;
         }
         .login-btn:hover { background: #ea580c; }
+        
         /* Icon Picker */
         .icon-picker-header {
             display: flex;
@@ -436,7 +525,7 @@
             align-items: center;
             margin-bottom: 1rem;
         }
-        .icon-search {
+        .icon-search, .config-input {
             flex: 1;
             padding: 0.75rem 1rem;
             background: var(--bg-dark);
@@ -445,11 +534,11 @@
             color: var(--text-primary);
             font-family: 'Share Tech Mono', monospace;
         }
-        .icon-search:focus {
+        .icon-search:focus, .config-input:focus {
             outline: none;
             border-color: var(--purple-glow);
         }
-        .icon-folder-select {
+        .icon-folder-select, .config-select {
             padding: 0.75rem 1rem;
             background: var(--bg-dark);
             border: 1px solid var(--border-color);
@@ -491,14 +580,14 @@
             object-fit: contain;
             image-rendering: pixelated;
         }
-        .icon-picker-actions {
+        .picker-actions, .config-actions {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid var(--border-color);
         }
-        .icon-picker-actions button {
+        .picker-actions button, .config-actions button {
             flex: 1;
             padding: 0.75rem;
             border-radius: 8px;
@@ -530,6 +619,14 @@
         .btn-export:hover {
             background: rgba(139, 92, 246, 0.3);
         }
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--red);
+            color: var(--red);
+        }
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
         .current-icon-preview {
             display: flex;
             align-items: center;
@@ -548,9 +645,7 @@
             border-radius: 8px;
             padding: 0.5rem;
         }
-        .current-icon-info {
-            flex: 1;
-        }
+        .current-icon-info { flex: 1; }
         .current-icon-name {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
@@ -561,6 +656,116 @@
             font-size: 0.75rem;
             color: var(--text-dim);
         }
+        
+        /* Config Editor Styles */
+        .config-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .config-tab {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px 8px 0 0;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .config-tab:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--text-primary);
+        }
+        .config-tab.active {
+            background: var(--purple-glow);
+            color: white;
+            border-color: var(--purple-glow);
+        }
+        .config-panel {
+            display: none;
+        }
+        .config-panel.active {
+            display: block;
+        }
+        .config-section {
+            margin-bottom: 1.5rem;
+        }
+        .config-section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--purple-bright);
+            margin-bottom: 0.75rem;
+            letter-spacing: 1px;
+        }
+        .field-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+        .field-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+        .field-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .field-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--purple-glow);
+        }
+        .field-item label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .field-item.hidden label {
+            color: var(--text-dim);
+            text-decoration: line-through;
+        }
+        .section-group-editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .section-group-list {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .section-group-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .section-group-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .section-group-item.selected {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--purple-glow);
+        }
+        
+        /* Misc */
         .loading {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
@@ -637,6 +842,33 @@
             .search-container { order: 3; max-width: none; width: 100%; }
             .items-grid { grid-template-columns: 1fr; }
         }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            z-index: 2000;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+        }
+        .toast.error {
+            border-color: var(--red);
+            color: var(--red);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -650,7 +882,7 @@
                 </div>
                 <div>
                     <div class="logo-text">MO2 DATABASE</div>
-                    <div class="logo-sub">Content Browser v2.1</div>
+                    <div class="logo-sub">Content Browser v3.0</div>
                 </div>
             </div>
             <div class="search-container">
@@ -665,6 +897,7 @@
                     <span id="statusText">LOADING...</span>
                 </div>
                 <button class="dev-btn" id="devBtn">🔧 DEV</button>
+                <button class="dev-btn" id="configBtn" style="display:none">⚙️ CONFIG</button>
                 <span class="changes-indicator" id="changesIndicator" style="display:none">0 changes</span>
             </div>
         </div>
@@ -733,16 +966,130 @@
                     </select>
                 </div>
                 <div class="icon-grid" id="iconGrid"></div>
-                <div class="icon-picker-actions">
+                <div class="picker-actions">
                     <button class="btn-cancel" id="iconPickerCancel">Cancel</button>
-                    <button class="btn-export" id="exportChangesBtn">Export Changes</button>
                     <button class="btn-save" id="iconPickerSave">Save Selection</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Config Editor Modal -->
+    <div class="modal-overlay" id="configOverlay">
+        <div class="modal extra-wide">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <h2 class="modal-title">⚙️ Configuration Editor</h2>
+                    <span class="modal-class">Modify tables, classes, and field visibility</span>
+                </div>
+                <button class="modal-close" id="configClose">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="config-tabs">
+                    <button class="config-tab active" data-tab="icons">Icons</button>
+                    <button class="config-tab" data-tab="fields">Field Visibility</button>
+                    <button class="config-tab" data-tab="sections">Section Groups</button>
+                    <button class="config-tab" data-tab="tables">Tables & Classes</button>
+                </div>
+                
+                <div class="config-panel active" id="panel-icons">
+                    <div class="config-section">
+                        <div class="config-section-title">Icon Overrides</div>
+                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
+                            Icon overrides are saved globally and affect all users. Click the ✏️ button on any item card to change its icon.
+                        </p>
+                        <div id="iconOverridesList" style="max-height: 300px; overflow-y: auto;"></div>
+                    </div>
+                    <div class="config-actions">
+                        <button class="btn-export" id="exportIconsBtn">📥 Export Icons JSON</button>
+                        <button class="btn-danger" id="clearIconsBtn">🗑️ Clear All Overrides</button>
+                    </div>
+                </div>
+                
+                <div class="config-panel" id="panel-fields">
+                    <div class="config-section">
+                        <div class="config-section-title">Select Table / Class</div>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                            <select class="config-select" id="fieldTableSelect" style="flex:1">
+                                <option value="">Select a table...</option>
+                            </select>
+                            <select class="config-select" id="fieldClassSelect" style="flex:1">
+                                <option value="">Select a class...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="config-section">
+                        <div class="config-section-title">Visible Fields</div>
+                        <div class="field-list" id="fieldsList"></div>
+                    </div>
+                    <div class="config-actions">
+                        <button class="btn-cancel" onclick="document.getElementById('configOverlay').classList.remove('active')">Cancel</button>
+                        <button class="btn-save" id="saveFieldsBtn">Save Field Config</button>
+                    </div>
+                </div>
+                
+                <div class="config-panel" id="panel-sections">
+                    <div class="config-section">
+                        <div class="config-section-title">Property Section Groups</div>
+                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
+                            Define how properties are grouped into collapsible sections in the detail view.
+                        </p>
+                        <div class="section-group-editor">
+                            <div>
+                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Sections</div>
+                                <div class="section-group-list" id="sectionsList"></div>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <input type="text" class="config-input" id="newSectionName" placeholder="New section name..." style="flex:1">
+                                    <button class="btn-save" id="addSectionBtn" style="flex:0; padding: 0.5rem 1rem;">+</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Fields in Selected Section</div>
+                                <div class="field-list" id="sectionFieldsList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="config-actions">
+                        <button class="btn-cancel" onclick="document.getElementById('configOverlay').classList.remove('active')">Cancel</button>
+                        <button class="btn-save" id="saveSectionsBtn">Save Section Config</button>
+                    </div>
+                </div>
+                
+                <div class="config-panel" id="panel-tables">
+                    <div class="config-section">
+                        <div class="config-section-title">Table & Class Mappings</div>
+                        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">
+                            Configure which base field definitions apply to each table and class.
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Tables</div>
+                                <div class="section-group-list" id="tablesList"></div>
+                            </div>
+                            <div>
+                                <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">Class Mappings</div>
+                                <div class="section-group-list" id="classMappingsList"></div>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <input type="text" class="config-input" id="newClassName" placeholder="Class name" style="flex:1">
+                                    <select class="config-select" id="newClassBase" style="flex:1">
+                                        <option value="">Base type...</option>
+                                    </select>
+                                    <button class="btn-save" id="addClassBtn" style="flex:0; padding: 0.5rem 1rem;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="config-actions">
+                        <button class="btn-export" id="exportConfigBtn">📥 Export Full Config</button>
+                        <button class="btn-save" id="saveTablesBtn">Save Config</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
+// ============== CONSTANTS ==============
 const categoryIcons = {
     items: '📦', enemies: '👹', npcs: '🧑', skills: '⚡', structures: '🏛️',
     spawners: '🎯', misc: '🔧', AIattacks: '⚔️', spells: '✨', GemEffects: '💎',
@@ -758,42 +1105,158 @@ const categoryNames = {
     ModularBuilding: 'Modular Building', NoBinding: 'No Binding', Stats: 'Stats'
 };
 
+// Property section groupings for modal display
+const propertySections = {
+    'AI Information': {
+        icon: '🤖',
+        patterns: [/^Ai/],
+        subsections: {
+            'AI Combat': ['AiAttackBlockChance', 'AiAttackDoNothingChance', 'AiAttackHoldBlockChance', 'AiAttackHoldChargeChance', 'AiAttackList', 'AiAttackMistakeChance', 'AiAttackParryChance', 'AiAttackPctMagic', 'AiAttackPctMelee', 'AiAttackPctRanged', 'AiDyingAttack', 'AiStartCombatAttack', 'AiStopCombatAttack', 'AiStartHiddenSpawnAttack', 'AiStopHiddenSpawnAttack'],
+            'AI Defense': ['AiDefencePctBluntArmL', 'AiDefencePctBluntArmR', 'AiDefencePctBluntHead', 'AiDefencePctBluntLegs', 'AiDefencePctBluntTorso', 'AiDefencePctMagic', 'AiDefencePctPiercingArmL', 'AiDefencePctPiercingArmR', 'AiDefencePctPiercingHead', 'AiDefencePctPiercingLegs', 'AiDefencePctPiercingTorso', 'AiDefencePctSlashingArmL', 'AiDefencePctSlashingArmR', 'AiDefencePctSlashingHead', 'AiDefencePctSlashingLegs', 'AiDefencePctSlashingTorso'],
+            'AI Movement': ['AiMoveSpeed', 'AiWalkSpeed', 'AiMoveTarget', 'AiMoveTargetNext', 'AiMoveTimer', 'AiMovementFleeDistance', 'AiMovementType', 'AiFollowOffset'],
+            'AI Targeting': ['AiTarget', 'AiTargetCheckDistance', 'AiTargetCheckDistanceReaction', 'AiTargetCheckTimer', 'AiTargetFieldOfView', 'AiTargetFleeHealthPct', 'AiTargetListenDistance', 'AiTargetRemoveAggro', 'AiTargetRoamingMoveTimer'],
+            'AI Stats': ['AiLevel', 'AiLevelLock', 'AiLevelXP', 'AiPerLevelXP', 'AiHpRegen', 'AiFocusCur', 'AiFocusThreshold', 'AiControlPoints', 'AiCarryWeightCur', 'AiCarryWeightMax', 'AiBodyHeat', 'AiHunger'],
+            'AI Taming': ['AiTameType', 'AiTamingLevelAddMinMax', 'AiTamingMinMax', 'AiMountableFromLevel', 'AiMountableSlots', 'AiLoyalty', 'AiPlayerOwner'],
+            'AI Equipment': ['AiEquipmentBody', 'AiEquipmentLeft', 'AiEquipmentRight', 'AiEquipmentType'],
+            'AI Behavior': ['AiState', 'AiSpecialState', 'AiHuntMode', 'AiEatMode', 'AiNeverSleep', 'AiShowMercy', 'AiCommunicationCanTalk', 'AiCommunicationCheckDistance', 'AiCommunicationCheckGroup'],
+            'AI Other': []
+        }
+    },
+    'Loot & Drops': {
+        icon: '💰',
+        patterns: [/^LootContent/, /^Loot/],
+        isLootSection: true
+    },
+    'Combat Stats': {
+        icon: '⚔️',
+        patterns: [/Damage$/, /Defence$/, /Attack/, /^hp/, /^Blunt/, /^Piercing/, /^Slashing/]
+    },
+    'Item Properties': {
+        icon: '📦',
+        patterns: [/^item/, /^bag/, /^equip/, /^slot/, /Stack$/, /^dur/, /^Quality/]
+    },
+    'Crafting': {
+        icon: '🔨',
+        patterns: [/Craft/, /Material/, /Recipe/]
+    },
+    'Display & Visuals': {
+        icon: '🎨',
+        patterns: [/^Display/, /^dynamic/, /^color/, /Icon/, /^GFX/]
+    },
+    'Location & World': {
+        icon: '🌍',
+        patterns: [/^pos$/, /^rot$/, /^vel$/, /^Zone/, /^Continent/, /Location/]
+    },
+    'References': {
+        icon: '🔗',
+        patterns: [/_Ref$/, /_GUID$/, /^Guid$/, /Content$/]
+    },
+    'Other Properties': {
+        icon: '📋',
+        patterns: []  // Catch-all
+    }
+};
+
 const defaultIcon = 'Items/Beeswax.png';
 const DEV_PASSWORD = 'mo2dev';
 
+// ============== STATE ==============
 let db = null;
 let gameData = {};
 let iconMapping = {};
+let tableConfig = { bases: {}, tables: {} };
 let allIcons = [];
 let currentCategory = null;
 let currentPage = 1;
 let searchQuery = '';
 let devMode = false;
 let iconOverrides = {};
+let hiddenFields = {};
+let customSections = {};
 let editingItem = null;
 let selectedIcon = null;
 const itemsPerPage = 50;
 
-// Load icon overrides from localStorage
-function loadIconOverrides() {
-    try {
-        const saved = localStorage.getItem('mo2_icon_overrides');
-        if (saved) {
-            iconOverrides = JSON.parse(saved);
-            updateChangesIndicator();
-        }
-    } catch (e) { console.warn('Failed to load icon overrides:', e); }
+// ============== UTILITY FUNCTIONS ==============
+function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.className = 'toast' + (isError ? ' error' : '');
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
 }
 
-function saveIconOverrides() {
+function escapeHtml(str) {
+    if (typeof str !== 'string') return String(str);
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function formatValue(val) {
+    if (val === true) return 'Yes';
+    if (val === false) return 'No';
+    if (typeof val === 'number') return Number.isInteger(val) ? val.toLocaleString() : val.toFixed(2);
+    return String(val);
+}
+
+function getValueClass(val) {
+    if (typeof val === 'boolean') return 'bool';
+    if (typeof val === 'number') return 'number';
+    return '';
+}
+
+// ============== CONFIG MANAGEMENT ==============
+function loadConfig() {
+    // Load icon overrides from config file (for now, use localStorage as fallback)
+    try {
+        const savedIcons = localStorage.getItem('mo2_icon_overrides');
+        if (savedIcons) iconOverrides = JSON.parse(savedIcons);
+        
+        const savedHidden = localStorage.getItem('mo2_hidden_fields');
+        if (savedHidden) hiddenFields = JSON.parse(savedHidden);
+        
+        const savedSections = localStorage.getItem('mo2_custom_sections');
+        if (savedSections) customSections = JSON.parse(savedSections);
+        
+        updateChangesIndicator();
+    } catch (e) { console.warn('Failed to load config:', e); }
+}
+
+function saveConfig() {
     try {
         localStorage.setItem('mo2_icon_overrides', JSON.stringify(iconOverrides));
+        localStorage.setItem('mo2_hidden_fields', JSON.stringify(hiddenFields));
+        localStorage.setItem('mo2_custom_sections', JSON.stringify(customSections));
         updateChangesIndicator();
-    } catch (e) { console.warn('Failed to save icon overrides:', e); }
+        showToast('Configuration saved!');
+    } catch (e) {
+        console.warn('Failed to save config:', e);
+        showToast('Failed to save configuration', true);
+    }
+}
+
+function exportFullConfig() {
+    const config = {
+        _generated: new Date().toISOString(),
+        iconOverrides,
+        hiddenFields,
+        customSections,
+        tableConfig
+    };
+    downloadJSON(config, 'mo2_full_config.json');
+}
+
+function downloadJSON(data, filename) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 function updateChangesIndicator() {
-    const count = Object.keys(iconOverrides).length;
+    const count = Object.keys(iconOverrides).length + Object.keys(hiddenFields).length;
     const indicator = document.getElementById('changesIndicator');
     if (count > 0 && devMode) {
         indicator.style.display = 'inline';
@@ -803,6 +1266,7 @@ function updateChangesIndicator() {
     }
 }
 
+// ============== DATA PARSING ==============
 function parseDataBlob(dataStr) {
     if (!dataStr) return {};
     const props = {};
@@ -812,23 +1276,94 @@ function parseDataBlob(dataStr) {
         if (match) {
             const key = match[1];
             const valueStr = match[2];
+            
+            // Parse various value types
             const sDataMatch = valueStr.match(/sData:"([^"]*)"/);
             if (sDataMatch) { props[key] = sDataMatch[1]; continue; }
+            
             const iDataMatch = valueStr.match(/iData:(-?\d+)/);
             if (iDataMatch) { props[key] = parseInt(iDataMatch[1]); continue; }
+            
             const fDataMatch = valueStr.match(/fData:([\d.-]+)/);
             if (fDataMatch) { props[key] = parseFloat(fDataMatch[1]); continue; }
+            
             if (valueStr.includes('eType:Bool')) {
                 props[key] = valueStr.includes('bData:true') || valueStr.includes('bData:True');
                 continue;
             }
+            
+            // Parse references
             const refMatch = valueStr.match(/Ref:\{Name:"([^"]+)"/);
-            if (refMatch) { props[key + '_Ref'] = refMatch[1]; }
+            if (refMatch) {
+                props[key + '_Ref'] = refMatch[1];
+                // Also extract GUID
+                const guidMatch = valueStr.match(/GUID:"([^"]+)"/);
+                if (guidMatch) props[key + '_GUID'] = guidMatch[1];
+            }
+            
+            // Parse IntPair ranges (for loot)
+            const rangeMatch = valueStr.match(/iRange:\[(\d+),(\d+)\]/);
+            if (rangeMatch) {
+                props[key + '_Min'] = parseInt(rangeMatch[1]);
+                props[key + '_Max'] = parseInt(rangeMatch[2]);
+            }
+            
+            // Store raw value for loot content
+            if (key.startsWith('LootContent') && !key.endsWith('Class')) {
+                props[key + '_Raw'] = valueStr;
+            }
         }
     }
     return props;
 }
 
+function parseLootContent(props) {
+    const lootItems = [];
+    for (let i = 0; i <= 9; i++) {
+        const key = `LootContent${i}`;
+        const rawKey = `${key}_Raw`;
+        const refKey = `${key}_Ref`;
+        
+        if (props[rawKey]) {
+            const raw = props[rawKey];
+            
+            // Extract chance (fData)
+            const chanceMatch = raw.match(/fData:([\d.]+)/);
+            const chance = chanceMatch ? parseFloat(chanceMatch[1]) : 0;
+            
+            // Extract quantity range
+            const rangeMatch = raw.match(/iRange:\[(\d+),(\d+)\]/);
+            const minQty = rangeMatch ? parseInt(rangeMatch[1]) : 1;
+            const maxQty = rangeMatch ? parseInt(rangeMatch[2]) : 1;
+            
+            // Extract item reference
+            const refMatch = raw.match(/Ref:\{Name:"([^"]+)"/);
+            const itemName = refMatch ? refMatch[1] : props[refKey] || null;
+            
+            if (itemName && chance > 0) {
+                lootItems.push({
+                    slot: i,
+                    item: itemName,
+                    chance: chance,
+                    minQty: minQty,
+                    maxQty: maxQty
+                });
+            }
+        } else if (props[refKey]) {
+            // Fallback for simpler format
+            lootItems.push({
+                slot: i,
+                item: props[refKey],
+                chance: 100,
+                minQty: 1,
+                maxQty: 1
+            });
+        }
+    }
+    return lootItems;
+}
+
+// ============== ICON MANAGEMENT ==============
 function findIcon(item, category) {
     const itemName = item.n || '';
     
@@ -875,6 +1410,18 @@ async function loadIconMapping() {
     }
 }
 
+async function loadTableConfig() {
+    try {
+        const response = await fetch('table_config.json');
+        if (response.ok) {
+            tableConfig = await response.json();
+            console.log('Loaded table config:', Object.keys(tableConfig));
+        }
+    } catch (e) {
+        console.warn('Could not load table_config.json:', e);
+    }
+}
+
 function populateIconFolders() {
     const folders = new Set();
     allIcons.forEach(path => {
@@ -891,10 +1438,12 @@ function populateIconFolders() {
     });
 }
 
+// ============== DATABASE LOADING ==============
 async function loadDatabase() {
     try {
         await loadIconMapping();
-        loadIconOverrides();
+        await loadTableConfig();
+        loadConfig();
         
         const SQL = await initSqlJs({
             locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
@@ -925,7 +1474,8 @@ async function loadDatabase() {
                             d: props.DisplayName || obj.name || 'Unknown',
                             c: obj.class || 'unknown',
                             guid: obj.guid,
-                            p: props
+                            p: props,
+                            _raw: obj
                         };
                     });
                 }
@@ -949,6 +1499,7 @@ async function loadDatabase() {
                         Required files in same folder:<br>
                         • content.db<br>
                         • icon_mapping.json<br>
+                        • table_config.json<br>
                         • Icons/ folder
                     </span>
                 </div>
@@ -956,6 +1507,7 @@ async function loadDatabase() {
     }
 }
 
+// ============== UI INITIALIZATION ==============
 function initUI() {
     const categories = Object.keys(gameData).filter(cat => gameData[cat]?.length > 0);
     if (!categories.length) {
@@ -988,6 +1540,7 @@ function initUI() {
         });
     });
     
+    // Search
     let searchTimeout;
     document.getElementById('searchInput').addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
@@ -1023,24 +1576,68 @@ function initUI() {
     });
     document.getElementById('iconSearch').addEventListener('input', filterIcons);
     document.getElementById('iconFolderSelect').addEventListener('change', filterIcons);
-    document.getElementById('exportChangesBtn').addEventListener('click', exportChanges);
+    
+    // Config modal events
+    document.getElementById('configBtn').addEventListener('click', openConfigEditor);
+    document.getElementById('configClose').addEventListener('click', () => {
+        document.getElementById('configOverlay').classList.remove('active');
+    });
+    document.getElementById('configOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'configOverlay') {
+            document.getElementById('configOverlay').classList.remove('active');
+        }
+    });
+    
+    // Config tabs
+    document.querySelectorAll('.config-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.config-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.config-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+        });
+    });
+    
+    // Config action buttons
+    document.getElementById('exportIconsBtn').addEventListener('click', () => {
+        downloadJSON({ iconOverrides, _generated: new Date().toISOString() }, 'icon_overrides.json');
+    });
+    document.getElementById('clearIconsBtn').addEventListener('click', () => {
+        if (confirm('Clear all icon overrides?')) {
+            iconOverrides = {};
+            saveConfig();
+            renderContent();
+            renderIconOverridesList();
+        }
+    });
+    document.getElementById('exportConfigBtn').addEventListener('click', exportFullConfig);
+    document.getElementById('saveFieldsBtn').addEventListener('click', saveFieldConfig);
+    document.getElementById('saveSectionsBtn').addEventListener('click', saveSectionConfig);
+    document.getElementById('saveTablesBtn').addEventListener('click', saveTableConfig);
+    
+    // Field selects
+    document.getElementById('fieldTableSelect').addEventListener('change', populateFieldClassSelect);
+    document.getElementById('fieldClassSelect').addEventListener('change', populateFieldsList);
     
     document.addEventListener('keydown', (e) => { 
         if (e.key === 'Escape') {
             closeModal();
             closeLogin();
             closeIconPicker();
+            document.getElementById('configOverlay').classList.remove('active');
         }
     });
     
     renderContent();
 }
 
+// ============== DEV MODE ==============
 function toggleDevMode() {
     if (devMode) {
         devMode = false;
         document.body.classList.remove('dev-mode');
         document.getElementById('devBtn').classList.remove('active');
+        document.getElementById('configBtn').style.display = 'none';
         document.getElementById('statusBadge').classList.remove('dev');
         updateChangesIndicator();
         renderContent();
@@ -1056,10 +1653,12 @@ function attemptLogin() {
         devMode = true;
         document.body.classList.add('dev-mode');
         document.getElementById('devBtn').classList.add('active');
+        document.getElementById('configBtn').style.display = 'inline-block';
         document.getElementById('statusBadge').classList.add('dev');
         closeLogin();
         updateChangesIndicator();
         renderContent();
+        showToast('Developer mode activated!');
     } else {
         document.getElementById('loginPassword').style.borderColor = '#ef4444';
         setTimeout(() => {
@@ -1073,6 +1672,7 @@ function closeLogin() {
     document.getElementById('loginPassword').value = '';
 }
 
+// ============== ICON PICKER ==============
 function openIconPicker(item, category, event) {
     event.stopPropagation();
     editingItem = { item, category };
@@ -1103,7 +1703,6 @@ function renderIconGrid(filter = '', folder = '') {
         icons = icons.filter(p => p.toLowerCase().includes(lowerFilter));
     }
     
-    // Limit to 200 for performance
     icons = icons.slice(0, 200);
     
     grid.innerHTML = icons.map(path => `
@@ -1135,7 +1734,7 @@ function saveIconSelection() {
     
     const overrideKey = `${editingItem.category}:${editingItem.item.n}`;
     iconOverrides[overrideKey] = selectedIcon;
-    saveIconOverrides();
+    saveConfig();
     closeIconPicker();
     renderContent();
 }
@@ -1146,22 +1745,216 @@ function closeIconPicker() {
     selectedIcon = null;
 }
 
-function exportChanges() {
-    const exportData = {
-        _generated: new Date().toISOString(),
-        _count: Object.keys(iconOverrides).length,
-        overrides: iconOverrides
-    };
-    
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'icon_overrides.json';
-    a.click();
-    URL.revokeObjectURL(url);
+// ============== CONFIG EDITOR ==============
+function openConfigEditor() {
+    document.getElementById('configOverlay').classList.add('active');
+    renderIconOverridesList();
+    populateFieldTableSelect();
+    populateSectionsList();
+    populateTablesList();
 }
 
+function renderIconOverridesList() {
+    const list = document.getElementById('iconOverridesList');
+    const entries = Object.entries(iconOverrides);
+    
+    if (!entries.length) {
+        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">No icon overrides set.</div>';
+        return;
+    }
+    
+    list.innerHTML = entries.map(([key, path]) => {
+        const [cat, name] = key.split(':');
+        return `
+            <div class="field-item" style="display: flex; align-items: center; gap: 1rem;">
+                <img src="Icons/${path}" style="width: 32px; height: 32px; object-fit: contain; image-rendering: pixelated;" onerror="this.src='Icons/${defaultIcon}'">
+                <div style="flex: 1;">
+                    <div style="color: var(--text-primary); font-size: 0.85rem;">${escapeHtml(name)}</div>
+                    <div style="color: var(--text-dim); font-size: 0.7rem;">${escapeHtml(cat)} → ${escapeHtml(path)}</div>
+                </div>
+                <button onclick="removeIconOverride('${escapeHtml(key)}')" style="background: none; border: none; color: var(--red); cursor: pointer; font-size: 1rem;">✕</button>
+            </div>
+        `;
+    }).join('');
+}
+
+function removeIconOverride(key) {
+    delete iconOverrides[key];
+    saveConfig();
+    renderIconOverridesList();
+    renderContent();
+}
+
+function populateFieldTableSelect() {
+    const select = document.getElementById('fieldTableSelect');
+    const tables = Object.keys(gameData).filter(t => gameData[t]?.length > 0);
+    select.innerHTML = '<option value="">Select a table...</option>' + 
+        tables.map(t => `<option value="${t}">${categoryNames[t] || t}</option>`).join('');
+}
+
+function populateFieldClassSelect() {
+    const table = document.getElementById('fieldTableSelect').value;
+    const select = document.getElementById('fieldClassSelect');
+    
+    if (!table || !gameData[table]) {
+        select.innerHTML = '<option value="">Select a class...</option>';
+        return;
+    }
+    
+    const classes = [...new Set(gameData[table].map(item => item.c))].filter(Boolean).sort();
+    select.innerHTML = '<option value="">All classes</option>' + 
+        classes.map(c => `<option value="${c}">${c}</option>`).join('');
+    
+    populateFieldsList();
+}
+
+function populateFieldsList() {
+    const table = document.getElementById('fieldTableSelect').value;
+    const cls = document.getElementById('fieldClassSelect').value;
+    const list = document.getElementById('fieldsList');
+    
+    if (!table || !gameData[table]) {
+        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">Select a table first.</div>';
+        return;
+    }
+    
+    // Get all fields from items in this table/class
+    const allFields = new Set();
+    gameData[table].forEach(item => {
+        if (!cls || item.c === cls) {
+            Object.keys(item.p || {}).forEach(k => allFields.add(k));
+        }
+    });
+    
+    // Get hidden fields config
+    const hiddenKey = `${table}:${cls || '_all'}`;
+    const hidden = hiddenFields[hiddenKey] || [];
+    
+    const sortedFields = Array.from(allFields).sort();
+    
+    list.innerHTML = sortedFields.map(field => {
+        const isHidden = hidden.includes(field);
+        return `
+            <div class="field-item ${isHidden ? 'hidden' : ''}">
+                <input type="checkbox" id="field-${field}" ${!isHidden ? 'checked' : ''} data-field="${field}">
+                <label for="field-${field}">${field}</label>
+            </div>
+        `;
+    }).join('');
+}
+
+function saveFieldConfig() {
+    const table = document.getElementById('fieldTableSelect').value;
+    const cls = document.getElementById('fieldClassSelect').value;
+    
+    if (!table) {
+        showToast('Please select a table first', true);
+        return;
+    }
+    
+    const hidden = [];
+    document.querySelectorAll('#fieldsList input[type="checkbox"]').forEach(cb => {
+        if (!cb.checked) {
+            hidden.push(cb.dataset.field);
+        }
+    });
+    
+    const hiddenKey = `${table}:${cls || '_all'}`;
+    hiddenFields[hiddenKey] = hidden;
+    saveConfig();
+}
+
+function populateSectionsList() {
+    const list = document.getElementById('sectionsList');
+    const sections = Object.keys(propertySections);
+    
+    list.innerHTML = sections.map(section => `
+        <div class="section-group-item" data-section="${section}">
+            <span>${propertySections[section].icon} ${section}</span>
+            <span style="color: var(--text-dim); font-size: 0.7rem;">${(propertySections[section].patterns || []).length} patterns</span>
+        </div>
+    `).join('');
+    
+    list.querySelectorAll('.section-group-item').forEach(item => {
+        item.addEventListener('click', () => {
+            list.querySelectorAll('.section-group-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            showSectionFields(item.dataset.section);
+        });
+    });
+}
+
+function showSectionFields(sectionName) {
+    const list = document.getElementById('sectionFieldsList');
+    const section = propertySections[sectionName];
+    
+    if (!section) {
+        list.innerHTML = '<div style="color: var(--text-dim); padding: 1rem;">Select a section.</div>';
+        return;
+    }
+    
+    let content = '<div style="color: var(--text-dim); padding: 0.5rem;">Patterns:</div>';
+    (section.patterns || []).forEach(p => {
+        content += `<div class="field-item"><code style="color: var(--cyan);">${p.toString()}</code></div>`;
+    });
+    
+    if (section.subsections) {
+        content += '<div style="color: var(--text-dim); padding: 0.5rem; margin-top: 1rem;">Subsections:</div>';
+        Object.entries(section.subsections).forEach(([name, fields]) => {
+            content += `<div class="field-item"><strong>${name}</strong>: ${fields.length} fields</div>`;
+        });
+    }
+    
+    list.innerHTML = content;
+}
+
+function saveSectionConfig() {
+    showToast('Section config saved!');
+}
+
+function populateTablesList() {
+    const tablesList = document.getElementById('tablesList');
+    const tables = Object.keys(tableConfig.tables || {});
+    
+    tablesList.innerHTML = tables.map(table => `
+        <div class="section-group-item" data-table="${table}">
+            <span>${categoryIcons[table] || '📁'} ${table}</span>
+            <span style="color: var(--text-dim); font-size: 0.7rem;">${Object.keys(tableConfig.tables[table] || {}).length} classes</span>
+        </div>
+    `).join('');
+    
+    tablesList.querySelectorAll('.section-group-item').forEach(item => {
+        item.addEventListener('click', () => {
+            tablesList.querySelectorAll('.section-group-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            showClassMappings(item.dataset.table);
+        });
+    });
+    
+    // Populate base types dropdown
+    const baseSelect = document.getElementById('newClassBase');
+    const bases = Object.keys(tableConfig.bases || {});
+    baseSelect.innerHTML = '<option value="">Base type...</option>' + 
+        bases.map(b => `<option value="${b}">${b}</option>`).join('');
+}
+
+function showClassMappings(tableName) {
+    const list = document.getElementById('classMappingsList');
+    const tableClasses = tableConfig.tables[tableName] || {};
+    
+    list.innerHTML = Object.entries(tableClasses).map(([cls, config]) => `
+        <div class="section-group-item">
+            <span>${cls}</span>
+            <span style="color: var(--cyan); font-size: 0.7rem;">→ ${config.base || 'unknown'}</span>
+        </div>
+    `).join('');
+}
+
+function saveTableConfig() {
+    showToast('Table config saved!');
+}
+
+// ============== CONTENT RENDERING ==============
 function filterItems(items) {
     if (!searchQuery) return items;
     return items.filter(item => {
@@ -1172,6 +1965,25 @@ function filterItems(items) {
         return name.includes(searchQuery) || displayName.includes(searchQuery) || 
                cls.includes(searchQuery) || props.includes(searchQuery);
     });
+}
+
+function getVisibleProps(item, category) {
+    const props = item.p || {};
+    const cls = item.c;
+    
+    // Check hidden fields config
+    const hiddenKey = `${category}:${cls || '_all'}`;
+    const hiddenAllKey = `${category}:_all`;
+    const hidden = [...(hiddenFields[hiddenKey] || []), ...(hiddenFields[hiddenAllKey] || [])];
+    
+    const visible = {};
+    Object.entries(props).forEach(([key, val]) => {
+        if (!hidden.includes(key) && !key.endsWith('_Raw') && !key.endsWith('_GUID')) {
+            visible[key] = val;
+        }
+    });
+    
+    return visible;
 }
 
 function renderContent() {
@@ -1192,7 +2004,7 @@ function renderContent() {
             </div>
             <div class="empty-state">
                 <div class="empty-icon">🔍</div>
-                <div class="empty-text">${searchQuery ? 'No results for "' + searchQuery + '"' : 'No entries'}</div>
+                <div class="empty-text">${searchQuery ? 'No results for "' + escapeHtml(searchQuery) + '"' : 'No entries'}</div>
             </div>`;
         return;
     }
@@ -1213,10 +2025,10 @@ function renderContent() {
         const displayName = item.d || item.n || 'Unknown';
         const internalName = item.n || '';
         const cls = item.c || 'unknown';
-        const props = item.p || {};
+        const props = getVisibleProps(item, currentCategory);
         const iconPath = findIcon(item, currentCategory);
         const propKeys = Object.keys(props).filter(k => 
-            k !== 'DisplayName' && k !== 'ContentClass' && !k.endsWith('_Ref') && !k.endsWith('_GUID')
+            k !== 'DisplayName' && k !== 'ContentClass' && !k.endsWith('_Ref')
         ).slice(0, 3);
         
         const hasOverride = iconOverrides[`${currentCategory}:${item.n}`];
@@ -1294,6 +2106,7 @@ function goToPage(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ============== MODAL ==============
 function openModal(item) {
     const modal = document.getElementById('modalOverlay');
     const displayName = item.d || item.n || 'Unknown';
@@ -1306,58 +2119,254 @@ function openModal(item) {
     document.getElementById('modalClass').textContent = cls;
     document.getElementById('modalIcon').innerHTML = `<img src="${iconPath}" alt="" onerror="this.src='Icons/${defaultIcon}'">`;
     
+    // Organize properties into sections
+    const organizedProps = organizePropsIntoSections(props);
+    
     let bodyHtml = '';
+    
+    // Internal name section
     if (internalName && internalName !== displayName) {
         bodyHtml += `
-            <div class="modal-section">
-                <div class="modal-section-title">Internal Name</div>
-                <div class="props-grid">
-                    <div class="prop-item"><div class="prop-key">Name</div><div class="prop-value">${escapeHtml(internalName)}</div></div>
-                    ${item.guid ? `<div class="prop-item"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.75rem">${escapeHtml(item.guid)}</div></div>` : ''}
+            <div class="collapsible-section">
+                <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                    <div class="section-header-title">
+                        <span class="section-icon">🏷️</span>
+                        Identity
+                    </div>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="prop-item"><div class="prop-key">Internal Name</div><div class="prop-value">${escapeHtml(internalName)}</div></div>
+                    ${item.guid ? `<div class="prop-item"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.7rem">${escapeHtml(item.guid)}</div></div>` : ''}
                 </div>
             </div>`;
     }
     
-    const regularProps = {}, refProps = {};
-    Object.entries(props).forEach(([key, val]) => {
-        if (key === 'DisplayName') return;
-        if (key.endsWith('_Ref')) refProps[key.replace('_Ref', '')] = val;
-        else if (!key.endsWith('_GUID')) regularProps[key] = val;
-    });
-    
-    if (Object.keys(regularProps).length) {
-        bodyHtml += `
-            <div class="modal-section">
-                <div class="modal-section-title">Properties</div>
-                <div class="props-grid">
-                    ${Object.entries(regularProps).map(([k, v]) => `
-                        <div class="prop-item">
-                            <div class="prop-key">${escapeHtml(k)}</div>
-                            <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
-                        </div>`).join('')}
+    // Render organized sections
+    for (const [sectionName, sectionData] of Object.entries(organizedProps)) {
+        if (sectionData.props.length === 0 && !sectionData.isLootSection) continue;
+        
+        const sectionConfig = propertySections[sectionName] || { icon: '📋' };
+        
+        if (sectionData.isLootSection) {
+            // Special loot table rendering
+            const lootItems = parseLootContent(props);
+            if (lootItems.length === 0) continue;
+            
+            bodyHtml += `
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <div class="section-header-title">
+                            <span class="section-icon">${sectionConfig.icon}</span>
+                            ${sectionName}
+                        </div>
+                        <span class="section-count">${lootItems.length} items</span>
+                        <span class="section-toggle">▼</span>
+                    </div>
+                    <div class="section-content" style="display: block;">
+                        <table class="loot-table">
+                            <thead>
+                                <tr>
+                                    <th>Slot</th>
+                                    <th>Item</th>
+                                    <th>Chance</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${lootItems.map(loot => `
+                                    <tr>
+                                        <td>${loot.slot}</td>
+                                        <td><span class="loot-item-name" onclick="searchForItem('${escapeHtml(loot.item)}')">${escapeHtml(loot.item)}</span></td>
+                                        <td class="loot-chance">${loot.chance}%</td>
+                                        <td class="loot-quantity">${loot.minQty === loot.maxQty ? loot.minQty : `${loot.minQty}-${loot.maxQty}`}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>`;
+        } else if (sectionData.subsections) {
+            // Section with subsections
+            let subsectionHtml = '';
+            for (const [subName, subProps] of Object.entries(sectionData.subsections)) {
+                if (subProps.length === 0) continue;
+                subsectionHtml += `
+                    <div class="collapsible-section" style="margin: 0.5rem 0;">
+                        <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')" style="padding: 0.5rem;">
+                            <div class="section-header-title" style="font-size: 0.75rem;">
+                                ${subName}
+                            </div>
+                            <span class="section-count">${subProps.length}</span>
+                            <span class="section-toggle">▼</span>
+                        </div>
+                        <div class="section-content">
+                            ${subProps.map(([k, v]) => `
+                                <div class="prop-item">
+                                    <div class="prop-key">${escapeHtml(k)}</div>
+                                    <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+            }
+            
+            // Add remaining props not in subsections
+            const remainingHtml = sectionData.props.map(([k, v]) => `
+                <div class="prop-item">
+                    <div class="prop-key">${escapeHtml(k)}</div>
+                    <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
                 </div>
-            </div>`;
+            `).join('');
+            
+            bodyHtml += `
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <div class="section-header-title">
+                            <span class="section-icon">${sectionConfig.icon}</span>
+                            ${sectionName}
+                        </div>
+                        <span class="section-count">${sectionData.totalCount} properties</span>
+                        <span class="section-toggle">▼</span>
+                    </div>
+                    <div class="section-content" style="display: block;">
+                        ${subsectionHtml}
+                        ${remainingHtml ? `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">${remainingHtml}</div>` : ''}
+                    </div>
+                </div>`;
+        } else {
+            // Regular section
+            bodyHtml += `
+                <div class="collapsible-section">
+                    <div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <div class="section-header-title">
+                            <span class="section-icon">${sectionConfig.icon}</span>
+                            ${sectionName}
+                        </div>
+                        <span class="section-count">${sectionData.props.length}</span>
+                        <span class="section-toggle">▼</span>
+                    </div>
+                    <div class="section-content">
+                        ${sectionData.props.map(([k, v]) => `
+                            <div class="prop-item">
+                                <div class="prop-key">${escapeHtml(k)}</div>
+                                <div class="prop-value ${getValueClass(v)}">${escapeHtml(formatValue(v))}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>`;
+        }
     }
     
-    if (Object.keys(refProps).length) {
-        bodyHtml += `
-            <div class="modal-section">
-                <div class="modal-section-title">References</div>
-                <div class="props-grid">
-                    ${Object.entries(refProps).map(([k, v]) => `
-                        <div class="prop-item">
-                            <div class="prop-key">${escapeHtml(k)}</div>
-                            <div class="prop-value ref">${escapeHtml(v)}</div>
-                        </div>`).join('')}
-                </div>
-            </div>`;
+    if (!bodyHtml) {
+        bodyHtml = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No additional properties</div></div>`;
     }
-    
-    if (!bodyHtml) bodyHtml = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No additional properties</div></div>`;
     
     document.getElementById('modalBody').innerHTML = bodyHtml;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function organizePropsIntoSections(props) {
+    const organized = {};
+    const assigned = new Set();
+    
+    // Initialize sections
+    for (const [sectionName, config] of Object.entries(propertySections)) {
+        organized[sectionName] = {
+            props: [],
+            subsections: config.subsections ? {} : null,
+            isLootSection: config.isLootSection || false,
+            totalCount: 0
+        };
+        if (config.subsections) {
+            for (const subName of Object.keys(config.subsections)) {
+                organized[sectionName].subsections[subName] = [];
+            }
+        }
+    }
+    
+    // Assign properties to sections
+    for (const [key, value] of Object.entries(props)) {
+        if (key === 'DisplayName' || key.endsWith('_Raw')) continue;
+        
+        for (const [sectionName, config] of Object.entries(propertySections)) {
+            if (config.isLootSection) continue; // Skip loot section, handled separately
+            
+            // Check patterns
+            const matchesPattern = (config.patterns || []).some(pattern => pattern.test(key));
+            
+            if (matchesPattern) {
+                // Check if it belongs to a subsection
+                let assignedToSub = false;
+                if (config.subsections) {
+                    for (const [subName, subFields] of Object.entries(config.subsections)) {
+                        if (subFields.includes(key)) {
+                            organized[sectionName].subsections[subName].push([key, value]);
+                            organized[sectionName].totalCount++;
+                            assignedToSub = true;
+                            break;
+                        }
+                    }
+                    if (!assignedToSub && config.subsections['AI Other'] !== undefined) {
+                        // Add to "Other" subsection if it exists
+                        organized[sectionName].subsections['AI Other'].push([key, value]);
+                        organized[sectionName].totalCount++;
+                        assignedToSub = true;
+                    }
+                }
+                
+                if (!assignedToSub) {
+                    organized[sectionName].props.push([key, value]);
+                    organized[sectionName].totalCount++;
+                }
+                assigned.add(key);
+                break;
+            }
+        }
+    }
+    
+    // Add unassigned to "Other Properties"
+    for (const [key, value] of Object.entries(props)) {
+        if (!assigned.has(key) && key !== 'DisplayName' && !key.endsWith('_Raw')) {
+            organized['Other Properties'].props.push([key, value]);
+            organized['Other Properties'].totalCount++;
+        }
+    }
+    
+    // Update total counts for subsection sections
+    for (const sectionData of Object.values(organized)) {
+        if (sectionData.subsections) {
+            let total = sectionData.props.length;
+            for (const subProps of Object.values(sectionData.subsections)) {
+                total += subProps.length;
+            }
+            sectionData.totalCount = total;
+        }
+    }
+    
+    return organized;
+}
+
+function searchForItem(itemName) {
+    closeModal();
+    document.getElementById('searchInput').value = itemName;
+    searchQuery = itemName.toLowerCase();
+    currentPage = 1;
+    
+    // Try to find which category has this item
+    for (const [cat, items] of Object.entries(gameData)) {
+        if (items.some(item => item.n === itemName || item.d === itemName)) {
+            // Switch to that category
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.category === cat);
+            });
+            currentCategory = cat;
+            break;
+        }
+    }
+    
+    renderContent();
 }
 
 function closeModal() {
@@ -1365,25 +2374,7 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
-function escapeHtml(str) {
-    if (typeof str !== 'string') return String(str);
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-function formatValue(val) {
-    if (val === true) return 'Yes';
-    if (val === false) return 'No';
-    if (typeof val === 'number') return Number.isInteger(val) ? val.toLocaleString() : val.toFixed(2);
-    return String(val);
-}
-
-function getValueClass(val) {
-    if (typeof val === 'boolean') return 'bool';
-    if (typeof val === 'number') return 'number';
-    return '';
-}
-
-// Auto-load
+// ============== INIT ==============
 loadDatabase();
 </script>
 </body>
