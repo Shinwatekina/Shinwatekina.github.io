@@ -35,17 +35,16 @@
         
         .header-controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
         .status-badge { display: flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.75rem; background: rgba(139, 255, 167, 0.1); border: 1px solid rgba(139, 255, 167, 0.3); border-radius: 16px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-green); letter-spacing: 1px; }
-        .status-badge.error { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: var(--red); }
-        .status-badge.dev { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); color: var(--orange); }
+        .status-badge.warn { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); color: var(--orange); }
+        .status-badge.dev { background: rgba(217, 70, 239, 0.1); border-color: rgba(217, 70, 239, 0.3); color: var(--magenta); }
         .status-dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         
         .ctrl-btn { padding: 0.4rem 0.75rem; background: rgba(139, 92, 246, 0.1); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.3rem; }
         .ctrl-btn:hover { background: rgba(139, 92, 246, 0.2); border-color: var(--purple-glow); color: var(--text-primary); }
         .ctrl-btn.active { background: var(--purple-glow); color: white; border-color: var(--purple-glow); }
-        .ctrl-btn.dev { background: rgba(249, 115, 22, 0.1); border-color: rgba(249, 115, 22, 0.3); color: var(--orange); }
-        .ctrl-btn.dev:hover { background: rgba(249, 115, 22, 0.2); }
-        .ctrl-btn.dev.active { background: var(--orange); color: var(--bg-dark); }
+        .ctrl-btn.dev { background: rgba(217, 70, 239, 0.1); border-color: rgba(217, 70, 239, 0.3); color: var(--magenta); }
+        .ctrl-btn.dev.active { background: var(--magenta); color: white; }
         
         .main-container { max-width: 1800px; margin: 0 auto; padding: 1.5rem; display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; }
         .sidebar { position: sticky; top: 80px; height: fit-content; max-height: calc(100vh - 100px); overflow-y: auto; }
@@ -62,10 +61,8 @@
         .content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 0.5rem; }
         .content-title { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 600; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; }
         .content-title-icon { font-size: 1.4rem; }
-        .content-stats { display: flex; gap: 1rem; align-items: center; }
         .results-count { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--text-dim); }
         .results-count span { color: var(--neon-green); }
-        .class-filter { padding: 0.4rem 0.75rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; }
         
         .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; }
         .item-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; cursor: pointer; transition: all 0.25s ease; position: relative; overflow: hidden; }
@@ -88,6 +85,7 @@
         .item-prop { font-size: 0.7rem; padding: 0.2rem 0.4rem; background: rgba(139, 92, 246, 0.1); border-radius: 3px; color: var(--text-secondary); }
         .item-prop-key { color: var(--purple-bright); }
         .item-prop-val { color: var(--text-primary); }
+        .item-loot-badge { font-size: 0.65rem; padding: 0.15rem 0.35rem; background: rgba(139, 255, 167, 0.15); border: 1px solid rgba(139, 255, 167, 0.3); border-radius: 3px; color: var(--neon-green); }
         
         /* Modal styles */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
@@ -101,6 +99,7 @@
         .modal-icon img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
         .modal-title-section { flex: 1; min-width: 0; }
         .modal-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.2rem; word-break: break-word; }
+        .modal-subtitle { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 0.2rem; }
         .modal-class { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--cyan); background: rgba(34, 211, 238, 0.15); padding: 0.2rem 0.5rem; border-radius: 4px; }
         .modal-actions { display: flex; gap: 0.5rem; }
         .modal-action-btn { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.2s ease; }
@@ -110,9 +109,12 @@
         .modal-body { padding: 1rem 1.25rem; max-height: calc(85vh - 90px); overflow-y: auto; }
         
         .section { margin-bottom: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        .section.loot-section { border-color: rgba(139, 255, 167, 0.4); }
         .section-header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.75rem; background: rgba(139, 92, 246, 0.1); cursor: pointer; transition: all 0.2s ease; user-select: none; }
+        .section.loot-section .section-header { background: rgba(139, 255, 167, 0.1); }
         .section-header:hover { background: rgba(139, 92, 246, 0.15); }
         .section-title { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; color: var(--purple-bright); display: flex; align-items: center; gap: 0.4rem; }
+        .section.loot-section .section-title { color: var(--neon-green); }
         .section-icon { font-size: 0.9rem; }
         .section-meta { display: flex; align-items: center; gap: 0.5rem; }
         .section-count { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--text-dim); background: rgba(0,0,0,0.2); padding: 0.15rem 0.4rem; border-radius: 3px; }
@@ -131,14 +133,18 @@
         .prop-value.ref { color: #f0abfc; cursor: pointer; }
         .prop-value.ref:hover { text-decoration: underline; }
         
+        /* Loot Table */
+        .loot-container { padding: 0.75rem; }
         .loot-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         .loot-table th, .loot-table td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid var(--border-color); }
-        .loot-table th { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.5px; color: var(--purple-bright); background: rgba(139, 92, 246, 0.08); }
+        .loot-table th { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.5px; color: var(--neon-green); background: rgba(139, 255, 167, 0.08); }
         .loot-table td { font-family: 'Share Tech Mono', monospace; }
+        .loot-table tr:last-child td { border-bottom: none; }
         .loot-link { color: var(--text-primary); cursor: pointer; }
         .loot-link:hover { color: var(--cyan); text-decoration: underline; }
-        .loot-chance { color: var(--neon-green); }
+        .loot-chance { color: var(--neon-green); font-weight: 600; }
         .loot-qty { color: var(--cyan); }
+        .loot-class { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color); }
         
         /* Config Modal */
         .config-tabs { display: flex; gap: 0.4rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem; flex-wrap: wrap; }
@@ -150,16 +156,19 @@
         .config-section { margin-bottom: 1rem; }
         .config-title { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--purple-bright); margin-bottom: 0.5rem; letter-spacing: 0.5px; }
         .config-desc { color: var(--text-dim); font-size: 0.75rem; margin-bottom: 0.75rem; }
-        .config-select { width: 100%; padding: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; margin-bottom: 0.5rem; }
+        .config-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .config-select, .config-input { flex: 1; padding: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
+        .config-input:focus { outline: none; border-color: var(--purple-glow); }
         
         .field-list { max-height: 280px; overflow-y: auto; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; }
-        .field-group-header { padding: 0.4rem 0.6rem; background: rgba(139, 92, 246, 0.15); font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--purple-bright); letter-spacing: 0.5px; position: sticky; top: 0; }
+        .field-group-header { padding: 0.4rem 0.6rem; background: rgba(139, 92, 246, 0.15); font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--purple-bright); letter-spacing: 0.5px; position: sticky; top: 0; z-index: 1; }
         .field-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.6rem; border-bottom: 1px solid rgba(139, 92, 246, 0.1); }
         .field-item:hover { background: rgba(139, 92, 246, 0.05); }
+        .field-item.hidden-row { display: none; }
         .field-item input { width: 16px; height: 16px; accent-color: var(--purple-glow); cursor: pointer; }
         .field-item label { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-secondary); cursor: pointer; flex: 1; }
         .field-item.hidden label { color: var(--text-dim); text-decoration: line-through; }
-        .field-item .override-badge { font-size: 0.6rem; padding: 0.1rem 0.3rem; background: var(--orange); color: white; border-radius: 3px; }
+        .field-item .override-badge { font-size: 0.55rem; padding: 0.1rem 0.25rem; background: var(--orange); color: white; border-radius: 2px; }
         
         .override-list { max-height: 350px; overflow-y: auto; }
         .override-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem; background: rgba(0,0,0,0.15); border-radius: 6px; margin-bottom: 0.4rem; }
@@ -180,13 +189,19 @@
         .btn-ghost { background: transparent; border-color: var(--border-color); color: var(--text-secondary); }
         .btn-ghost:hover { border-color: var(--text-secondary); color: var(--text-primary); }
         
+        /* Storage info */
+        .storage-info { padding: 0.75rem; background: rgba(139, 92, 246, 0.1); border-radius: 6px; margin-bottom: 1rem; }
+        .storage-info-title { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--purple-bright); margin-bottom: 0.5rem; }
+        .storage-info-text { font-size: 0.75rem; color: var(--text-secondary); }
+        .storage-info-text code { background: rgba(0,0,0,0.3); padding: 0.1rem 0.3rem; border-radius: 3px; }
+        
         /* Login */
-        .login-modal { background: var(--bg-card); border: 1px solid var(--orange); border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 320px; }
-        .login-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--orange); margin-bottom: 1rem; text-align: center; }
+        .login-modal { background: var(--bg-card); border: 1px solid var(--magenta); border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 320px; }
+        .login-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--magenta); margin-bottom: 1rem; text-align: center; }
         .login-input { width: 100%; padding: 0.6rem 0.75rem; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-family: 'Share Tech Mono', monospace; margin-bottom: 0.75rem; }
-        .login-input:focus { outline: none; border-color: var(--orange); }
-        .login-btn { width: 100%; padding: 0.6rem; background: var(--orange); border: none; border-radius: 6px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 600; cursor: pointer; }
-        .login-btn:hover { background: #ea580c; }
+        .login-input:focus { outline: none; border-color: var(--magenta); }
+        .login-btn { width: 100%; padding: 0.6rem; background: var(--magenta); border: none; border-radius: 6px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 600; cursor: pointer; }
+        .login-btn:hover { background: #c026d3; }
         
         /* Icon Picker */
         .icon-preview { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: rgba(139, 92, 246, 0.1); border-radius: 6px; margin-bottom: 0.75rem; }
@@ -240,7 +255,7 @@
         <div class="header-content">
             <div class="logo">
                 <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                <div><div class="logo-text">MO2 DATABASE</div><div class="logo-sub">Content Browser v3.2</div></div>
+                <div><div class="logo-text">MO2 DATABASE</div><div class="logo-sub">Content Browser v3.3</div></div>
             </div>
             <div class="search-container">
                 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -265,7 +280,11 @@
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-icon" id="modalIcon"></div>
-                <div class="modal-title-section"><h2 class="modal-title" id="modalTitle">Item</h2><span class="modal-class" id="modalClass">class</span></div>
+                <div class="modal-title-section">
+                    <h2 class="modal-title" id="modalTitle">Item</h2>
+                    <div class="modal-subtitle" id="modalSubtitle"></div>
+                    <span class="modal-class" id="modalClass">class</span>
+                </div>
                 <div class="modal-actions">
                     <button class="modal-action-btn fav" id="modalFav" title="Toggle favorite">⭐</button>
                     <button class="modal-action-btn" id="modalCopy" title="Copy JSON">📋</button>
@@ -305,46 +324,63 @@
     <div class="modal-overlay" id="configOverlay">
         <div class="modal wide">
             <div class="modal-header">
-                <div class="modal-title-section"><h2 class="modal-title">⚙️ Configuration</h2><span class="modal-class">Manage icons & field visibility</span></div>
+                <div class="modal-title-section"><h2 class="modal-title">⚙️ Configuration</h2><span class="modal-class">Manage settings (stored locally)</span></div>
                 <div class="modal-actions"><button class="modal-action-btn" id="configClose">✕</button></div>
             </div>
             <div class="modal-body">
+                <div class="storage-info">
+                    <div class="storage-info-title">💾 Storage Mode: Local</div>
+                    <div class="storage-info-text">Settings are saved to your browser's localStorage. Use <b>Export</b> to backup and <b>Import</b> to restore on another device or browser.</div>
+                </div>
+                
                 <div class="config-tabs">
                     <button class="config-tab active" data-tab="icons">Icons</button>
                     <button class="config-tab" data-tab="fields">Fields</button>
-                    <button class="config-tab" data-tab="info">Info</button>
+                    <button class="config-tab" data-tab="data">Import/Export</button>
                 </div>
+                
                 <div class="config-panel active" id="panel-icons">
                     <div class="config-section">
                         <div class="config-title">Icon Overrides</div>
-                        <div class="config-desc">Changes are saved to server. Click ✏️ on cards to change icons.</div>
+                        <div class="config-desc">Click ✏️ on item cards (in dev mode) to change icons.</div>
                         <div class="override-list" id="iconOverridesList"></div>
                     </div>
                     <div class="config-actions">
-                        <button class="btn btn-secondary" id="exportIconsBtn">📥 Export</button>
                         <button class="btn btn-danger" id="clearIconsBtn">🗑️ Clear All</button>
                     </div>
                 </div>
+                
                 <div class="config-panel" id="panel-fields">
                     <div class="config-section">
                         <div class="config-title">Field Visibility</div>
-                        <div class="config-desc">Hide fields globally or per-class. Table-level settings apply to all classes unless overridden.</div>
-                        <select class="config-select" id="fieldTable"><option value="">Select table...</option></select>
-                        <select class="config-select" id="fieldClass"><option value="_all">All Classes (Global)</option></select>
+                        <div class="config-desc">Hide fields globally (All Classes) or per-class. Global settings apply unless overridden.</div>
+                        <div class="config-row">
+                            <select class="config-select" id="fieldTable"><option value="">Select table...</option></select>
+                            <select class="config-select" id="fieldClass"><option value="_all">All Classes</option></select>
+                        </div>
+                        <input type="text" class="config-input" id="fieldSearch" placeholder="Search fields..." style="margin-bottom: 0.5rem;">
                         <div class="field-list" id="fieldsList"></div>
                     </div>
                     <div class="config-actions">
                         <button class="btn btn-primary" id="saveFieldsBtn">💾 Save</button>
-                        <button class="btn btn-secondary" id="exportFieldsBtn">📥 Export</button>
                     </div>
                 </div>
-                <div class="config-panel" id="panel-info">
+                
+                <div class="config-panel" id="panel-data">
+                    <div class="config-section">
+                        <div class="config-title">Export Configuration</div>
+                        <div class="config-desc">Download all settings as a JSON file for backup or sharing.</div>
+                        <button class="btn btn-secondary" id="exportAllBtn">📥 Export All Settings</button>
+                    </div>
+                    <div class="config-section">
+                        <div class="config-title">Import Configuration</div>
+                        <div class="config-desc">Load settings from a previously exported JSON file.</div>
+                        <input type="file" id="importFile" accept=".json" style="display:none">
+                        <button class="btn btn-secondary" id="importBtn">📤 Import Settings</button>
+                    </div>
                     <div class="config-section">
                         <div class="config-title">Database Info</div>
-                        <div id="dbInfo" style="font-family: Share Tech Mono, monospace; font-size: 0.8rem; color: var(--text-secondary);"></div>
-                    </div>
-                    <div class="config-actions">
-                        <button class="btn btn-secondary" id="exportAllBtn">📥 Export Full Config</button>
+                        <div id="dbInfo" style="font-family: Share Tech Mono, monospace; font-size: 0.75rem; color: var(--text-secondary);"></div>
                     </div>
                 </div>
             </div>
@@ -354,31 +390,47 @@
 <script>
 const CAT_ICONS = { items:'📦', enemies:'👹', npcs:'🧑', skills:'⚡', structures:'🏛️', spawners:'🎯', misc:'🔧', AIattacks:'⚔️', spells:'✨', GemEffects:'💎', Decorations:'🎨', buffs:'🛡️', drops:'💰', projectiles:'🏹', ModularBuilding:'🏗️', Stats:'📊' };
 const CAT_NAMES = { items:'Items', enemies:'Enemies', npcs:'NPCs', skills:'Skills', structures:'Structures', spawners:'Spawners', misc:'Materials', AIattacks:'AI Attacks', spells:'Spells', GemEffects:'Gem Effects', Decorations:'Decorations', buffs:'Buffs', drops:'Drops', projectiles:'Projectiles', ModularBuilding:'Building', Stats:'Stats' };
+
 const SECTIONS = {
-    'Identity': { icon:'🏷️', match: k => ['DisplayName','ContentClass','MetaData'].includes(k) },
-    'AI Combat': { icon:'⚔️', match: k => /^Ai.*(Attack|Damage|Dmg|Block|Parr|Range|Cool|Charge|Loop|Health|Focus)/.test(k) },
-    'AI Movement': { icon:'🚶', match: k => /^Ai.*(Move|Walk|Follow|Speed|Dist)/.test(k) },
-    'AI Behavior': { icon:'🧠', match: k => /^Ai.*(State|Hunt|Eat|Sleep|Mercy|Spawn|Wait|Comm|Aggro|Flee)/.test(k) },
-    'AI Stats': { icon:'📊', match: k => /^Ai.*(Level|Hp|Family|Clade|Tame|Control|Body|Hunger|Size)/.test(k) && !/Attack|Damage/.test(k) },
-    'Loot': { icon:'💰', match: k => /^LootContent/.test(k), isLoot: true },
-    'Spell': { icon:'✨', match: k => /^Spell/.test(k) },
-    'Gem Effect': { icon:'💎', match: k => /^GE/.test(k) },
-    'Combat': { icon:'⚔️', match: k => /Damage|Defence|^hp|^crit|Attack/.test(k) && !/^Ai/.test(k) },
-    'Item': { icon:'📦', match: k => /^item|^bag|^equip|^slot|Stack|^dur|Quality/.test(k) },
-    'Crafting': { icon:'🔨', match: k => /Craft|Material|Recipe/.test(k) },
-    'Visual': { icon:'🎨', match: k => /Display|dynamic|color|Icon|Mesh|Texture/.test(k) },
-    'Location': { icon:'🌍', match: k => /^pos|^rot|^vel|Zone|Continent|World/.test(k) },
+    'AI Combat': { icon:'⚔️', match: k => /^Ai.*(Attack|Damage|Dmg|Block|Parr|Range|Cool|Charge|Loop|Health|Focus|Width|Proj)/i.test(k) },
+    'AI Movement': { icon:'🚶', match: k => /^Ai.*(Move|Walk|Follow|Speed|Dist|Run)/i.test(k) },
+    'AI Behavior': { icon:'🧠', match: k => /^Ai.*(State|Hunt|Eat|Sleep|Mercy|Spawn|Wait|Comm|Aggro|Flee|Alert|Home)/i.test(k) },
+    'AI Stats': { icon:'📊', match: k => /^Ai.*(Level|Hp|Family|Clade|Tame|Control|Body|Hunger|Size|Power)/i.test(k) && !/Attack|Damage/.test(k) },
+    'Spell': { icon:'✨', match: k => /^Spell/i.test(k) },
+    'Gem Effect': { icon:'💎', match: k => /^GE/i.test(k) },
+    'Combat': { icon:'⚔️', match: k => /(Damage|Defence|^hp|^crit|Attack)/i.test(k) && !/^Ai/.test(k) },
+    'Item': { icon:'📦', match: k => /^item|^bag|^equip|^slot|Stack|^dur|Quality/i.test(k) },
+    'Crafting': { icon:'🔨', match: k => /Craft|Material|Recipe/i.test(k) },
+    'Visual': { icon:'🎨', match: k => /dynamic|color|Icon|Mesh|Texture/i.test(k) },
+    'Location': { icon:'🌍', match: k => /^pos|^rot|^vel|Zone|Continent|World/i.test(k) },
     'Other': { icon:'📋', match: () => true }
 };
 
 const DEFAULT_ICON = 'Items/Beeswax.png';
 const DEV_PASS = 'mo2dev';
-const API = 'api.php';
+const STORAGE_KEY = 'mo2db_config';
 const PER_PAGE = 50;
 
-let db=null, data={}, icons={}, config={}, allIcons=[], curCat=null, curPage=1, search='', devMode=false, showFavsOnly=false;
-let iconOverrides={}, hiddenFields={}, favorites=new Set(), serverOK=false;
+let db=null, data={}, icons={}, tableConfig={}, allIcons=[], curCat=null, curPage=1, search='', devMode=false, showFavsOnly=false;
+let config = { iconOverrides:{}, hiddenFields:{}, favorites:[] };
 let editItem=null, selIcon=null, curModalItem=null;
+
+// Storage
+function loadConfig() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            config = { iconOverrides: parsed.iconOverrides||{}, hiddenFields: parsed.hiddenFields||{}, favorites: parsed.favorites||[] };
+        }
+    } catch(e) { console.warn('Failed to load config:', e); }
+}
+
+function saveConfig() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+    } catch(e) { console.warn('Failed to save config:', e); }
+}
 
 // Utils
 const toast = (m,t='success') => { const el=document.createElement('div'); el.className='toast'+(t==='error'?' error':t==='warning'?' warning':''); el.textContent=m; document.body.appendChild(el); setTimeout(()=>el.remove(),3000); };
@@ -394,97 +446,105 @@ function parseBlob(str) {
         const m = line.match(/\[(\w+)\]\s*=>\s*(.*)/);
         if(!m) continue;
         const [,k,v] = m;
-        if(v.includes('[UNDEFINED_FLAG]') || !v.trim()) continue;
+        if(v.includes('[UNDEFINED_FLAG]')) continue;
+        if(!v.trim() || v.trim()==='eType:ContentRef,' || v.trim()==='eType:ContentRefLootTriplet,') continue;
         
         let match;
         if((match=v.match(/sData:"([^"]*)"/))) { p[k]=match[1]; continue; }
         if((match=v.match(/iData:(-?\d+)/))) { p[k]=parseInt(match[1]); continue; }
-        if((match=v.match(/fData:([\d.eE+-]+)/))) { p[k]=parseFloat(match[1]); continue; }
+        if((match=v.match(/fData:([\d.eE+-]+)/)) && !v.includes('Ref:')) { p[k]=parseFloat(match[1]); continue; }
         if(v.includes('eType:Bool')) { p[k]=v.includes('bData:true')||v.includes('bData:True'); continue; }
         if((match=v.match(/IntPair:\{iRange:\[(-?\d+),(-?\d+)\]\}/))) { p[k]={min:parseInt(match[1]),max:parseInt(match[2])}; continue; }
         if((match=v.match(/FloatPair:\{fRange:\[([\d.eE+-]+),([\d.eE+-]+)\]\}/))) { p[k]={min:parseFloat(match[1]),max:parseFloat(match[2])}; continue; }
         if((match=v.match(/Vec:\((-?[\d.]+),(-?[\d.]+),(-?[\d.]+)\)/))) { p[k]={x:parseFloat(match[1]),y:parseFloat(match[2]),z:parseFloat(match[3])}; continue; }
+        
+        // Loot content - special handling
+        if(k.startsWith('LootContent') && v.includes('Ref:')) {
+            const refMatch = v.match(/Ref:\{Name:"([^"]+)"/);
+            if(refMatch) {
+                const chanceMatch = v.match(/fData:([\d.]+)/);
+                const rangeMatch = v.match(/iRange:\[(\d+),(\d+)\]/);
+                p[k] = {
+                    item: refMatch[1],
+                    chance: chanceMatch ? parseFloat(chanceMatch[1]) : 100,
+                    min: rangeMatch ? parseInt(rangeMatch[1]) : 1,
+                    max: rangeMatch ? parseInt(rangeMatch[2]) : 1
+                };
+            }
+            continue;
+        }
+        
+        // Regular refs
         if((match=v.match(/Ref:\{Name:"([^"]+)"/))) {
             p[k+'_Ref']=match[1];
             const g=v.match(/GUID:"([^"]+)"/); if(g) p[k+'_GUID']=g[1];
-            if(k.startsWith('LootContent')) {
-                const c=v.match(/fData:([\d.]+)/), r=v.match(/iRange:\[(\d+),(\d+)\]/);
-                p[k+'_Chance']=c?parseFloat(c[1])*100:100;
-                p[k+'_Min']=r?parseInt(r[1]):1;
-                p[k+'_Max']=r?parseInt(r[2]):1;
-            }
         }
     }
     return p;
 }
 
-function getLoot(p) {
-    const items=[];
-    for(let i=0;i<=9;i++) {
-        const ref=p[`LootContent${i}_Ref`], chance=p[`LootContent${i}_Chance`];
-        if(ref && chance>0) items.push({slot:i, item:ref, chance:Math.min(100,chance), min:p[`LootContent${i}_Min`]||1, max:p[`LootContent${i}_Max`]||1});
-    }
-    return items;
-}
-
-// Server config
-async function loadServerConfig() {
-    try {
-        const r = await fetch(`${API}?action=load_all`);
-        if(r.ok) {
-            const j = await r.json();
-            if(j.success) {
-                serverOK = true;
-                iconOverrides = j.data.icon_overrides || {};
-                hiddenFields = j.data.hidden_fields || {};
-                const favs = j.data.favorites || [];
-                favorites = new Set(favs);
-            }
+function getLoot(props) {
+    const items = [];
+    for(let i=0; i<=9; i++) {
+        const loot = props[`LootContent${i}`];
+        if(loot && typeof loot === 'object' && loot.item && loot.chance > 0) {
+            items.push({ slot: i, item: loot.item, chance: loot.chance, min: loot.min, max: loot.max });
         }
-    } catch(e) { console.warn('Server unavailable'); }
+    }
+    // Also get LootContentClass if exists
+    const lootClass = props.LootContentClass;
+    return { items, lootClass };
 }
 
-async function saveConfig(type, cfg) {
-    if(!serverOK) { toast('Server unavailable','warning'); return false; }
-    try {
-        const r = await fetch(API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({action:'save',type,config:cfg}) });
-        const j = await r.json();
-        if(j.success) { toast('Saved!'); return true; }
-        toast('Save failed: '+j.error,'error');
-    } catch(e) { toast('Error: '+e.message,'error'); }
+function hasLoot(props) {
+    for(let i=0; i<=9; i++) {
+        const loot = props[`LootContent${i}`];
+        if(loot && typeof loot === 'object' && loot.item) return true;
+    }
     return false;
 }
 
 // Icons
 function getIcon(item, cat) {
     const n = item.n||'', k = `${cat}:${n}`;
-    if(iconOverrides[k]) return 'Icons/'+iconOverrides[k];
+    if(config.iconOverrides[k]) return 'Icons/'+config.iconOverrides[k];
     if(icons[cat]?.[n]) return 'Icons/'+icons[cat][n];
     for(const c of Object.keys(icons)) if(icons[c][n]) return 'Icons/'+icons[c][n];
     return 'Icons/'+DEFAULT_ICON;
 }
 
-// Field visibility with inheritance
+// Field visibility
 function isFieldVisible(table, cls, field) {
-    // Check class-level override first
     const classKey = `${table}:${cls}`;
-    if(hiddenFields[classKey]?.[field] !== undefined) return !hiddenFields[classKey][field];
-    // Then table-level (affects all classes)
+    if(config.hiddenFields[classKey]?.[field] !== undefined) return !config.hiddenFields[classKey][field];
     const tableKey = `${table}:_all`;
-    if(hiddenFields[tableKey]?.[field] !== undefined) return !hiddenFields[tableKey][field];
+    if(config.hiddenFields[tableKey]?.[field] !== undefined) return !config.hiddenFields[tableKey][field];
     return true;
 }
 
 function setFieldHidden(table, cls, field, hidden) {
     const key = `${table}:${cls}`;
-    if(!hiddenFields[key]) hiddenFields[key] = {};
-    hiddenFields[key][field] = hidden;
+    if(!config.hiddenFields[key]) config.hiddenFields[key] = {};
+    if(hidden) config.hiddenFields[key][field] = true;
+    else delete config.hiddenFields[key][field];
+    if(Object.keys(config.hiddenFields[key]).length === 0) delete config.hiddenFields[key];
+}
+
+// Favorites
+function isFav(item) { return config.favorites.includes(`${curCat}:${item.n}`); }
+function toggleFav(item) {
+    const key = `${curCat}:${item.n}`;
+    const idx = config.favorites.indexOf(key);
+    if(idx >= 0) config.favorites.splice(idx, 1);
+    else config.favorites.push(key);
+    saveConfig();
 }
 
 // Load data
 async function loadDB() {
+    loadConfig();
+    
     try {
-        // Load configs
         const [iconRes, configRes] = await Promise.all([
             fetch('icon_mapping.json').catch(()=>null),
             fetch('table_config.json').catch(()=>null)
@@ -496,11 +556,8 @@ async function loadDB() {
             allIcons = [...s].sort();
             populateFolders();
         }
-        if(configRes?.ok) config = await configRes.json();
+        if(configRes?.ok) tableConfig = await configRes.json();
         
-        await loadServerConfig();
-        
-        // Load database
         const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${f}` });
         const dbRes = await fetch('content.db');
         if(!dbRes.ok) throw new Error('content.db not found');
@@ -532,13 +589,13 @@ async function loadDB() {
             } catch(e) { console.warn(`Error loading ${tbl}:`,e); }
         }
         
-        document.getElementById('statusText').textContent = serverOK ? 'ONLINE' : 'LOCAL';
-        document.getElementById('statusBadge').classList.toggle('error', !serverOK);
+        document.getElementById('statusText').textContent = 'LOCAL';
+        document.getElementById('statusBadge').classList.add('warn');
         initUI();
     } catch(e) {
         console.error(e);
         document.getElementById('statusText').textContent = 'ERROR';
-        document.getElementById('statusBadge').classList.add('error');
+        document.getElementById('statusBadge').classList.remove('warn');
         document.getElementById('contentArea').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text">Failed: ${e.message}</div></div>`;
     }
 }
@@ -565,7 +622,7 @@ function initUI() {
     const closeModal = () => { document.getElementById('modalOverlay').classList.remove('active'); document.body.style.overflow=''; curModalItem=null; };
     document.getElementById('modalOverlay').onclick = e => { if(e.target.id==='modalOverlay') closeModal(); };
     document.getElementById('modalClose').onclick = closeModal;
-    document.getElementById('modalFav').onclick = () => { if(!curModalItem) return; toggleFav(curModalItem); updateModalFav(); };
+    document.getElementById('modalFav').onclick = () => { if(!curModalItem) return; toggleFav(curModalItem); updateModalFav(); render(); };
     document.getElementById('modalCopy').onclick = () => { if(!curModalItem) return; navigator.clipboard.writeText(JSON.stringify(curModalItem.p,null,2)); toast('Copied!'); };
     
     // Dev mode
@@ -587,13 +644,14 @@ function initUI() {
     document.getElementById('configClose').onclick = () => document.getElementById('configOverlay').classList.remove('active');
     document.getElementById('configOverlay').onclick = e => { if(e.target.id==='configOverlay') document.getElementById('configOverlay').classList.remove('active'); };
     document.querySelectorAll('.config-tab').forEach(t => t.onclick = () => { document.querySelectorAll('.config-tab').forEach(x=>x.classList.remove('active')); document.querySelectorAll('.config-panel').forEach(x=>x.classList.remove('active')); t.classList.add('active'); document.getElementById('panel-'+t.dataset.tab).classList.add('active'); });
-    document.getElementById('exportIconsBtn').onclick = () => downloadJSON(iconOverrides,'icon_overrides.json');
-    document.getElementById('clearIconsBtn').onclick = async () => { if(confirm('Clear all?')) { iconOverrides={}; await saveConfig('icon_overrides',iconOverrides); render(); renderOverrides(); }};
+    document.getElementById('clearIconsBtn').onclick = () => { if(confirm('Clear all icon overrides?')) { config.iconOverrides={}; saveConfig(); render(); renderOverrides(); toast('Cleared!'); }};
     document.getElementById('fieldTable').onchange = populateClasses;
     document.getElementById('fieldClass').onchange = populateFields;
-    document.getElementById('saveFieldsBtn').onclick = async () => { await saveConfig('hidden_fields',hiddenFields); };
-    document.getElementById('exportFieldsBtn').onclick = () => downloadJSON(hiddenFields,'hidden_fields.json');
-    document.getElementById('exportAllBtn').onclick = () => downloadJSON({iconOverrides,hiddenFields,favorites:[...favorites]},'mo2_config.json');
+    document.getElementById('fieldSearch').oninput = filterFields;
+    document.getElementById('saveFieldsBtn').onclick = () => { saveConfig(); toast('Saved!'); };
+    document.getElementById('exportAllBtn').onclick = exportConfig;
+    document.getElementById('importBtn').onclick = () => document.getElementById('importFile').click();
+    document.getElementById('importFile').onchange = importConfig;
     
     // Favorites
     document.getElementById('favBtn').onclick = () => { showFavsOnly=!showFavsOnly; document.getElementById('favBtn').classList.toggle('active',showFavsOnly); curPage=1; render(); };
@@ -607,7 +665,32 @@ function initUI() {
     render();
 }
 
-function downloadJSON(d,f) { const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}), u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download=f; a.click(); URL.revokeObjectURL(u); }
+function exportConfig() {
+    const blob = new Blob([JSON.stringify(config, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'mo2db_config.json'; a.click();
+    URL.revokeObjectURL(url);
+    toast('Exported!');
+}
+
+function importConfig(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = evt => {
+        try {
+            const imported = JSON.parse(evt.target.result);
+            config = { iconOverrides: imported.iconOverrides||{}, hiddenFields: imported.hiddenFields||{}, favorites: imported.favorites||[] };
+            saveConfig();
+            render();
+            renderOverrides();
+            toast('Imported!');
+        } catch(err) { toast('Invalid file!', 'error'); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+}
 
 // Dev mode
 function toggleDev() {
@@ -619,15 +702,7 @@ function tryLogin() {
     else { document.getElementById('loginPassword').style.borderColor='var(--red)'; setTimeout(()=>document.getElementById('loginPassword').style.borderColor='',500); }
 }
 function closeLogin() { document.getElementById('loginOverlay').classList.remove('active'); document.getElementById('loginPassword').value=''; }
-
-// Favorites
-function toggleFav(item) {
-    const key = `${curCat}:${item.n}`;
-    if(favorites.has(key)) favorites.delete(key); else favorites.add(key);
-    saveConfig('favorites',[...favorites]);
-}
-function isFav(item) { return favorites.has(`${curCat}:${item.n}`); }
-function updateModalFav() { document.getElementById('modalFav').classList.toggle('active',curModalItem&&isFav(curModalItem)); }
+function updateModalFav() { document.getElementById('modalFav').classList.toggle('active', curModalItem && isFav(curModalItem)); }
 
 // Icon picker
 function openIconPicker(item, e) {
@@ -653,12 +728,13 @@ function renderIconGrid(filter='',folder='') {
     g.querySelectorAll('.icon-opt').forEach(o => o.onclick = () => { g.querySelectorAll('.icon-opt').forEach(x=>x.classList.remove('selected')); o.classList.add('selected'); selIcon=o.dataset.p; });
 }
 function filterIcons() { renderIconGrid(document.getElementById('iconSearch').value, document.getElementById('iconFolder').value); }
-async function saveIcon() {
+function saveIcon() {
     if(!editItem||!selIcon) { closeIconPicker(); return; }
-    iconOverrides[`${curCat}:${editItem.n}`] = selIcon;
-    await saveConfig('icon_overrides',iconOverrides);
+    config.iconOverrides[`${curCat}:${editItem.n}`] = selIcon;
+    saveConfig();
     closeIconPicker();
     render();
+    toast('Saved!');
 }
 function closeIconPicker() { document.getElementById('iconPickerOverlay').classList.remove('active'); editItem=null; selIcon=null; }
 
@@ -671,15 +747,16 @@ function openConfig() {
 }
 function renderOverrides() {
     const el = document.getElementById('iconOverridesList');
-    const e = Object.entries(iconOverrides);
-    if(!e.length) { el.innerHTML='<div style="color:var(--text-dim);padding:0.75rem;text-align:center">No overrides</div>'; return; }
+    const e = Object.entries(config.iconOverrides);
+    if(!e.length) { el.innerHTML='<div style="color:var(--text-dim);padding:0.75rem;text-align:center">No overrides yet</div>'; return; }
     el.innerHTML = e.map(([k,p])=>{ const [cat,name]=k.split(':'); return `<div class="override-item"><img src="Icons/${p}" onerror="this.src='Icons/${DEFAULT_ICON}'"><div class="override-info"><div class="override-name">${esc(name)}</div><div class="override-path">${esc(cat)} → ${esc(p)}</div></div><button class="override-remove" data-k="${esc(k)}">✕</button></div>`; }).join('');
-    el.querySelectorAll('.override-remove').forEach(b => b.onclick = async () => { delete iconOverrides[b.dataset.k]; await saveConfig('icon_overrides',iconOverrides); renderOverrides(); render(); });
+    el.querySelectorAll('.override-remove').forEach(b => b.onclick = () => { delete config.iconOverrides[b.dataset.k]; saveConfig(); renderOverrides(); render(); });
 }
 function populateTables() {
     const s = document.getElementById('fieldTable');
     const tbls = Object.keys(data).filter(t=>data[t]?.length>0);
     s.innerHTML = '<option value="">Select table...</option>' + tbls.map(t=>`<option value="${t}">${CAT_NAMES[t]||t}</option>`).join('');
+    document.getElementById('fieldsList').innerHTML = '';
 }
 function populateClasses() {
     const tbl = document.getElementById('fieldTable').value;
@@ -693,44 +770,52 @@ function populateFields() {
     const tbl = document.getElementById('fieldTable').value;
     const cls = document.getElementById('fieldClass').value;
     const el = document.getElementById('fieldsList');
+    const searchVal = document.getElementById('fieldSearch').value.toLowerCase();
     if(!tbl||!data[tbl]) { el.innerHTML=''; return; }
     
-    // Collect fields
     let items = data[tbl];
     if(cls!=='_all') items = items.filter(i=>i.c===cls);
     const fields = new Set();
-    items.forEach(i => Object.keys(i.p||{}).forEach(k => { if(!k.endsWith('_GUID')&&!k.endsWith('_Chance')&&!k.endsWith('_Min')&&!k.endsWith('_Max')) fields.add(k); }));
+    items.forEach(i => Object.keys(i.p||{}).forEach(k => { 
+        if(!k.endsWith('_GUID') && !k.endsWith('_Ref') && !/^LootContent\d+$/.test(k)) fields.add(k); 
+    }));
     
     const sorted = [...fields].sort();
     const key = `${tbl}:${cls}`;
     const globalKey = `${tbl}:_all`;
     
     el.innerHTML = sorted.map(f => {
-        const globalHidden = hiddenFields[globalKey]?.[f];
-        const classHidden = hiddenFields[key]?.[f];
+        const matchesSearch = !searchVal || f.toLowerCase().includes(searchVal);
+        const globalHidden = config.hiddenFields[globalKey]?.[f];
+        const classHidden = config.hiddenFields[key]?.[f];
         const isHidden = cls==='_all' ? globalHidden : (classHidden!==undefined ? classHidden : globalHidden);
         const hasOverride = cls!=='_all' && classHidden!==undefined && globalHidden!==undefined && classHidden!==globalHidden;
-        return `<div class="field-item ${isHidden?'hidden':''}"><input type="checkbox" data-f="${f}" ${!isHidden?'checked':''}><label>${f}</label>${hasOverride?'<span class="override-badge">override</span>':''}</div>`;
+        return `<div class="field-item ${isHidden?'hidden':''} ${matchesSearch?'':'hidden-row'}"><input type="checkbox" data-f="${f}" ${!isHidden?'checked':''}><label>${f}</label>${hasOverride?'<span class="override-badge">override</span>':''}</div>`;
     }).join('');
     
     el.querySelectorAll('input').forEach(inp => {
         inp.onchange = () => {
-            const field = inp.dataset.f;
-            setFieldHidden(tbl, cls, field, !inp.checked);
-            populateFields(); // Refresh to show override badges
+            setFieldHidden(tbl, cls, inp.dataset.f, !inp.checked);
+            populateFields();
         };
     });
 }
+function filterFields() { populateFields(); }
+
 function renderDbInfo() {
     const el = document.getElementById('dbInfo');
-    let html = '<div style="margin-bottom:0.5rem"><b>Tables:</b></div>';
+    let html = '';
+    let totalItems = 0;
     for(const [t,items] of Object.entries(data)) {
         if(!items?.length) continue;
-        const classes = [...new Set(items.map(i=>i.c))];
-        html += `<div style="margin-left:0.5rem;margin-bottom:0.25rem">${CAT_ICONS[t]||'📁'} <b>${CAT_NAMES[t]||t}</b>: ${items.length} entries (${classes.length} classes)</div>`;
+        totalItems += items.length;
+        html += `<div>${CAT_ICONS[t]||'📁'} ${CAT_NAMES[t]||t}: ${items.length}</div>`;
     }
-    html += `<div style="margin-top:0.75rem"><b>Server:</b> ${serverOK?'Connected':'Unavailable'}</div>`;
-    html += `<div><b>Config version:</b> ${config._meta?.version||'N/A'}</div>`;
+    html = `<div style="margin-bottom:0.5rem"><b>Total entries:</b> ${totalItems.toLocaleString()}</div>` + html;
+    html += `<div style="margin-top:0.5rem"><b>Config version:</b> ${tableConfig._meta?.version||'N/A'}</div>`;
+    html += `<div><b>Icon overrides:</b> ${Object.keys(config.iconOverrides).length}</div>`;
+    html += `<div><b>Hidden field rules:</b> ${Object.keys(config.hiddenFields).length}</div>`;
+    html += `<div><b>Favorites:</b> ${config.favorites.length}</div>`;
     el.innerHTML = html;
 }
 
@@ -755,17 +840,16 @@ function render() {
         return;
     }
     
-    // Get key fields from config
-    const ti = config.other_tables?.[curCat];
+    const ti = tableConfig.other_tables?.[curCat];
     const keyFields = Object.keys(ti?.key_fields||{}).filter(k=>k!=='DisplayName'&&ti.key_fields[k].visible!==false);
     
-    let html = `<div class="content-header"><h2 class="content-title"><span class="content-title-icon">${CAT_ICONS[curCat]||'📁'}</span>${CAT_NAMES[curCat]||curCat}</h2><div class="content-stats"><div class="results-count"><span>${start+1}-${Math.min(start+PER_PAGE,filtered.length)}</span> of <span>${filtered.length}</span></div></div></div><div class="items-grid">`;
+    let html = `<div class="content-header"><h2 class="content-title"><span class="content-title-icon">${CAT_ICONS[curCat]||'📁'}</span>${CAT_NAMES[curCat]||curCat}</h2><div class="results-count"><span>${start+1}-${Math.min(start+PER_PAGE,filtered.length)}</span> of <span>${filtered.length}</span></div></div><div class="items-grid">`;
     
     pageItems.forEach((item,idx) => {
-        const dn=item.d||item.n||'Unknown', n=item.n||'', cls=item.c||'', props=item.p||{}, icon=getIcon(item,curCat), hasOvr=iconOverrides[`${curCat}:${item.n}`], fav=isFav(item);
-        // Preview props - use key fields or auto-select
-        const pk = keyFields.length ? keyFields.filter(k=>props[k]!==undefined).slice(0,3) : Object.keys(props).filter(k=>!k.includes('_')&&k!=='DisplayName'&&k!=='ContentClass'&&isFieldVisible(curCat,cls,k)).slice(0,3);
-        html += `<div class="item-card ${fav?'favorite':''}" data-idx="${start+idx}"><div class="item-header"><div class="item-icon" style="${hasOvr?'border-color:var(--neon-green)':''}"><img src="${icon}" onerror="this.src='Icons/${DEFAULT_ICON}'"><button class="edit-icon-btn" data-i="${start+idx}">✏️</button></div><div class="item-info"><div class="item-name">${esc(dn)}</div><span class="item-class">${esc(cls)}</span><div class="item-internal">${esc(n)}</div></div></div><div class="item-props">${pk.map(k=>`<span class="item-prop"><span class="item-prop-key">${k}:</span> <span class="item-prop-val">${fmt(props[k])}</span></span>`).join('')}</div></div>`;
+        const dn=item.d||item.n||'Unknown', n=item.n||'', cls=item.c||'', props=item.p||{}, icon=getIcon(item,curCat), hasOvr=config.iconOverrides[`${curCat}:${item.n}`], fav=isFav(item);
+        const itemHasLoot = hasLoot(props);
+        const pk = keyFields.length ? keyFields.filter(k=>props[k]!==undefined).slice(0,3) : Object.keys(props).filter(k=>!k.includes('_')&&k!=='DisplayName'&&k!=='ContentClass'&&!/^LootContent/.test(k)&&isFieldVisible(curCat,cls,k)).slice(0,3);
+        html += `<div class="item-card ${fav?'favorite':''}" data-idx="${start+idx}"><div class="item-header"><div class="item-icon" style="${hasOvr?'border-color:var(--neon-green)':''}"><img src="${icon}" onerror="this.src='Icons/${DEFAULT_ICON}'"><button class="edit-icon-btn" data-i="${start+idx}">✏️</button></div><div class="item-info"><div class="item-name">${esc(dn)}</div><span class="item-class">${esc(cls)}</span><div class="item-internal">${esc(n)}</div></div></div><div class="item-props">${pk.map(k=>`<span class="item-prop"><span class="item-prop-key">${k}:</span> <span class="item-prop-val">${fmt(props[k])}</span></span>`).join('')}${itemHasLoot?'<span class="item-loot-badge">💰 Has Loot</span>':''}</div></div>`;
     });
     html += '</div>';
     
@@ -789,33 +873,34 @@ window.goPage = p => { curPage=p; render(); window.scrollTo({top:0,behavior:'smo
 // Modal
 function openModal(item) {
     curModalItem = item;
-    const dn=item.d||item.n||'Unknown', cls=item.c||'', props=item.p||{}, icon=getIcon(item,curCat);
+    const dn=item.d||item.n||'Unknown', n=item.n, cls=item.c||'', props=item.p||{}, icon=getIcon(item,curCat);
     
     document.getElementById('modalTitle').textContent = dn;
+    document.getElementById('modalSubtitle').textContent = n !== dn ? n : '';
     document.getElementById('modalClass').textContent = cls;
     document.getElementById('modalIcon').innerHTML = `<img src="${icon}" onerror="this.src='Icons/${DEFAULT_ICON}'">`;
     updateModalFav();
     
-    // Organize properties into sections
+    // Get loot data
+    const lootData = getLoot(props);
+    
+    // Organize other properties into sections
     const sections = {};
-    const loot = getLoot(props);
     const assigned = new Set();
     
     for(const [name,cfg] of Object.entries(SECTIONS)) {
-        if(cfg.isLoot) { if(loot.length) sections[name]={icon:cfg.icon,loot}; continue; }
         sections[name] = {icon:cfg.icon, props:[]};
     }
     
-    // Visible props only (based on field visibility settings)
+    // Filter visible props (excluding loot which gets its own section)
     const visibleProps = Object.entries(props).filter(([k]) => {
-        if(k.endsWith('_GUID')||k.endsWith('_Chance')||k.endsWith('_Min')||k.endsWith('_Max')) return false;
-        if(k.startsWith('LootContent')) return false;
+        if(k.endsWith('_GUID') || k.endsWith('_Ref')) return false;
+        if(/^LootContent/.test(k)) return false;
         return isFieldVisible(curCat, cls, k);
     });
     
     for(const [k,v] of visibleProps) {
         for(const [name,cfg] of Object.entries(SECTIONS)) {
-            if(cfg.isLoot) continue;
             if(cfg.match(k) && !assigned.has(k)) {
                 sections[name].props.push([k,v]);
                 assigned.add(k);
@@ -826,21 +911,28 @@ function openModal(item) {
     
     let html = '';
     
-    // Identity section
-    if(item.n && item.n !== dn) {
-        html += `<div class="section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">🏷️</span>Identity</div><span class="section-toggle">▼</span></div><div class="section-content"><div class="prop"><div class="prop-key">Internal Name</div><div class="prop-value">${esc(item.n)}</div></div>${item.guid?`<div class="prop"><div class="prop-key">GUID</div><div class="prop-value" style="font-size:0.65rem">${esc(item.guid)}</div></div>`:''}</div></div>`;
+    // Identity section (combined)
+    const identityProps = [];
+    if(item.guid) identityProps.push(['GUID', item.guid]);
+    if(props.ContentClass) identityProps.push(['ContentClass', props.ContentClass]);
+    
+    if(identityProps.length) {
+        html += `<div class="section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">🏷️</span>Identity</div><div class="section-meta"><span class="section-count">${identityProps.length}</span><span class="section-toggle">▼</span></div></div><div class="section-content">${identityProps.map(([k,v])=>`<div class="prop"><div class="prop-key">${k}</div><div class="prop-value" style="font-size:0.65rem;word-break:break-all">${esc(v)}</div></div>`).join('')}</div></div>`;
     }
     
+    // Loot section (prominent, always visible if has loot)
+    if(lootData.items.length) {
+        html += `<div class="section loot-section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">💰</span>Loot Drops</div><div class="section-meta"><span class="section-count">${lootData.items.length} items</span><span class="section-toggle">▼</span></div></div><div class="loot-container"><table class="loot-table"><thead><tr><th>Slot</th><th>Item</th><th>Chance</th><th>Quantity</th></tr></thead><tbody>${lootData.items.map(l=>`<tr><td>${l.slot}</td><td><span class="loot-link" onclick="searchItem('${esc(l.item)}')">${esc(l.item)}</span></td><td class="loot-chance">${l.chance}%</td><td class="loot-qty">${l.min===l.max?l.min:`${l.min} - ${l.max}`}</td></tr>`).join('')}</tbody></table>${lootData.lootClass?`<div class="loot-class">Loot Class: ${esc(lootData.lootClass)}</div>`:''}</div></div>`;
+    }
+    
+    // Other sections
     for(const [name,sec] of Object.entries(sections)) {
-        if(sec.loot?.length) {
-            html += `<div class="section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">${sec.icon}</span>${name}</div><div class="section-meta"><span class="section-count">${sec.loot.length}</span><span class="section-toggle">▼</span></div></div><div class="section-content" style="display:block"><table class="loot-table"><thead><tr><th>#</th><th>Item</th><th>Chance</th><th>Qty</th></tr></thead><tbody>${sec.loot.map(l=>`<tr><td>${l.slot}</td><td><span class="loot-link" onclick="searchItem('${esc(l.item)}')">${esc(l.item)}</span></td><td class="loot-chance">${l.chance.toFixed(0)}%</td><td class="loot-qty">${l.min===l.max?l.min:`${l.min}-${l.max}`}</td></tr>`).join('')}</tbody></table></div></div>`;
-        } else if(sec.props?.length) {
-            html += `<div class="section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">${sec.icon}</span>${name}</div><div class="section-meta"><span class="section-count">${sec.props.length}</span><span class="section-toggle">▼</span></div></div><div class="section-content">${sec.props.map(([k,v])=>{
-                const vc = valClass(v);
-                const isRef = k.endsWith('_Ref');
-                return `<div class="prop"><div class="prop-key">${esc(k)}</div><div class="prop-value ${vc} ${isRef?'ref':''}" ${isRef?`onclick="searchItem('${esc(v)}')"`:''}>${esc(fmt(v))}</div></div>`;
-            }).join('')}</div></div>`;
-        }
+        if(!sec.props?.length) continue;
+        html += `<div class="section"><div class="section-header" onclick="this.parentElement.classList.toggle('collapsed')"><div class="section-title"><span class="section-icon">${sec.icon}</span>${name}</div><div class="section-meta"><span class="section-count">${sec.props.length}</span><span class="section-toggle">▼</span></div></div><div class="section-content">${sec.props.map(([k,v])=>{
+            const vc = valClass(v);
+            const isRef = typeof v === 'string' && (k.includes('Ref') || k.includes('Content'));
+            return `<div class="prop"><div class="prop-key">${esc(k)}</div><div class="prop-value ${vc} ${isRef?'ref':''}" ${isRef?`onclick="searchItem('${esc(v)}')"`:''}>${esc(fmt(v))}</div></div>`;
+        }).join('')}</div></div>`;
     }
     
     if(!html) html = `<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No properties</div></div>`;
@@ -856,13 +948,8 @@ window.searchItem = name => {
     document.getElementById('searchInput').value = name;
     search = name.toLowerCase();
     curPage = 1;
-    // Find category
     for(const [c,items] of Object.entries(data)) {
-        if(items.some(i => i.n===name || i.d===name)) {
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active',b.dataset.cat===c));
-            curCat = c;
-            break;
-        }
+        if(items.some(i => i.n===name || i.d===name)) { document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active',b.dataset.cat===c)); curCat = c; break; }
     }
     render();
 };
